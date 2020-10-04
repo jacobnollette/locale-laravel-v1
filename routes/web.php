@@ -13,11 +13,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+/**
+ * Route::get('/', function () {
+ * return view('welcome');
+ * });
+ **/
+Route::get('posts/{post}', function ( $post ) {
+    return view("post", [
+        'post' => $post
+    ] );
+
 });
 
-Route::get('/spotify', 'App\Http\Controllers\SpotifyController@index');
-Route::get('/spotify/login', 'App\Http\Controllers\SpotifyController@login');
 
-Route::get('/spotify/show_playlists', 'App\Http\Controllers\SpotifyController@show_playlists');
+
+
+Route::get('/spotify', 'App\Http\Controllers\SpotifyController@index');
+Route::get('/posts/{post}', function () {
+    return view("post");
+});
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

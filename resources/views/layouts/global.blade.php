@@ -15,4 +15,5 @@
 <body>
 @yield("page_content")
 </body>
+
 </html>

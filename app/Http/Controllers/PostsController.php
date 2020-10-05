@@ -10,10 +10,9 @@ class PostsController extends Controller
 
         $post = \DB::table("posts")->where('slug', $slug)->first();
 
-//        $posts = [
-//            "my-first-post" => "Hello world 1",
-//            'my-second-post' => "Hello world 2"
-//        ];
+        if (! $post ) {
+            abort(404);
+        }
 
         return view('post', [
                 'post' => $post

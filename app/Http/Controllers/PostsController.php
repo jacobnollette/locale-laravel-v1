@@ -6,7 +6,22 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
-    public function show( $post ) {
+    public function show( $slug ) {
+
+        $post = \DB::table("posts")->where('slug', $slug)->first();
+
+//        $posts = [
+//            "my-first-post" => "Hello world 1",
+//            'my-second-post' => "Hello world 2"
+//        ];
+
+        return view('post', [
+                'post' => $post
+            ]
+        );
+    }
+
+    public function show_static( $post ) {
         $posts = [
             "my-first-post" => "Hello world 1",
             'my-second-post' => "Hello world 2"

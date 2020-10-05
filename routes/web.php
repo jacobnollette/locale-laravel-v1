@@ -18,25 +18,7 @@ use Illuminate\Support\Facades\Route;
  * return view('welcome');
  * });
  **/
-Route::get('posts/{post}', function ( $post ) {
-
-    $posts = [
-        "my-first-post" => "Hello world 1",
-        'my-second-post' => "Hello world 2"
-    ];
-
-
-    if ( ! array_key_exists( $post, $posts) ) {
-        abort( 404, "Page does not exist");
-    }
-
-    return view('post', [
-            'post' => $posts[$post]
-        ]
-    );
-
-});
-
+Route::get('posts/{post}', 'App\Http\Controllers\PostsController@show' );
 
 
 Route::get('/spotify', 'App\Http\Controllers\SpotifyController@index');

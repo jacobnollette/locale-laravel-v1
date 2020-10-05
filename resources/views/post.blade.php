@@ -6,7 +6,7 @@
 
         <title>Post</title>
         <style>
-        </style>s
+        </style>
     </head>
     <body>
         <h1>My blog post</h1>

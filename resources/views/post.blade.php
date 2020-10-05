@@ -9,7 +9,8 @@
         </style>
     </head>
     <body>
-        <h1>{{ $post }}</h1>
+        <h1>My blog post</h1>
+        <p>{{ $post }}</p>
     </body>
 </html>
 

@@ -19,19 +19,27 @@ use Illuminate\Support\Facades\Route;
  * });
  **/
 Route::get('posts/{post}', function ( $post ) {
-    return view("post", [
-        'post' => $post
-    ] );
+
+    $posts = [
+        "my-first-post" => "Hello world 1",
+        'my-second-post' => "Hello world 2"
+    ];
+
+
+    if ( ! array_key_exists( $post, $posts) ) {
+        abort( 404, "Page does not exist");
+    }
+
+    return view('post', [
+            'post' => $posts[$post]
+        ]
+    );
 
 });
-
 
 
 
 Route::get('/spotify', 'App\Http\Controllers\SpotifyController@index');
-Route::get('/posts/{post}', function () {
-    return view("post");
-});
 
 
 Auth::routes();

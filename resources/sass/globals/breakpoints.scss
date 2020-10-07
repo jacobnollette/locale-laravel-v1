@@ -1,0 +1,42 @@
+@mixin breakpoint($point) {
+
+    @if $point == mobile {
+        @media (max-width: 800px) { @content; }
+    }
+    @else if $point == mobilesmall {
+        @media (max-width: 400px) { @content; }
+    }
+    @else if $point == mobilelarge {
+        @media (min-width: 450px) and (max-width: 800px) { @content; }
+    }
+    @else if $point == tablet {
+        @media (min-width: 400px) { @content; }
+    }
+    @else if $point == desktop {
+        @media (min-width: 800px)  { @content; }
+    }
+    @else if $point == desktopsmall {
+        @media (min-width: 800px) and (max-width: 1200px)  { @content; }
+    }
+    @else if $point == desktoplarge {
+        @media (min-width: 1200px) { @content; }
+    }
+    @else if $point == sd {
+        @media (min-width: 1200px) and (max-width: 1550px) { @content; }
+    }
+    @else if $point == hd {
+        @media (min-width: 1550px) and (max-width: 2000px) { @content; }
+    }
+    @else if $point == 2k {
+        @media (min-width: 2000px) and (max-width: 2560px) { @content; }
+    }
+    @else if $point == 3k {
+        @media (min-width: 2560px) and (max-width: 3200px) { @content; }
+    }
+    @else if $point == 4k {
+        @media (min-width: 3200px) { @content; }
+    }
+
+}
+
+

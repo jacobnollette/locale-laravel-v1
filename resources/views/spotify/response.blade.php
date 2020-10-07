@@ -12,7 +12,6 @@
 </head>
 <body>
 <script>
-
     var type = window.location.hash.substr(1);
     console.log(type);
 </script>

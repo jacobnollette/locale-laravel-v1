@@ -18,10 +18,16 @@ Route::get('posts/{post}', 'App\Http\Controllers\PostsController@show' );
 
 
 Route::get('/spotify', 'App\Http\Controllers\SpotifyController@index');
+Route::get('/spotify_response', 'App\Http\Controllers\SpotifyController@response');
+
+
+
+
+
+
 
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', function () {

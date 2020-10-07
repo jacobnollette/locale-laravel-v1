@@ -11,4 +11,8 @@ class SpotifyController extends Controller
   {
     return view('spotify');
   }
+  public function response()
+  {
+      return view( 'spotify_response');
+  }
 }

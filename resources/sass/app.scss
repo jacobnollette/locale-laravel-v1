@@ -1,7 +1,8 @@
-@import "globals.scss";
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
-#main {
-    .container {
-        background-color: $CONTAINER_BG;
-    }
-}
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';

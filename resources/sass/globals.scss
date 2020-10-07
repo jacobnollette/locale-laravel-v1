@@ -1,4 +1,7 @@
-body {
-    background-color: black;
-    color: white;
-}
+@import "globals/variables.scss";
+@import "globals/container.scss";
+@import "globals/globalstyles.scss";
+@import "globals/header.scss";
+
+
+

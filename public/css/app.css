@@ -1,5 +1,50 @@
+/**
+ *  Normal page container
+ */
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: black;
-  color: white;
+  padding: 0px;
+  margin: 0px;
+  background-color: rgba(0, 0, 0, 0.95);
+  color: rgba(255, 255, 255, 0.98);
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-size: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: teal;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+header {
+  font-family: "Oleo Script", cursive;
+  font-weight: 700;
+  font-size: 36px;
+}
+
+header a {
+  text-decoration: none;
+}
+
+header #header_logo a {
+  color: #00b3b3;
+  text-shadow: #004d4d;
+}
+
+header .container {
+  background-color: #f7f7f7;
 }
 

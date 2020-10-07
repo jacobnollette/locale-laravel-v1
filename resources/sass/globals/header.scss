@@ -1,0 +1,18 @@
+
+header {
+    font-family: 'Oleo Script', cursive;
+    font-weight: 700;
+    font-size: 36px;
+    a {
+        text-decoration: none;
+    }
+    #header_logo {
+        a {
+            color: $LOGO_LIGHT;
+            text-shadow: $LOGO_DARK;
+        }
+    }
+    .container {
+        background-color: $CONTAINER_BG;
+    }
+}

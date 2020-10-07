@@ -6,6 +6,10 @@
     <section id="main">
         <div class="container">
 
+
+            <div id="spotify_connect_button"><a href="#"></a></div>
+
+
         </div>
     </section>
 @endsection

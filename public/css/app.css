@@ -46,5 +46,7 @@ header #header_logo a {
 
 header .container {
   background-color: #f7f7f7;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 

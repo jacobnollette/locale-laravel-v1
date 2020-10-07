@@ -9,10 +9,10 @@ class SpotifyController extends Controller
 {
   public function index()
   {
-    return view('spotify');
+    return view('spotify/index');
   }
   public function response()
   {
-      return view( 'spotify_response');
+      return view( 'spotify/response');
   }
 }

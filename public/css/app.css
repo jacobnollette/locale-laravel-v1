@@ -58,6 +58,10 @@ a:hover {
   text-decoration: underline;
 }
 
+#header_login {
+  float: right;
+}
+
 header {
   font-family: "Oleo Script", cursive;
   font-weight: 700;
@@ -66,6 +70,10 @@ header {
 
 header a {
   text-decoration: none;
+}
+
+header #header_logo {
+  float: left;
 }
 
 header #header_logo a {

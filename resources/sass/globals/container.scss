@@ -4,9 +4,26 @@
  */
 
 .container {
-    width: 1200px;
-    margin: 0 auto;
-    padding-left: 15px; padding-right: 15px;
-    box-sizing: border-box;
+
+    @include breakpoint( desktop ) {
+        width: 1200px;
+        margin: 0 auto;
+        padding-left: 15px; padding-right: 15px;
+        box-sizing: border-box;
+    }
+    @include breakpoint( tablet ) {
+        width: 100%;
+        margin: 0 auto;
+        padding-left: 15px; padding-right: 15px;
+        box-sizing: border-box;
+    }
+    @include breakpoint( mobile ) {
+        width: 100%;
+        margin: 0 auto;
+        padding-left: 15px; padding-right: 15px;
+        box-sizing: border-box;
+    }
+
+
 
 }

@@ -42,8 +42,8 @@
 body {
   padding: 0px;
   margin: 0px;
-  background-color: rgba(0, 0, 0, 0.95);
-  color: light(black, 3%);
+  background-color: #262626;
+  color: #080808;
   font-family: "Poppins", sans-serif;
   font-weight: 200;
   font-size: 20px;

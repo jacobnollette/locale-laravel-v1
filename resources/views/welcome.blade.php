@@ -1,4 +1,3 @@
-
 @extends("layouts.global")
 
 @section("page_title", "Spotify - Demo")

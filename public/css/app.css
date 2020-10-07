@@ -14,9 +14,9 @@ body {
   padding: 0px;
   margin: 0px;
   background-color: rgba(0, 0, 0, 0.95);
-  color: rgba(255, 255, 255, 0.98);
+  color: light(black, 3%);
   font-family: "Poppins", sans-serif;
-  font-weight: 100;
+  font-weight: 200;
   font-size: 20px;
 }
 
@@ -48,5 +48,9 @@ header .container {
   background-color: #f7f7f7;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+#main .container {
+  background-color: #f7f7f7;
 }
 

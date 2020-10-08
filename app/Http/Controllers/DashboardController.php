@@ -66,6 +66,7 @@ class DashboardController extends Controller
         $playlists = $this->spotify_api->getUserPlaylists($_user->spotify_user_id, [
             'limit' => 5
         ]);
+
         dd( $playlists );
 
 

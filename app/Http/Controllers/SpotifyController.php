@@ -62,8 +62,18 @@ class SpotifyController extends Controller
 
     public function input (Request $request)
     {
-        $name = $request;
-        echo json_decode ( $request );
+        /**
+         * token input
+         */
+        $access_token       = $request->input('access_token');
+        $token_type         = $request->input('token_type');
+        $expires_in         = $request->input('expires_in');
+        $token_type         = $request->input('token_type');
+
+
+        //return $request;
+        //return json_decode( $name );
+        //return json_decode ( $request );
 
 
     }

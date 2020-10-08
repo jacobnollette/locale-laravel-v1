@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('posts/{post}', 'App\Http\Controllers\PostsController@show' );
 Route::get('/spotify/', 'App\Http\Controllers\SpotifyController@index');
 Route::get('/spotify/response', 'App\Http\Controllers\SpotifyController@response');
-Route::get('/spotify/input', 'App\Http\Controllers\SpotifyController@input');
+Route::post('/spotify/input', 'App\Http\Controllers\SpotifyController@input');
 
 
 

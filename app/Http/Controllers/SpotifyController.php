@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
+/**
+ * libraries
+ */
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * models
+ */
 use App\Models\User;
 
-
-//  https://github.com/jwilsson/spotify-web-api-php#usage
+/**
+ * packages
+ */
+//  spotify api wrapper - https://github.com/jwilsson/spotify-web-api-php#usage
 use SpotifyWebAPI\SpotifyWebAPI;
 use SpotifyWebAPI\Session;
 
@@ -66,10 +74,12 @@ class SpotifyController extends Controller
 
     public function response()
     {
+        $access_token = $_GET['code'];
 
-        $this->spotify_api->setAccessToken( $_GET['code'] );
+        $this->spotify_api->setAccessToken( $access_token );
 
-        dd ( $this->spotify_api );
+
+
 //
 //        if (isset($_GET['code'])) {
 //            $this->spotify_session->requestAccessToken($_GET['code']);

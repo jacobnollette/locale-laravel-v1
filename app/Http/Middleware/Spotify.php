@@ -41,29 +41,25 @@ class Spotify
         );
 
 
-        $user_id = Auth::id();
-        if (isset ($user_id)):
-            $_user = User::where("id", "=", $user_id)->first();
-            $_user_access_token = $_user->spotify_access_token;
-            if (isset ($_user_access_token)):
-
-                //echo $_user_access_token;
-                //die();
-                //  refresh user token & save it to the database
-                $new_access_token = $session->refreshAccessToken($_user_access_token);
-                User::where("id", "=", $user_id)->update(array(
-                    'spotify_access_token' => $new_access_token,
-                    'spotify_access_token_added' => now()
-                ));
-
-            endif;
-        endif;
-
-        // die();
-
-//        $session->refreshAccessToken($refreshToken);
+//        $user_id = Auth::id();
+//        if (isset ($user_id)):
+//            $_user = User::where("id", "=", $user_id)->first();
+//            $_user_access_token = $_user->spotify_access_token;
+//            if (isset ($_user_access_token)):
 //
-//        $accessToken = $session->getAccessToken();
+//                //echo $_user_access_token;
+//                //die();
+//                //  refresh user token & save it to the database
+//                $new_access_token = $session->refreshAccessToken($_user_access_token);
+//                User::where("id", "=", $user_id)->update(array(
+//                    'spotify_access_token' => $new_access_token,
+//                    'spotify_access_token_added' => now()
+//                ));
+//
+//            endif;
+//        endif;
+
+
 
 
         return $next($request);

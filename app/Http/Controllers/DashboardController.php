@@ -64,8 +64,14 @@ class DashboardController extends Controller
     public function index()
     {
 
-
+        $me = $this->spotify_api->me();
+        dd( $me );
         print_r($this->spotify_api->getTrack('7EjyzZcbLxW7PaaLua9Ksb'));
+
+    die();
+        $playlists = $api->getUserPlaylists('USER_ID', [
+            'limit' => 5
+        ]);
 
 
         //$token = Spotify::get_user_access_token();

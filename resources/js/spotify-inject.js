@@ -14,8 +14,6 @@ var input = {
     "token_type": result.token_type
 }
 
-console.log( input );
-
 var csrf = document.querySelector('meta[name="csrf-token"]').content;
 
 var url = "/spotify/input";
@@ -26,7 +24,9 @@ xhr.setRequestHeader('X-CSRF-Token', csrf);
 xhr.send(JSON.stringify(input));
 xhr.onload = function() {
     _return = JSON.parse( this.responseText );
+    console.log( _return );
     var redirect_url = _return.redirect_url;
-    window.location.href = redirect_url;
+    //console.log( redirect_url );
+    //window.location.href = redirect_url;
 }
 

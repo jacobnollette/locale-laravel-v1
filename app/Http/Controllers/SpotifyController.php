@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class SpotifyController extends Controller
 {
@@ -23,7 +23,6 @@ class SpotifyController extends Controller
         $this->client_id = env('SPOTIFY_CLIENT_ID');
         $this->client_secret = env('SPOTIFY_CLIENT_SECRET');
     }
-
 
     public function index()
     {
@@ -70,8 +69,19 @@ class SpotifyController extends Controller
         $expires_in         = $request->input('expires_in');
         $token_type         = $request->input('token_type');
 
-        $redirect_url = '{"redirect_url":"/spotify"}';
-        return $redirect_url;
+        // this works
+        $user_id = Auth::id();
+
+        $output = '{';
+        $output .= "\"redirect_url\":\"/spotify\"";
+        //$output .= "\"user_ud\":\"$id\"";
+        $output .= '}';
+
+
+
+        return $output;
+
+        //return $redirect_url;
 
         //return $request;
         //return json_decode( $name );

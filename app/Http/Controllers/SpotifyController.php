@@ -70,6 +70,8 @@ class SpotifyController extends Controller
         $expires_in         = $request->input('expires_in');
         $token_type         = $request->input('token_type');
 
+        $redirect_url = '{"redirect_url":"/spotify"}';
+        return $redirect_url;
 
         //return $request;
         //return json_decode( $name );

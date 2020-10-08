@@ -37336,8 +37336,9 @@ xhr.setRequestHeader('X-CSRF-Token', csrf);
 xhr.send(JSON.stringify(input));
 
 xhr.onload = function () {
-  console.log("HELLO");
-  console.log(this.responseText);
+  _return = JSON.parse(this.responseText);
+  var redirect_url = _return.redirect_url;
+  window.location.href = redirect_url;
 };
 
 /***/ }),

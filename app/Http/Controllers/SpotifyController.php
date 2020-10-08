@@ -36,6 +36,8 @@ class SpotifyController extends Controller
     private $client_secret;
     private $client_hashed_token;
 
+    private $user_id;
+
     function __construct()
     {
 
@@ -119,5 +121,10 @@ class SpotifyController extends Controller
         //return $this->spotify_session->getAuthorizeUrl($options);
         header('Location: ' . $this->spotify_session->getAuthorizeUrl($options));
         die();
+    }
+
+    private function user_get () {
+        $user_id = Auth::id();
+        $this->user_id = User::where("id", "=", $user_id)->first();
     }
 }

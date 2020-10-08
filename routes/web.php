@@ -13,19 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ * Dashboard rubbish
+ */
+Route::get( '/dashboard/', 'App\Http\Controllers\DashboardController@index');
 
-Route::get('posts/{post}', 'App\Http\Controllers\PostsController@show' );
+
+/**
+ * Spotify connections
+ */
 Route::get('/spotify/', 'App\Http\Controllers\SpotifyController@index');
 Route::get('/spotify/response', 'App\Http\Controllers\SpotifyController@response');
 Route::post('/spotify/input', 'App\Http\Controllers\SpotifyController@input');
 
 
-
-
-
-
-
-
+/**
+ * Auth, and login rubbish
+ */
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

@@ -9,6 +9,17 @@ use App\Models\User;
 
 class DashboardController extends Controller
 {
+
+    private $token = "hello";
+    private $response_url;
+    /**
+     *  Crucial spotify secrets
+     */
+    private $client_id;
+    private $client_secret;
+    private $client_hashed_token;
+
+
     function __construct()
     {
         $this->response_url = urlencode('https://locale.test/spotify/response');
@@ -18,6 +29,10 @@ class DashboardController extends Controller
     }
 
     public function index() {
+
+        $user_id = Auth::id();
+        $_user = User::where("id", "=", $user_id)->first();
+
         return view('dashboard/index', [
             'client_id' => $this->client_id
         ]);

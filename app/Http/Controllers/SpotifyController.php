@@ -41,18 +41,14 @@ class SpotifyController extends Controller
 
 
 
-        $this->response_url_raw = 'https://locale.test/spotify/response';
+        $this->response_url_raw = 'https://locale.test/spotify/auth/response';
         $this->response_url = urlencode( $this->response_url_raw );
         $this->scopes = urlencode("playlist-read-private playlist-modify playlist-modify-private");
         $this->client_hashed_token = base64_encode($this->client_id . ':' . $this->client_secret);
         $this->client_id = env('SPOTIFY_CLIENT_ID');
         $this->client_secret = env('SPOTIFY_CLIENT_SECRET');
 
-        $this->spotify_session = new Session(
-            env("SPOTIFY_CLIENT_ID"),
-            env("SPOTIFY_CLIENT_SECRET"),
-            $this->response_url_raw
-        );
+
         $this->spotify_api = new SpotifyWebAPI;
 
     }
@@ -72,62 +68,23 @@ class SpotifyController extends Controller
         ]);
     }
 
-    public function response()
+    public function spotify_auth_response()
     {
         $access_token = $_GET['code'];
-
-        $this->spotify_api->setAccessToken( $access_token );
-
-
-
-//
-//        if (isset($_GET['code'])) {
-//            $this->spotify_session->requestAccessToken($_GET['code']);
-//            $api->setAccessToken($this->spotify_session->getAccessToken());
-//
-//            print_r($api->me());
-//        }
-//        die();
-//        return view('spotify/response');
-    }
-
-    public function input(Request $request)
-    {
-        /**
-         * token input
-         */
-        $access_token = $request->input('access_token');
-        $token_type = $request->input('token_type');
-        $expires_in = $request->input('expires_in');
-        $token_type = $request->input('token_type');
-
-        // this works
         $user_id = Auth::id();
-
+        $this->spotify_api->setAccessToken( $access_token );
         User::where("id", "=", $user_id)->update(array(
             'spotify_access_token' => $access_token,
             'spotify_access_token_added' => now()
         ));
-
-        if (isset($_GET['code'])) {
-            $session->requestAccessToken($_GET['code']);
-            $api->setAccessToken($session->getAccessToken());
-
-            print_r($api->me());
-        }
+        header('Location: ' . "/dashboard" );
         die();
-
-        $output = '{' . "\"redirect_url\":\"/spotify\"}";
-        //$output .= "\"access_token\":\"$access_token\",";
-        //$output .= "\"user_id\":\"$user_id\"}";
-        //$output .= "\"user_output\":\"$user\"}";
-
-
-        return $output;
     }
 
 
-    public function spotify_get_auth_redirect()
+
+
+    public function spotify_auth_get_redirect()
     {
         $this->spotify_session = new Session(
             env("SPOTIFY_CLIENT_ID"),

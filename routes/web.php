@@ -23,9 +23,10 @@ Route::get( '/dashboard/', 'App\Http\Controllers\DashboardController@index');
  * Spotify connections
  */
 Route::get('/spotify/', 'App\Http\Controllers\SpotifyController@index');
-Route::get('/spotify/response', 'App\Http\Controllers\SpotifyController@response');
 Route::post('/spotify/input', 'App\Http\Controllers\SpotifyController@input');
-Route::get( '/spotify/auth', 'App\Http\Controllers\SpotifyController@spotify_get_auth_redirect');
+
+Route::get('/spotify/auth/response', 'App\Http\Controllers\SpotifyController@spotify_auth_response');
+Route::get( '/spotify/auth', 'App\Http\Controllers\SpotifyController@spotify_auth_get_redirect');
 
 
 /**

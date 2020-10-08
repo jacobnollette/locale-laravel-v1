@@ -12,7 +12,7 @@
                 <h2>Take me to <a href="/dashboard">Dashboard</a></h2>
             @endisset
 
-            <div id="spotify_connect_button"><a href="https://accounts.spotify.com/authorize?response_type=token&client_id={{ $client_id }}&redirect_uri={{ $redirect_url }}&scope={{$scopes}}">Connect or Reconnect Spotify account!</a></div>
+            <div id="spotify_connect_button"><a href="/spotify/auth">Connect or Reconnect Spotify account!</a></div>
 
         </div>
     </section>

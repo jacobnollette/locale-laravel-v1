@@ -33,12 +33,14 @@ class DashboardController extends Controller
 
     public function index() {
 
-        $token =Spotify::get_user_access_token();
-        echo $token;
+        //$token = Spotify::get_user_access_token();
+        $bearer_token = Spotify::authorize_bearer_token();
+
+        echo $bearer_token;
         die();
-        return view('dashboard/index', [
-            'client_id' => $this->client_id
-        ]);
+//        return view('dashboard/index', [
+//            'client_id' => $this->client_id
+//        ]);
     }
 
 

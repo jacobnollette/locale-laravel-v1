@@ -12,6 +12,7 @@ class SpotifyController extends Controller
 {
     private $token = "hello";
     private $response_url;
+    private $scopes;
     /**
      *  Crucial spotify secrets
      */
@@ -22,6 +23,7 @@ class SpotifyController extends Controller
     function __construct()
     {
         $this->response_url = urlencode('https://locale.test/spotify/response');
+        $this->scopes = urlencode("playlist-read-private playlist-modify playlist-modify-private");
         $this->client_hashed_token = base64_encode($this->client_id . ':' . $this->client_secret);
         $this->client_id = env('SPOTIFY_CLIENT_ID');
         $this->client_secret = env('SPOTIFY_CLIENT_SECRET');
@@ -37,6 +39,7 @@ class SpotifyController extends Controller
             'token' => $this->token,
             'client_id' => $this->client_id,
             'redirect_url' => $this->response_url,
+            'scopes' => $this->scopes,
             'user' => $_user
         ]);
     }
@@ -46,22 +49,22 @@ class SpotifyController extends Controller
         return view('spotify/response');
     }
 
-    public function input (Request $request)
+    public function input(Request $request)
     {
         /**
          * token input
          */
-        $access_token       = $request->input('access_token');
-        $token_type         = $request->input('token_type');
-        $expires_in         = $request->input('expires_in');
-        $token_type         = $request->input('token_type');
+        $access_token = $request->input('access_token');
+        $token_type = $request->input('token_type');
+        $expires_in = $request->input('expires_in');
+        $token_type = $request->input('token_type');
 
         // this works
         $user_id = Auth::id();
 
         User::where("id", "=", $user_id)->update(array(
-            'spotify_access_token'          => $access_token,
-            'spotify_access_token_added'    => now()
+            'spotify_access_token' => $access_token,
+            'spotify_access_token_added' => now()
         ));
 
         $output = '{' . "\"redirect_url\":\"/spotify\"}";

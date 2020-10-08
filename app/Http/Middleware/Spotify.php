@@ -6,8 +6,18 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Models
+ */
 
 use App\Models\User;
+
+/**
+ * Packages
+ */
+
+//  spotify api wrapper - https://github.com/jwilsson/spotify-web-api-php#usage
+use SpotifyWebAPI\SpotifyWebAPI;
 use SpotifyWebAPI\Session;
 
 
@@ -25,42 +35,41 @@ class Spotify
     private $response_url_raw;
     private $response_url;
 
+    private $spotify_api;
+    private $spotify_session;
+
     function __construct()
     {
         $this->response_url_raw = 'https://locale.test/spotify/auth/response';
         $this->response_url = urlencode($this->response_url_raw);
+
+        $this->spotify_session = new Session(
+            env("SPOTIFY_CLIENT_ID"),
+            env("SPOTIFY_CLIENT_SECRET"),
+            $this->response_url_raw
+        );
+        $this->spotify_api = new SpotifyWebAPI;
     }
 
 
     public function handle(Request $request, Closure $next)
     {
-        $session = new Session(
-            env("SPOTIFY_CLIENT_ID"),
-            env("SPOTIFY_CLIENT_SECRET"),
-            $this->response_url_raw
-        );
-
-
-//        $user_id = Auth::id();
-//        if (isset ($user_id)):
-//            $_user = User::where("id", "=", $user_id)->first();
-//            $_user_access_token = $_user->spotify_access_token;
-//            if (isset ($_user_access_token)):
+        /**
+         * get basic locale user info
+         */
+        $user_id = Auth::id();
+        $_user = User::where("id", "=", $user_id)->first();
 //
-//                //echo $_user_access_token;
-//                //die();
-//                //  refresh user token & save it to the database
-//                $new_access_token = $session->refreshAccessToken($_user_access_token);
-//                User::where("id", "=", $user_id)->update(array(
-//                    'spotify_access_token' => $new_access_token,
-//                    'spotify_access_token_added' => now()
-//                ));
-//
-//            endif;
-//        endif;
+//        //  get previous access token from locale
+        $_locale_access_token = $_user->spotify_access_token;
+        $_locale_refresh_token = $_user->spotify_refresh_token;
 
-
-
+        $_new_refresh_token = $this->spotify_session->refreshAccessToken($_locale_refresh_token);
+        if ($_new_refresh_token == true):
+            //  do nothing
+        else:
+            echo "token expired";
+        endif;
 
         return $next($request);
     }

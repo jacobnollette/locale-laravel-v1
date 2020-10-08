@@ -88,11 +88,14 @@ class SpotifyController extends Controller
 
         //  access token
         $_access_token = $this->spotify_session->getAccessToken();
+        $_refresh_token = $this->spotify_session->getRefreshToken();
 
         //$this->spotify_api->setAccessToken( $_access_token );
         User::where("id", "=", $user_id)->update(array(
             'spotify_access_token' => $_access_token,
-            'spotify_access_token_added' => now()
+            'spotify_access_token_added' => now(),
+            'spotify_refresh_token' => $_refresh_token,
+
         ));
         header('Location: ' . "/dashboard" );
         die();

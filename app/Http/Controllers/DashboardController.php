@@ -46,16 +46,28 @@ class DashboardController extends Controller
             env("SPOTIFY_CLIENT_SECRET"),
             $this->response_url_raw
         );
+        $this->spotify_api = new SpotifyWebAPI;
     }
 
     public function index()
     {
+        $user_id = Auth::id();
+        $_user = User::where("id", "=", $user_id)->first();
+
         //  connect to spotify, provide access token
         $this->spotify_connect();
 
         //  we have a spotify access token,
         //  update user info
         $this->spotify_update_user();
+
+
+//        $me = $this->spotify_api->me();
+        $playlists = $this->spotify_api->getUserPlaylists($_user->spotify_user_id, [
+            'limit' => 5
+        ]);
+        dd( $playlists );
+
 
 
 
@@ -96,21 +108,23 @@ class DashboardController extends Controller
          * This goes through the user flow of queueing up the spotify api
          */
         $user_id = Auth::id();
+
         $_user = User::where("id", "=", $user_id)->first();
-        if (isset($_user->spotify_access_token)) :
-            $this->spotify_access_token = $_user->spotify_access_token;
-            if (isset($this->spotify_access_token)):
-                $this->spotify_api = new SpotifyWebAPI();
-                $this->spotify_api->setAccessToken($this->spotify_access_token);
+        if (isset($_user->spotify_refresh_token)) :
 
+            $this->spotify_session->refreshAccessToken($_user->spotify_refresh_token);
+            $this->spotify_access_token = $this->spotify_session->getAccessToken();
+            $this->spotify_refresh_token = $this->spotify_session->getRefreshToken();
 
-            else:
-                echo "Failed at DashboardController@connect_spotify";
-                die();
-            endif;
-        else:
-            echo "No spotify token";
-            die();
+            User::where("id", "=", $user_id)->update(array(
+                'spotify_access_token' => $this->spotify_access_token,
+                'spotify_refresh_token' => $this->spotify_refresh_token,
+                'spotify_access_token_added' => now(),
+                'spotify_refresh_token_added' => now()
+            ));
+
+            $this->spotify_api->setAccessToken($this->spotify_access_token);
+
         endif;
 
     }

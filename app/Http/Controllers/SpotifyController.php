@@ -48,7 +48,11 @@ class SpotifyController extends Controller
         $this->client_id = env('SPOTIFY_CLIENT_ID');
         $this->client_secret = env('SPOTIFY_CLIENT_SECRET');
 
-
+        $this->spotify_session = new Session(
+            env("SPOTIFY_CLIENT_ID"),
+            env("SPOTIFY_CLIENT_SECRET"),
+            $this->response_url_raw
+        );
         $this->spotify_api = new SpotifyWebAPI;
 
     }
@@ -70,11 +74,24 @@ class SpotifyController extends Controller
 
     public function spotify_auth_response()
     {
-        $access_token = $_GET['code'];
+        /**
+         * Prerequisites
+         */
+        //  get user id from logged in user
         $user_id = Auth::id();
-        $this->spotify_api->setAccessToken( $access_token );
+
+        /**
+         * get access token from spotify and store it in database
+         */
+        //  get access from token
+        $this->spotify_session->requestAccessToken($_GET['code']);
+
+        //  access token
+        $_access_token = $this->spotify_session->getAccessToken();
+
+        //$this->spotify_api->setAccessToken( $_access_token );
         User::where("id", "=", $user_id)->update(array(
-            'spotify_access_token' => $access_token,
+            'spotify_access_token' => $_access_token,
             'spotify_access_token_added' => now()
         ));
         header('Location: ' . "/dashboard" );
@@ -86,11 +103,7 @@ class SpotifyController extends Controller
 
     public function spotify_auth_get_redirect()
     {
-        $this->spotify_session = new Session(
-            env("SPOTIFY_CLIENT_ID"),
-            env("SPOTIFY_CLIENT_SECRET"),
-            $this->response_url_raw
-        );
+
 
         $options = [
             'scope' => [
@@ -105,5 +118,3 @@ class SpotifyController extends Controller
         die();
     }
 }
-
-https://accounts.spotify.com/authorize?client_id=c311cb6b6aaf467c948212171b737069&redirect_uri=https%3A%2F%2Flocale.test%2Fspotify%2Fresponse&response_type=code&scope=playlist-read-collaborative+playlist-modify-private+playlist-modify-public+playlist-read-public

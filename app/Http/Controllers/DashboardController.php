@@ -20,8 +20,6 @@ use SpotifyWebAPI\Session;
 class DashboardController extends Controller
 {
 
-    private $token = "hello";
-    private $response_url;
     /**
      *  Crucial spotify secrets
      */
@@ -31,47 +29,54 @@ class DashboardController extends Controller
 
     private $spotify_session;
     private $spotify_api;
+    private $spotify_access_token;
 
 
     function __construct()
     {
+
         $this->response_url_raw = 'https://locale.test/spotify/auth/response';
         $this->response_url = urlencode($this->response_url_raw);
-        $this->client_hashed_token = base64_encode($this->client_id . ':' . $this->client_secret);
-        $this->client_id = env('SPOTIFY_CLIENT_ID');
-        $this->client_secret = env('SPOTIFY_CLIENT_SECRET');
 
+        /**
+         * Spotify objects
+         */
         $this->spotify_session = new Session(
             env("SPOTIFY_CLIENT_ID"),
             env("SPOTIFY_CLIENT_SECRET"),
             $this->response_url_raw
         );
-
-
-        /**
-         * Spotify access token
-         * initialize spotify web api token
-         */
-        $user_id = Auth::id();
-        $_user = User::where("id", "=", $user_id)->first();
-        if (isset($_user->spotify_access_token)):
-            $_user_access_token = $_user->spotify_access_token;
-            $this->spotify_api = new SpotifyWebAPI();
-            $this->spotify_api->setAccessToken($_user_access_token);
-        endif;
     }
 
     public function index()
     {
+        //  connect to spotify, provide access token
+        $this->spotify_connect();
 
-        $me = $this->spotify_api->me();
-        dd( $me );
-        print_r($this->spotify_api->getTrack('7EjyzZcbLxW7PaaLua9Ksb'));
+        //  we have a spotify access token,
+        //  update user info
+        $this->spotify_update_user();
 
-    die();
-        $playlists = $api->getUserPlaylists('USER_ID', [
-            'limit' => 5
-        ]);
+
+
+
+//        dd( $me );
+//        if (isset($_user->spotify_access_token)):
+//            $_user_access_token = $_user->spotify_access_token;
+//            $this->spotify_api = new SpotifyWebAPI();
+//            $this->spotify_api->setAccessToken($_user_access_token);
+//        endif;
+//        dd( $this->spotify_access_token );
+//
+//        dd( $this->spotify_api);
+//        $me = $this->spotify_api->me();
+//        dd( $me );
+//        print_r($this->spotify_api->getTrack('7EjyzZcbLxW7PaaLua9Ksb'));
+//
+//    die();
+//        $playlists = $api->getUserPlaylists('USER_ID', [
+//            'limit' => 5
+//        ]);
 
 
         //$token = Spotify::get_user_access_token();
@@ -82,6 +87,47 @@ class DashboardController extends Controller
 //        return view('dashboard/index', [
 //            'client_id' => $this->client_id
 //        ]);
+    }
+
+
+    private function spotify_connect()
+    {
+        /**
+         * This goes through the user flow of queueing up the spotify api
+         */
+        $user_id = Auth::id();
+        $_user = User::where("id", "=", $user_id)->first();
+        if (isset($_user->spotify_access_token)) :
+            $this->spotify_access_token = $_user->spotify_access_token;
+            if (isset($this->spotify_access_token)):
+                $this->spotify_api = new SpotifyWebAPI();
+                $this->spotify_api->setAccessToken($this->spotify_access_token);
+
+
+            else:
+                echo "Failed at DashboardController@connect_spotify";
+                die();
+            endif;
+        else:
+            echo "No spotify token";
+            die();
+        endif;
+
+    }
+
+    private function spotify_update_user() {
+        /**
+         * Update user table with additional spotify info
+         */
+
+        //  get Locale user id
+        $user_id = Auth::id();
+
+        //  get spotify user data & add to locale user table
+        $me = $this->spotify_api->me();
+        User::where("id", "=", $user_id)->update(array(
+            'spotify_user_id' => $me->id
+        ));
     }
 
 

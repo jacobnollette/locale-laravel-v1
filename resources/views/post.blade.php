@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends("layouts.global")
 
-        <title>Post</title>
-        <style>
-        </style>
-    </head>
-    <body>
-        <h1>{{ $post }}</h1>
-    </body>
-</html>
+@section("page_title", "Spotify - Demo")
+
+@section("page_content")
+<section id="main"><div class="container">
+    {{ $post->body }}
+</div></section>
+
+@endsection
 
 
 

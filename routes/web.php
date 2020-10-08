@@ -14,27 +14,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 /**
- * Route::get('/', function () {
- * return view('welcome');
- * });
- **/
-Route::get('posts/{post}', function ( $post ) {
-    return view("post", [
-        'post' => $post
-    ] );
-
-});
+ * Dashboard rubbish
+ */
+Route::get( '/dashboard/', 'App\Http\Controllers\DashboardController@index');
 
 
+/**
+ * Spotify connections
+ */
+Route::get('/spotify/', 'App\Http\Controllers\SpotifyController@index');
+Route::post('/spotify/input', 'App\Http\Controllers\SpotifyController@input');
+
+Route::get('/spotify/auth/response', 'App\Http\Controllers\SpotifyController@spotify_auth_response');
+Route::get( '/spotify/auth', 'App\Http\Controllers\SpotifyController@spotify_auth_get_redirect');
 
 
-Route::get('/spotify', 'App\Http\Controllers\SpotifyController@index');
-Route::get('/posts/{post}', function () {
-    return view("post");
-});
-
-
+/**
+ * Auth, and login rubbish
+ */
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/', function () {
+    return view('welcome');
+});

@@ -15,7 +15,7 @@ class AddSpotifyTokenToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('spotify_access_token');
+            $table->string('spotify_access_token', 256)->nullable();
         });
     }
 

@@ -38,25 +38,6 @@ class SpotifyController extends Controller
         ]);
     }
 
-//    public function bearer_token(Request $request, $id)
-//    {
-//        //  laravel get requests
-//        //  https://laravel.com/docs/8.x/http-client
-//
-//
-////        $response = Http::withHeaders([
-////            'Authorization' => $this->client_hashed_token,
-////        ])->get('http://test.com/users', [
-////            'name' => 'Taylor',
-////        ]);
-////        $response = Http::get('https://accounts.spotify.com/authorize', [
-////            'client_id'         => $this->client_id,
-////            'response_type'     => 'token',
-////            'redirect_uri'      => urlencode( 'https://locale.test/spotify/response'),
-////        ]);
-//
-//    }
-
     public function response()
     {
         //https://locale.test/spotify/response#access_token=BQABFpoO25BaEfWBH7j1-Re6hxpd_NNjks-lhyZYhU0ZVAggDgyBPYqO_lOKiZHzedfZxIs_n5eXjMQUz1LKbaWl-q8nrNejm0ZTxB-v0IUioGsb3WPPIyKp1EvGXM5xhTAD2tk2uqdMxsz2rlg8tLE7n_JPeFuZNdU&token_type=Bearer&expires_in=3600
@@ -74,14 +55,19 @@ class SpotifyController extends Controller
         $token_type         = $request->input('token_type');
 
         // this works
-        //$user_id = Auth::id();
-        User::updateOrInsert([
-            'user_id'                   => Auth::id(),
-            'spotify_access_token'      => $access_token
-        ]);
+        $user_id = Auth::id();
+
+        User::where("id", "=", $user_id)->update(array(
+            'spotify_access_token' => $access_token)
+        );
 
 
-        $output = '{' . "\"redirect_url\":\"/spotify\"" . '}';
+
+
+        $output = '{' . "\"redirect_url\":\"/spotify\"}";
+        //$output .= "\"access_token\":\"$access_token\",";
+        //$output .= "\"user_id\":\"$user_id\"}";
+        //$output .= "\"user_output\":\"$user\"}";
 
 
         return $output;

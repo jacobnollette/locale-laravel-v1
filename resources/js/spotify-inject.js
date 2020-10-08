@@ -24,9 +24,8 @@ xhr.setRequestHeader('X-CSRF-Token', csrf);
 xhr.send(JSON.stringify(input));
 xhr.onload = function() {
     _return = JSON.parse( this.responseText );
-    console.log( _return );
-    //var redirect_url = _return.redirect_url;
+    var redirect_url = _return.redirect_url;
+    window.location.href = redirect_url;
     //console.log( redirect_url );
-    //window.location.href = redirect_url;
 }
 

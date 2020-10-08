@@ -23,6 +23,7 @@
 
                 </div>
             </div>
+            <a href="/spotify">Start Spotify process!</a>
         </div>
     </section>
 @endsection

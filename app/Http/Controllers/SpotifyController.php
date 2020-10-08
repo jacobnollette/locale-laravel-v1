@@ -8,10 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 
+//  https://github.com/jwilsson/spotify-web-api-php#usage
+use SpotifyWebAPI\SpotifyWebAPI;
+use SpotifyWebAPI\Session;
+
+
 class SpotifyController extends Controller
 {
+    private $spotify_api;
+    private $spotify_session;
     private $token = "hello";
     private $response_url;
+    private $response_url_raw;
     private $scopes;
     /**
      *  Crucial spotify secrets
@@ -22,11 +30,23 @@ class SpotifyController extends Controller
 
     function __construct()
     {
-        $this->response_url = urlencode('https://locale.test/spotify/response');
+
+
+
+        $this->response_url_raw = 'https://locale.test/spotify/response';
+        $this->response_url = urlencode( $this->response_url_raw );
         $this->scopes = urlencode("playlist-read-private playlist-modify playlist-modify-private");
         $this->client_hashed_token = base64_encode($this->client_id . ':' . $this->client_secret);
         $this->client_id = env('SPOTIFY_CLIENT_ID');
         $this->client_secret = env('SPOTIFY_CLIENT_SECRET');
+
+        $this->spotify_session = new Session(
+            env("SPOTIFY_CLIENT_ID"),
+            env("SPOTIFY_CLIENT_SECRET"),
+            $this->response_url_raw
+        );
+        $this->spotify_api = new SpotifyWebAPI;
+
     }
 
     public function index()
@@ -46,7 +66,19 @@ class SpotifyController extends Controller
 
     public function response()
     {
-        return view('spotify/response');
+
+        $this->spotify_api->setAccessToken( $_GET['code'] );
+
+        dd ( $this->spotify_api );
+//
+//        if (isset($_GET['code'])) {
+//            $this->spotify_session->requestAccessToken($_GET['code']);
+//            $api->setAccessToken($this->spotify_session->getAccessToken());
+//
+//            print_r($api->me());
+//        }
+//        die();
+//        return view('spotify/response');
     }
 
     public function input(Request $request)
@@ -67,6 +99,14 @@ class SpotifyController extends Controller
             'spotify_access_token_added' => now()
         ));
 
+        if (isset($_GET['code'])) {
+            $session->requestAccessToken($_GET['code']);
+            $api->setAccessToken($session->getAccessToken());
+
+            print_r($api->me());
+        }
+        die();
+
         $output = '{' . "\"redirect_url\":\"/spotify\"}";
         //$output .= "\"access_token\":\"$access_token\",";
         //$output .= "\"user_id\":\"$user_id\"}";
@@ -75,4 +115,28 @@ class SpotifyController extends Controller
 
         return $output;
     }
+
+
+    public function spotify_get_auth_redirect()
+    {
+        $this->spotify_session = new Session(
+            env("SPOTIFY_CLIENT_ID"),
+            env("SPOTIFY_CLIENT_SECRET"),
+            $this->response_url_raw
+        );
+
+        $options = [
+            'scope' => [
+                'playlist-modify-private',
+                'playlist-modify-public',
+                'playlist-read-private',
+                'user-read-private',
+            ],
+        ];
+        //return $this->spotify_session->getAuthorizeUrl($options);
+        header('Location: ' . $this->spotify_session->getAuthorizeUrl($options));
+        die();
+    }
 }
+
+https://accounts.spotify.com/authorize?client_id=c311cb6b6aaf467c948212171b737069&redirect_uri=https%3A%2F%2Flocale.test%2Fspotify%2Fresponse&response_type=code&scope=playlist-read-collaborative+playlist-modify-private+playlist-modify-public+playlist-read-public

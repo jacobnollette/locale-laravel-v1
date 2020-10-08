@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
+//  https://github.com/jwilsson/spotify-web-api-php#usage
+use SpotifyWebAPI\Session;
 
 use App\Models\User;
 
@@ -14,6 +16,17 @@ use App\Models\User;
 class Spotify extends Model
 {
     use HasFactory;
+
+    private $spotify_session;
+
+    private static function spotify_session_new () {
+        self::spotify_session = new SpotifyWebAPI\Session(
+            env("SPOTIFY_CLIENT_ID" ),
+
+            'CLIENT_SECRET',
+            'REDIRECT_URI'
+        );
+    }
 
     private static function hash_spotify_token () {
         $_thing_to_hash = env("SPOTIFY_CLIENT_ID" ) . ":" . env("SPOTIFY_CLIENT_SECRET" );

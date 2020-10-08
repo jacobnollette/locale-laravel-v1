@@ -72,21 +72,14 @@ class SpotifyController extends Controller
         // this works
         $user_id = Auth::id();
 
-        $output = '{';
-        $output .= "\"redirect_url\":\"/spotify\"";
-        //$output .= "\"user_ud\":\"$id\"";
-        $output .= '}';
+        $output = '{' . "\"redirect_url\":\"/spotify\"" . '}';
+
+
+
+
 
 
 
         return $output;
-
-        //return $redirect_url;
-
-        //return $request;
-        //return json_decode( $name );
-        //return json_decode ( $request );
-
-
     }
 }

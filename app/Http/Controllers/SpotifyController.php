@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\SpotifyConfigs;
+use App\Models\User;
+
+
 class SpotifyController extends Controller
 {
     private $token = "hello";
@@ -70,14 +74,14 @@ class SpotifyController extends Controller
         $token_type         = $request->input('token_type');
 
         // this works
-        $user_id = Auth::id();
+        //$user_id = Auth::id();
+        User::updateOrInsert([
+            'user_id'                   => Auth::id(),
+            'spotify_access_token'      => $access_token
+        ]);
+
 
         $output = '{' . "\"redirect_url\":\"/spotify\"" . '}';
-
-
-
-
-
 
 
         return $output;

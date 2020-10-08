@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 
+use App\Models\Dashboard;
+use App\Models\Spotify;
+
 class DashboardController extends Controller
 {
 
@@ -30,11 +33,13 @@ class DashboardController extends Controller
 
     public function index() {
 
-        $user_id = Auth::id();
-        $_user = User::where("id", "=", $user_id)->first();
-
+        $token =Spotify::get_user_access_token();
+        echo $token;
+        die();
         return view('dashboard/index', [
             'client_id' => $this->client_id
         ]);
     }
+
+
 }

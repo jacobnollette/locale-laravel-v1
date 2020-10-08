@@ -60,8 +60,9 @@ class SpotifyController extends Controller
         $user_id = Auth::id();
 
         User::where("id", "=", $user_id)->update(array(
-            'spotify_access_token' => $access_token)
-        );
+            'spotify_access_token'          => $access_token,
+            'spotify_access_token_added'    => now()
+        ));
 
         $output = '{' . "\"redirect_url\":\"/spotify\"}";
         //$output .= "\"access_token\":\"$access_token\",";

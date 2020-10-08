@@ -5,7 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SpotifyConfigs extends Model
+use App\Models\Spotify;
+
+class Dashboard extends Model
 {
     use HasFactory;
+
+    public function list_playlists () {
+
+    }
 }

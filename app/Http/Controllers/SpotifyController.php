@@ -30,17 +30,20 @@ class SpotifyController extends Controller
 
     public function index()
     {
+        $user_id = Auth::id();
+
+        $_user = User::where("id", "=", $user_id)->first();
 
         return view('spotify/index', [
             'token' => $this->token,
             'client_id' => $this->client_id,
-            'redirect_url' => $this->response_url
+            'redirect_url' => $this->response_url,
+            'user' => $_user
         ]);
     }
 
     public function response()
     {
-        //https://locale.test/spotify/response#access_token=BQABFpoO25BaEfWBH7j1-Re6hxpd_NNjks-lhyZYhU0ZVAggDgyBPYqO_lOKiZHzedfZxIs_n5eXjMQUz1LKbaWl-q8nrNejm0ZTxB-v0IUioGsb3WPPIyKp1EvGXM5xhTAD2tk2uqdMxsz2rlg8tLE7n_JPeFuZNdU&token_type=Bearer&expires_in=3600
         return view('spotify/response');
     }
 
@@ -60,9 +63,6 @@ class SpotifyController extends Controller
         User::where("id", "=", $user_id)->update(array(
             'spotify_access_token' => $access_token)
         );
-
-
-
 
         $output = '{' . "\"redirect_url\":\"/spotify\"}";
         //$output .= "\"access_token\":\"$access_token\",";

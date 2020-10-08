@@ -6,7 +6,12 @@
     <section id="main">
         <div class="container">
 
-            <div id="spotify_connect_button"><a href="https://accounts.spotify.com/authorize?response_type=token&client_id={{ $client_id }}&redirect_uri={{ $redirect_url }}">Link to Spotify</a></div>
+
+            @isset( $user->spotify_access_token )
+                <h1>Your Spotify account is connected</h1>
+            @endisset
+
+            <div id="spotify_connect_button"><a href="https://accounts.spotify.com/authorize?response_type=token&client_id={{ $client_id }}&redirect_uri={{ $redirect_url }}">Connect or Reconnect Spotify account!</a></div>
 
 
         </div>

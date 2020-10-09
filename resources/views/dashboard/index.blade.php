@@ -5,9 +5,8 @@
 @section("page_content")
     <section id="main">
         <div class="container">
-            <div id="current_playlists">
 
-            </div>
+
 
 
 

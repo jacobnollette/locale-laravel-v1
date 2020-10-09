@@ -46,7 +46,6 @@ class DashboardController extends Controller
         //  connect to spotify, provide access token
         $this->spotify_connect();
 
-
         //$this->playlist_update_all();
 
 

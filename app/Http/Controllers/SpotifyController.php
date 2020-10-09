@@ -69,6 +69,7 @@ class SpotifyController extends Controller
 
     public function index()
     {
+
         $_user = User::where("id", "=", $this->locale_id)->first();
 
         return view('spotify/index', [
@@ -78,36 +79,51 @@ class SpotifyController extends Controller
     public function spotify_auth_response()
     {
         /**
-         * Prerequisites
+         * Receives the spotify code, and redirects to dashboard
+         * /spotify/auth/response
          */
+
 
         /**
          * get access token from spotify and store it in database
+         * get access from token
          */
-        //  get access from token
         $this->spotify_session->requestAccessToken($_GET['code']);
 
-        //  access token
+        /**
+         *  internal access token stuff
+         */
         $_access_token = $this->spotify_session->getAccessToken();
         $_refresh_token = $this->spotify_session->getRefreshToken();
 
-
-        //$this->spotify_api->setAccessToken( $_access_token );
+        /**
+         * save access token to database
+         */
         User::where("id", "=", $this->locale_id)->update(array(
             'spotify_access_token' => $_access_token,
             'spotify_access_token_added' => now(),
             'spotify_refresh_token' => $_refresh_token,
 
         ));
+
+        /**
+         * redirect to dashboard
+         * the access token is saved to the database
+         */
         header('Location: ' . "/dashboard" );
         die();
     }
 
-
-
-
     public function spotify_auth_get_redirect()
     {
+        /**
+         * the spotify auth url
+         * /spotify/auth
+         * redirects to spotify auth page
+         *
+         * spotify redirects to /spotify/auth/respose
+         * that route goes to SpotifyControllers@spotify_auth_response
+         */
         header('Location: ' . $this->spotify_session->getAuthorizeUrl( $this->spotify_scopes ) );
         die();
     }

@@ -61,14 +61,16 @@ class Spotify
         $_user = User::where("id", "=", $user_id)->first();
 //
 //        //  get previous access token from locale
-        $_locale_access_token = $_user->spotify_access_token;
-        $_locale_refresh_token = $_user->spotify_refresh_token;
+        if (isset($_user->spotify_access_token)):
+            $_locale_access_token = $_user->spotify_access_token;
+            $_locale_refresh_token = $_user->spotify_refresh_token;
 
-        $_new_refresh_token = $this->spotify_session->refreshAccessToken($_locale_refresh_token);
-        if ($_new_refresh_token == true):
-            //  do nothing
-        else:
-            echo "token expired";
+            $_new_refresh_token = $this->spotify_session->refreshAccessToken($_locale_refresh_token);
+            if ($_new_refresh_token == true):
+                //  do nothing
+            else:
+                echo "token expired";
+            endif;
         endif;
 
         return $next($request);

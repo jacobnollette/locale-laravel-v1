@@ -55,8 +55,12 @@ class DashboardController extends Controller
         endif;
         $this->spotify_connect();
 
-        //$this->playlist_update_all();
-
+        /**
+         * load all playlists
+         * make background in future versions
+         * add it to the queue
+         */
+        $this->playlist_update_all();
 
     }
 

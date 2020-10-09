@@ -23,13 +23,9 @@ use SpotifyWebAPI\Session;
 
 class SpotifyController extends Controller
 {
-    /**
-     *  Crucial bits
-     */
-    private $locale_id;
 
     /**
-     * Spotify essentials
+     * Spotify public essentials
      */
     public $spotify_api;
     public $spotify_session;
@@ -70,7 +66,7 @@ class SpotifyController extends Controller
     public function index()
     {
 
-        $_user = User::where("id", "=", $this->locale_id)->first();
+        $_user = User::where( "id", "=", Auth::id() )->first();
 
         return view('spotify/index', [
         ]);
@@ -99,7 +95,7 @@ class SpotifyController extends Controller
         /**
          * save access token to database
          */
-        User::where("id", "=", $this->locale_id)->update(array(
+        User::where( "id", "=", Auth::id() )->update(array(
             'spotify_access_token' => $_access_token,
             'spotify_access_token_added' => now(),
             'spotify_refresh_token' => $_refresh_token,
@@ -128,8 +124,4 @@ class SpotifyController extends Controller
         die();
     }
 
-    private function user_get () {
-        $user_id = Auth::id();
-        $this->locale_id = User::where("id", "=", $user_id)->first();
-    }
 }

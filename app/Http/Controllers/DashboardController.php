@@ -28,9 +28,9 @@ use SpotifyWebAPI\Session;
 
 class DashboardController extends Controller
 {
-
-    private $locale_id;
-
+    /**
+     * Modules
+     */
     private $spotify;
 
 
@@ -42,7 +42,6 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $this->user_get();
         //  connect to spotify, provide access token
         $this->spotify_connect();
 
@@ -58,23 +57,22 @@ class DashboardController extends Controller
          * get all playlists, scrape through the list, and get them entered into the database
          */
 
-        $this->user_get();
         //  connect to spotify, provide access token
         $this->spotify_connect();
         //$_user = User::where( "id", "=", $this->user_id )->first();
 
 
         //  get playlist count
-        $_user = User::where("id", "=", $this->locale_id)->first();
-        $playlists = $this->spotify->spotify_api->getUserPlaylists($_user->spotify_user_id, [
+        $_user = User::where( "id", "=", Auth::id() )->first();
+        $playlists = $this->spotify->spotify_api->getUserPlaylists( $_user->spotify_user_id , [
             'limit' => 1
         ]);
         $playlist_count = $playlists->total;
         $limit = 20;
         $playlist_compile = array();
-        for ($i = 0; $i < $playlist_count; $i = $i + $limit) {
-            $batch = $this->playlist_get_batch($limit, $i);
-            foreach ($batch->items as $item):
+        for ( $i = 0; $i < $playlist_count; $i = $i + $limit ) {
+            $batch = $this->playlist_get_batch( $limit, $i);
+            foreach ( $batch->items as $item ):
                 $playlist_name = $item->name;
                 $playlist_id = $item->id;
 //                $playlist_tracks = $this->spotify_api->getPlaylistTracks($playlist_id);
@@ -82,7 +80,7 @@ class DashboardController extends Controller
 //                $playlist_tracks = json_encode($playlist_tracks);
                 $playlist_tracks = "";
                 Spotify_playlists::updateOrInsert(
-                    ['locale_user_id' => $this->locale_id, "playlist_id" => $playlist_id],
+                    ['locale_user_id' => Auth::id() , "playlist_id" => $playlist_id],
                     ['playlist_name' => $playlist_name,
                         'date_added' => now(),
                         'date_updated' => now(),
@@ -99,11 +97,11 @@ class DashboardController extends Controller
         /**
          * get batch of playlists
          */
-        $this->user_get();
+
         //  connect to spotify, provide access token
         $this->spotify_connect();
         //  get playlist count
-        $_user = User::where("id", "=", $this->locale_id)->first();
+        $_user = User::where( "id", "=", Auth::id() )->first();
         $playlists = $this->spotify->spotify_api->getUserPlaylists($_user->spotify_user_id, [
             'limit' => $limit,
             'offset' => $offset
@@ -126,19 +124,19 @@ class DashboardController extends Controller
     {
         $this->user_get();
 
-        $_user = User::where("id", "=", $this->locale_id)->first();
+        $_user = User::where( "id", "=", Auth::id() )->first();
         if (isset($_user->spotify_refresh_token)) :
             $this->spotify->spotify_session->refreshAccessToken($_user->spotify_refresh_token);
             $this->spotify->spotify_access_token = $this->spotify->spotify_session->getAccessToken();
             $this->spotify->spotify_refresh_token = $this->spotify->spotify_session->getRefreshToken();
-            User::where("id", "=", $this->locale_id)->update(array(
+            User::where( "id", "=", Auth::id() )->update(array(
                 'spotify_access_token' => $this->spotify->spotify_access_token,
                 'spotify_refresh_token' => $this->spotify->spotify_refresh_token,
                 'spotify_access_token_added' => now(),
                 'spotify_refresh_token_added' => now()
             ));
 
-            $this->spotify->spotify_api->setAccessToken($this->spotify->spotify_access_token);
+            $this->spotify->spotify_api->setAccessToken( $this->spotify->spotify_access_token );
 
             //  we have a spotify access token,
             //  update user info
@@ -151,17 +149,9 @@ class DashboardController extends Controller
     {
         //  get spotify user data & add to locale user table
         $me = $this->spotify->spotify_api->me();
-        User::where("id", "=", $this->locale_id)->update(array(
+        User::where( "id", "=", Auth::id() )->update(array(
             'spotify_user_id' => $me->id
         ));
-    }
-
-
-    private function user_get()
-    {
-//        $user_id =
-        $this->locale_id = Auth::id();
-        //= User::where("id", "=", $user_id)->first();
     }
 
 }

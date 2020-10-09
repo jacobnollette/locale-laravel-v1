@@ -31,12 +31,13 @@ class SpotifyController extends Controller
     /**
      * Spotify essentials
      */
-    private $spotify_api;
-    private $spotify_session;
-    private $spotify_scopes;
-    private $response_url;
-    private $response_url_raw;
-
+    public $spotify_api;
+    public $spotify_session;
+    public $spotify_scopes;
+    public $spotify_response_url;
+    public $spotify_response_url_raw;
+    public $spotify_access_token;
+    public $spotify_refresh_token;
 
 
     function __construct()
@@ -89,6 +90,7 @@ class SpotifyController extends Controller
         //  access token
         $_access_token = $this->spotify_session->getAccessToken();
         $_refresh_token = $this->spotify_session->getRefreshToken();
+
 
         //$this->spotify_api->setAccessToken( $_access_token );
         User::where("id", "=", $this->locale_id)->update(array(

@@ -24,11 +24,8 @@ class DashboardController extends Controller
     /**
      *  Crucial spotify secrets
      */
-    private $client_id;
-    private $client_secret;
-    private $client_hashed_token;
 
-    private $user_id;
+    private $locale_id;
 
     private $spotify_session;
     private $spotify_api;
@@ -79,7 +76,7 @@ class DashboardController extends Controller
 
 
         //  get playlist count
-        $_user = User::where("id", "=", $this->user_id)->first();
+        $_user = User::where("id", "=", $this->locale_id)->first();
         $playlists = $this->spotify_api->getUserPlaylists($_user->spotify_user_id, [
             'limit' => 1
         ]);
@@ -96,7 +93,7 @@ class DashboardController extends Controller
 //                $playlist_tracks = json_encode($playlist_tracks);
                 $playlist_tracks = "";
                 Spotify_playlists::updateOrInsert(
-                    ['locale_user_id' => $this->user_id, "playlist_id" => $playlist_id],
+                    ['locale_user_id' => $this->locale_id, "playlist_id" => $playlist_id],
                     ['playlist_name' => $playlist_name,
                         'date_added' => now(),
                         'date_updated' => now(),
@@ -117,7 +114,7 @@ class DashboardController extends Controller
         //  connect to spotify, provide access token
         $this->spotify_connect();
         //  get playlist count
-        $_user = User::where("id", "=", $this->user_id)->first();
+        $_user = User::where("id", "=", $this->locale_id)->first();
         $playlists = $this->spotify_api->getUserPlaylists($_user->spotify_user_id, [
             'limit' => $limit,
             'offset' => $offset
@@ -140,12 +137,12 @@ class DashboardController extends Controller
     {
         $this->user_get();
 
-        $_user = User::where("id", "=", $this->user_id)->first();
+        $_user = User::where("id", "=", $this->locale_id)->first();
         if (isset($_user->spotify_refresh_token)) :
             $this->spotify_session->refreshAccessToken($_user->spotify_refresh_token);
             $this->spotify_access_token = $this->spotify_session->getAccessToken();
             $this->spotify_refresh_token = $this->spotify_session->getRefreshToken();
-            User::where("id", "=", $this->user_id)->update(array(
+            User::where("id", "=", $this->locale_id)->update(array(
                 'spotify_access_token' => $this->spotify_access_token,
                 'spotify_refresh_token' => $this->spotify_refresh_token,
                 'spotify_access_token_added' => now(),
@@ -165,7 +162,7 @@ class DashboardController extends Controller
     {
         //  get spotify user data & add to locale user table
         $me = $this->spotify_api->me();
-        User::where("id", "=", $this->user_id)->update(array(
+        User::where("id", "=", $this->locale_id)->update(array(
             'spotify_user_id' => $me->id
         ));
     }
@@ -174,7 +171,7 @@ class DashboardController extends Controller
     private function user_get()
     {
 //        $user_id =
-        $this->user_id = Auth::id();
+        $this->locale_id = Auth::id();
         //= User::where("id", "=", $user_id)->first();
     }
 

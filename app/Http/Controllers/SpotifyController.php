@@ -23,54 +23,54 @@ use SpotifyWebAPI\Session;
 
 class SpotifyController extends Controller
 {
+    /**
+     *  Crucial bits
+     */
+    private $locale_id;
+
+    /**
+     * Spotify essentials
+     */
     private $spotify_api;
     private $spotify_session;
-    private $token = "hello";
+    private $spotify_scopes;
     private $response_url;
     private $response_url_raw;
-    private $scopes;
-    /**
-     *  Crucial spotify secrets
-     */
-    private $client_id;
-    private $client_secret;
-    private $client_hashed_token;
 
-    private $user_id;
+
 
     function __construct()
     {
 
-
-
-        $this->response_url_raw = 'https://locale.test/spotify/auth/response';
-        $this->response_url = urlencode( $this->response_url_raw );
-        $this->scopes = urlencode("playlist-read-private playlist-modify playlist-modify-private");
-        $this->client_hashed_token = base64_encode($this->client_id . ':' . $this->client_secret);
-        $this->client_id = env('SPOTIFY_CLIENT_ID');
-        $this->client_secret = env('SPOTIFY_CLIENT_SECRET');
+        /**
+         * Spotify bits
+         */
+        //  this is the endpoint for receiving the spotify access token
+        $this->spotify_response_url_raw = 'https://locale.test/spotify/auth/response';
+        $this->spotify_response_url = urlencode( $this->spotify_response_url_raw );
 
         $this->spotify_session = new Session(
             env("SPOTIFY_CLIENT_ID"),
             env("SPOTIFY_CLIENT_SECRET"),
-            $this->response_url_raw
+            $this->spotify_response_url_raw
         );
         $this->spotify_api = new SpotifyWebAPI;
+        $this->spotify_scopes = [
+            'scope' => [
+                'playlist-modify-private',
+                'playlist-modify-public',
+                'playlist-read-private',
+                'user-read-private',
+            ],
+        ];
 
     }
 
     public function index()
     {
-        $user_id = Auth::id();
-
-        $_user = User::where("id", "=", $user_id)->first();
+        $_user = User::where("id", "=", $this->locale_id)->first();
 
         return view('spotify/index', [
-            'token' => $this->token,
-            'client_id' => $this->client_id,
-            'redirect_url' => $this->response_url,
-            'scopes' => $this->scopes,
-            'user' => $_user
         ]);
     }
 
@@ -79,8 +79,6 @@ class SpotifyController extends Controller
         /**
          * Prerequisites
          */
-        //  get user id from logged in user
-        $user_id = Auth::id();
 
         /**
          * get access token from spotify and store it in database
@@ -93,7 +91,7 @@ class SpotifyController extends Controller
         $_refresh_token = $this->spotify_session->getRefreshToken();
 
         //$this->spotify_api->setAccessToken( $_access_token );
-        User::where("id", "=", $user_id)->update(array(
+        User::where("id", "=", $this->locale_id)->update(array(
             'spotify_access_token' => $_access_token,
             'spotify_access_token_added' => now(),
             'spotify_refresh_token' => $_refresh_token,
@@ -108,23 +106,12 @@ class SpotifyController extends Controller
 
     public function spotify_auth_get_redirect()
     {
-
-
-        $options = [
-            'scope' => [
-                'playlist-modify-private',
-                'playlist-modify-public',
-                'playlist-read-private',
-                'user-read-private',
-            ],
-        ];
-        //return $this->spotify_session->getAuthorizeUrl($options);
-        header('Location: ' . $this->spotify_session->getAuthorizeUrl($options));
+        header('Location: ' . $this->spotify_session->getAuthorizeUrl( $this->spotify_scopes ) );
         die();
     }
 
     private function user_get () {
         $user_id = Auth::id();
-        $this->user_id = User::where("id", "=", $user_id)->first();
+        $this->locale_id = User::where("id", "=", $user_id)->first();
     }
 }

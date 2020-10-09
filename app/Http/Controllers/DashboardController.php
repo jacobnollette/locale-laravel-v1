@@ -60,7 +60,7 @@ class DashboardController extends Controller
         $this->spotify_connect();
 
 
-        //$this->playlist_update_all();
+        $this->playlist_update_all();
 
 
     }
@@ -84,22 +84,17 @@ class DashboardController extends Controller
             'limit' => 1
         ]);
         $playlist_count = $playlists->total;
-
-
         $limit = 20;
         $playlist_compile = array();
-
         for ($i = 0; $i < $playlist_count; $i = $i + $limit) {
             $batch = $this->playlist_get_batch($limit, $i);
             foreach ($batch->items as $item):
                 $playlist_name = $item->name;
                 $playlist_id = $item->id;
-
-
-                $playlist_tracks = $this->spotify_api->getPlaylistTracks($playlist_id);
-                $playlist_tracks = $this->playlist_tracks_parse($playlist_tracks);
-                $playlist_tracks = json_encode($playlist_tracks);
-
+//                $playlist_tracks = $this->spotify_api->getPlaylistTracks($playlist_id);
+//                $playlist_tracks = $this->playlist_tracks_parse($playlist_tracks);
+//                $playlist_tracks = json_encode($playlist_tracks);
+                $playlist_tracks = "";
                 Spotify_playlists::updateOrInsert(
                     ['locale_user_id' => $this->user_id, "playlist_id" => $playlist_id],
                     ['playlist_name' => $playlist_name,
@@ -109,23 +104,7 @@ class DashboardController extends Controller
                     ]
                 );
             endforeach;
-
         }
-
-
-//        Spotify_playlists::updateOrInsert(
-//            ['locale_user_id' => $this->user_id, "playlist_id" => $playlists->items[0]->id],
-//            [   'playlist_name'     => $playlists->items[0]->name,
-//                'date_added'        => now(),
-//                'date_updated'      => now()
-//            ]
-//        );
-
-
-//        $playlists->items[0]->id;
-//        ;
-//        dd( $playlists );
-
 
     }
 

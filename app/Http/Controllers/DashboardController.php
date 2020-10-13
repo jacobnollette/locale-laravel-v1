@@ -60,11 +60,45 @@ class DashboardController extends Controller
          * make background in future versions
          * add it to the queue
          */
-        $this->playlist_update_all();
+        //$this->playlist_update_all();
+        $playlists = $this->playlist_update_10();
+        dd( $playlists );
+
 
     }
 
+    private function playlist_update_10()
+    {
+        /**
+         * get the first 10 playlists
+         */
+        //  connect to spotify, provide access token
+        $this->spotify_connect();
+        //  get playlist count
+        $_user = User::where("id", "=", Auth::id())->first();
+        $playlists = $this->spotify->spotify_api->getUserPlaylists($_user->spotify_user_id, [
+            'limit' => 1
+        ]);
+        $batch = $this->playlist_get_batch(10, 0);
+        foreach ($batch->items as $item):
+            $playlist_name = $item->name;
+            $playlist_id = $item->id;
+//                $playlist_tracks = $this->spotify_api->getPlaylistTracks($playlist_id);
+//                $playlist_tracks = $this->playlist_tracks_parse($playlist_tracks);
+//                $playlist_tracks = json_encode($playlist_tracks);
+            $playlist_tracks = "";
+            Spotify_playlists::updateOrInsert(
+                ['locale_user_id' => Auth::id(), "playlist_id" => $playlist_id],
+                ['playlist_name' => $playlist_name,
+                    'date_added' => now(),
+                    'date_updated' => now(),
+                    'tracks' => $playlist_tracks
+                ]
+            );
+        endforeach;
+        return $batch;
 
+    }
     private function playlist_update_all()
     {
         /**

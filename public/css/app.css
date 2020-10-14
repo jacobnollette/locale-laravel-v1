@@ -91,20 +91,23 @@ header .container {
   background-color: #f7f7f7;
 }
 
-#playlists .playlist {
+#playlists_index .playlist {
   margin-bottom: 20px;
 }
 
-#playlists .playlist .playlist_image {
+#playlists_index .playlist .playlist_image {
   float: left;
 }
 
-#playlists .playlist .playlist_image img {
+#playlists_index .playlist .playlist_image img {
   width: 120px;
 }
 
-#playlists .playlist .playlist_name {
+#playlists_index .playlist .playlist_display {
   margin-left: 140px;
+}
+
+#playlists_index .playlist .playlist_name {
   margin-top: 15px;
 }
 

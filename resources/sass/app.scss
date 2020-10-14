@@ -11,7 +11,7 @@
 }
 
 
-#playlists {
+#playlists_index {
     .playlist {
         margin-bottom: 20px;
         .playlist_image {
@@ -21,8 +21,10 @@
                 width: 120px;
             }
         }
-        .playlist_name {
+        .playlist_display{
             margin-left: 140px;
+        }
+        .playlist_name {
             margin-top: 15px;
         }
     }

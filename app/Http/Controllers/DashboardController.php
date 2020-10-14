@@ -20,6 +20,7 @@ use App\Models\User;
 use App\Models\Dashboard;
 use App\Models\Spotify;
 use App\Models\Spotify_playlists;
+use App\Models\User_crates;
 
 /**
  * packages
@@ -64,6 +65,8 @@ class DashboardController extends Controller
         $playlists = $this->playlist_update_10();
         $playlists = $playlists->items;
 
+        $playlists = $this->playlist_check_crate ( $playlists );
+        dd( $playlists );
 
 
         return view('dashboard/index', [
@@ -76,8 +79,28 @@ class DashboardController extends Controller
     public function playlist_add (Request $request) {
         echo $request->playlist;
     }
+
     public function playlist_remove ( Request $request ) {
-        echo $request->playlist
+        echo $request->playlist;
+    }
+
+    private function playlist_check_crate ( $playlists ) {
+        $_output_playlists = array();
+        foreach( $playlists as $playlist ):
+            $_single_playlist = $playlist;
+            $_single_playlist->inCrate = $this->playlist_isin_crate( $_single_playlist->id );
+
+            $_output_playlists[] = $_single_playlist;
+        endforeach;
+        return $_output_playlists;
+    }
+    private function playlist_isin_crate ( $playlist_id ) {
+        $_playlist = User_Crates::where("playlist_id", "=", $playlist_id )->first();
+        if ( is_null( $_playlist ) ) {
+            return "no";
+        } else {
+            return "yes";
+        }
     }
     private function playlist_update_10()
     {
@@ -111,6 +134,8 @@ class DashboardController extends Controller
         return $batch;
 
     }
+
+
     private function playlist_update_all()
     {
         /**

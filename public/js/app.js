@@ -109,10 +109,13 @@ $("#playlists_index .playlist_add").on("click", function (e) {
   var _the_playlist = $(this).parent().parent().parent();
 
   var _the_playlist_id = _the_playlist.data("playlist_id");
+
+  var request = {
+    "add": _the_playlist_id
+  };
   /**
    * post to dashboard endpoint
    */
-
 
   var csrf = document.querySelector('meta[name="csrf-token"]').content;
   var url = "/dashboard/playlist/add";
@@ -120,9 +123,11 @@ $("#playlists_index .playlist_add").on("click", function (e) {
   xhr.open("POST", url, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.setRequestHeader('X-CSRF-Token', csrf);
-  xhr.send(JSON.stringify(input));
+  xhr.send(JSON.stringify(request));
 
-  xhr.onload = function () {// _return = JSON.parse( this.responseText );
+  xhr.onload = function () {
+    console.log(this.responseText); // _return = JSON.parse( this.responseText );
+    // console.log( _return);
     // var redirect_url = _return.redirect_url;
     // window.location.href = redirect_url;
     //console.log( redirect_url );

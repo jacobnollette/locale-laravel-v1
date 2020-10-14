@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
  * Dashboard rubbish
  */
 Route::get( '/dashboard/', 'App\Http\Controllers\DashboardController@index');
-Route::get( '/dashboard/playlist/add/', 'App\Http\Controllers\DashboardController@playlist_add');
+Route::post( '/dashboard/playlist/add/', 'App\Http\Controllers\DashboardController@playlist_add');
 
 
 /**

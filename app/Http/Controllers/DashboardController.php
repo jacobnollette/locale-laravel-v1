@@ -71,6 +71,9 @@ class DashboardController extends Controller
 
     }
 
+    public function playlist_add (Request $request) {
+        echo $request->add;
+    }
     private function playlist_update_10()
     {
         /**

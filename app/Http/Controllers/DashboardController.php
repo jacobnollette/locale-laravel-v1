@@ -72,7 +72,10 @@ class DashboardController extends Controller
     }
 
     public function playlist_add (Request $request) {
-        echo $request->add;
+        echo $request->playlist;
+    }
+    public function playlist_remove ( Request $request ) {
+        echo $request->playlist
     }
     private function playlist_update_10()
     {

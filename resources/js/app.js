@@ -15,9 +15,13 @@ $("#playlists_index .playlist_add").on("click", function ( e ) {
     var _the_playlist = $(this).parent().parent().parent();
     var _the_playlist_id = _the_playlist.data("playlist_id");
 
+
     var request = {
-        "add": _the_playlist_id
+        "playlist": _the_playlist_id
     };
+
+
+
     /**
      * post to dashboard endpoint
      */

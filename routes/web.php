@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
  */
 Route::get( '/dashboard/', 'App\Http\Controllers\DashboardController@index');
 Route::post( '/dashboard/playlist/add/', 'App\Http\Controllers\DashboardController@playlist_add');
+Route::post( '/dashboard/playlist/remove/', 'App\Http\Controllers\DashboardController@playlist_remove');
 
 
 /**

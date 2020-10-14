@@ -89,7 +89,6 @@ class DashboardController extends Controller
         foreach( $playlists as $playlist ):
             $_single_playlist = $playlist;
             $_single_playlist->inCrate = $this->playlist_isin_crate( $_single_playlist->id );
-
             $_output_playlists[] = $_single_playlist;
         endforeach;
         return $_output_playlists;

@@ -74,11 +74,17 @@ class DashboardController extends Controller
     }
 
     public function playlist_add (Request $request) {
-        echo $request->playlist;
+        $_user = User::where("id", "=", Auth::id())->first();
+        User_crates::updateOrInsert(
+            ['locale_user_id' => Auth::id(), "playlist_id" => $request->playlist]
+        );
+        echo json_encode( "Added $request->playlist to crate!" );
     }
 
     public function playlist_remove ( Request $request ) {
-        echo $request->playlist;
+        $_user = User::where("id", "=", Auth::id())->first();
+        User_crates::where('locale_user_id', Auth::id() )->where("playlist_id", $request->playlist)->delete();
+        echo json_encode("Removed $request->playlist from crate!");
     }
 
     private function playlist_check_crate ( $playlists ) {

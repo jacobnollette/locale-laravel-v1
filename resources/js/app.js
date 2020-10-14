@@ -20,8 +20,6 @@ $("#playlists_index .playlist_add").on("click", function ( e ) {
         "playlist": _the_playlist_id
     };
 
-
-
     /**
      * post to dashboard endpoint
      */

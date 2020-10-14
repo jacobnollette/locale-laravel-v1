@@ -63,7 +63,9 @@ class DashboardController extends Controller
         //$this->playlist_update_all();
         $playlists = $this->playlist_update_10();
         $playlists = $playlists->items;
-        //
+
+
+
         return view('dashboard/index', [
             'playlists' => $playlists
         ]);

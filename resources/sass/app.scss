@@ -9,3 +9,21 @@
 #page_content {
 
 }
+
+
+#playlists {
+    .playlist {
+        margin-bottom: 20px;
+        .playlist_image {
+            float: left;
+
+            img {
+                width: 120px;
+            }
+        }
+        .playlist_name {
+            margin-left: 140px;
+            margin-top: 15px;
+        }
+    }
+}

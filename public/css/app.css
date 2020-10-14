@@ -111,3 +111,11 @@ header .container {
   margin-top: 15px;
 }
 
+#playlists_index .playlist .playlist_add {
+  text-decoration: none;
+}
+
+#playlists_index .playlist .playlist_add.in_crate {
+  text-decoration: underline;
+}
+

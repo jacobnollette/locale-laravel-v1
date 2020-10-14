@@ -27,5 +27,11 @@
         .playlist_name {
             margin-top: 15px;
         }
+        .playlist_add {
+            text-decoration: none;
+            &.in_crate {
+                text-decoration: underline;
+            }
+        }
     }
 }

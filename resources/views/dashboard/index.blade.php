@@ -13,7 +13,7 @@
                             <div class="playlist_name">{{$playlist->name}}</div>
                             <div class="controls">
 <a class="playlist_add @if ( $playlist->inCrate == "yes" )
-    in_crate
+in_crate
 @endif
 " href="#">Add Playlist</a>
                             </div>

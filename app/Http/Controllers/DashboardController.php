@@ -94,6 +94,7 @@ class DashboardController extends Controller
         $_playlist = User_Crates::where("playlist_id", "=", $playlist_id )->first();
         if ( is_null( $_playlist ) ) {
             return "no";
+            //return "yes";
         } else {
             return "yes";
         }

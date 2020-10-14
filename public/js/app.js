@@ -94,9 +94,18 @@
 /***/ (function(module, exports) {
 
 //require('./bootstrap');
-var _playlists_index = document.getElementById("playlists_index"); //_playlists_index = _playlists_index.querySelectorAll(".playlist");
 
-
+/**
+ * Playlist index stuff
+ */
+$("#playlists_index .playlist_add").each(function (i, obj) {
+  /**
+   * playlist html, content fix
+   */
+  if ($(this).hasClass("in_crate")) {
+    $(this).html("Remove Playlist");
+  }
+});
 $("#playlists_index .playlist_add").on("click", function (e) {
   /**
    * prevent the browser from going to the anchor
@@ -110,6 +119,18 @@ $("#playlists_index .playlist_add").on("click", function (e) {
 
   var _the_playlist_id = _the_playlist.data("playlist_id");
 
+  if ($(this).hasClass("in_crate")) {
+    //  playlist in crate, removing
+    $(this).html("Add Playlist");
+    $(this).toggleClass("in_crate");
+    var url = "/dashboard/playlist/remove";
+  } else {
+    //  playlist not in crate, adding
+    $(this).html("Remove Playlist");
+    $(this).toggleClass("in_crate");
+    var url = "/dashboard/playlist/add";
+  }
+
   var request = {
     "playlist": _the_playlist_id
   };
@@ -118,7 +139,6 @@ $("#playlists_index .playlist_add").on("click", function (e) {
    */
 
   var csrf = document.querySelector('meta[name="csrf-token"]').content;
-  var url = "/dashboard/playlist/add";
   var xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
   xhr.setRequestHeader('Content-Type', 'application/json');

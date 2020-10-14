@@ -66,9 +66,6 @@ class DashboardController extends Controller
         $playlists = $playlists->items;
 
         $playlists = $this->playlist_check_crate ( $playlists );
-        dd( $playlists );
-
-
         return view('dashboard/index', [
             'playlists' => $playlists
         ]);

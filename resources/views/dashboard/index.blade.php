@@ -12,7 +12,10 @@
                         <div class="playlist_display">
                             <div class="playlist_name">{{$playlist->name}}</div>
                             <div class="controls">
-                                <a class="playlist_add" href="#">Add Playlist</a>
+<a class="playlist_add @if ( $playlist->inCrate == "yes" )
+    in_crate
+@endif
+" href="#">Add Playlist</a>
                             </div>
                         </div>
                         <div class="clear">&nbsp;</div>

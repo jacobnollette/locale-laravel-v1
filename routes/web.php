@@ -24,7 +24,8 @@ Route::post( '/dashboard/playlist/remove/', 'App\Http\Controllers\DashboardContr
  * Explorer rubbish
  */
 Route::get( '/explore/', 'App\Http\Controllers\ExplorerController@index');
-
+Route::post( '/dashboard/explore/add/', 'App\Http\Controllers\ExplorerController@explorer_add');
+Route::post( '/dashboard/explore/remove/', 'App\Http\Controllers\ExplorerController@explorer_remove');
 /**
  * Spotify connections
  */

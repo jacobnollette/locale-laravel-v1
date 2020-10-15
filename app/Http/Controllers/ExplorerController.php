@@ -71,6 +71,29 @@ class ExplorerController extends Controller
         ]);
     }
 
+
+    public function explorer_add (Request $request) {
+        $_user = User::where("id", "=", Auth::id())->first();
+        User_crates::updateOrInsert(
+            ['locale_user_id' => Auth::id(), "playlist_id" => $request->playlist],
+            ['created_at'=>now(), 'updated_at'=>now(), 'created_at'=>now(), ]
+        );
+
+        $_spotify_connection = $this->connect_as_user(Auth::id());
+        echo json_encode( "Followed $request->playlist" );
+    }
+
+    public function explorer_remove ( Request $request ) {
+        $_user = User::where("id", "=", Auth::id())->first();
+        User_crates::where('locale_user_id', Auth::id() )->where("playlist_id", $request->playlist)->delete();
+        $_spotify_connection = $this->connect_as_user(Auth::id());
+        $_spotify_connection->spotify_api->unfollowPlaylist($request->playlist);
+
+        echo json_encode( "Unfollowed $request->playlist" );
+    }
+
+
+
     private function connect_as_user($given_locale_id)
     {
         $_user = User::where("id", "=", $given_locale_id)->first();

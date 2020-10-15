@@ -1,4 +1,4 @@
-body {
+html, body {
     padding: 0px; margin: 0px;
     background-color: $BG_BLACK;
     color: $TEXT_BLACK;
@@ -14,4 +14,8 @@ a {
     &:hover {
         text-decoration: underline;
     }
+}
+
+section {
+    margin: 0px; padding: 0px;
 }

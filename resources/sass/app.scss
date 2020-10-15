@@ -4,6 +4,14 @@
     .container {
         background-color: $CONTAINER_BG;
     }
+    h1{
+        margin: 0px; padding: 0px;
+        font-size: 38px;
+    }
+    h2 {
+        margin: 0px; padding: 0px;
+        font-size: 24px;
+    }
 }
 
 #page_content {

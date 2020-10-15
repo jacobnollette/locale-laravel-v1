@@ -17,8 +17,15 @@ use Illuminate\Support\Facades\Route;
  * Dashboard rubbish
  */
 Route::get( '/dashboard/', 'App\Http\Controllers\DashboardController@index');
+Route::post( '/dashboard/playlist/add/', 'App\Http\Controllers\DashboardController@playlist_add');
+Route::post( '/dashboard/playlist/remove/', 'App\Http\Controllers\DashboardController@playlist_remove');
 
-
+/**
+ * Explorer rubbish
+ */
+Route::get( '/explore/', 'App\Http\Controllers\ExplorerController@index');
+Route::post( '/dashboard/explore/add/', 'App\Http\Controllers\ExplorerController@explorer_add');
+Route::post( '/dashboard/explore/remove/', 'App\Http\Controllers\ExplorerController@explorer_remove');
 /**
  * Spotify connections
  */
@@ -35,7 +42,4 @@ Route::get( '/spotify/auth', 'App\Http\Controllers\SpotifyController@spotify_aut
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', function () {
-    header('Location: /spotify' );
-    die();
-});
+Route::get( '/', 'App\Http\Controllers\SpotifyController@landing');

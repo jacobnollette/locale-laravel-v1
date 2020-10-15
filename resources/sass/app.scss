@@ -4,8 +4,45 @@
     .container {
         background-color: $CONTAINER_BG;
     }
+    h1{
+        margin: 0px; padding: 0px;
+        font-size: 38px;
+    }
+    h2 {
+        margin: 0px; padding: 0px;
+        font-size: 24px;
+    }
 }
 
 #page_content {
 
+}
+
+
+#playlists_index, #explorer_index {
+    box-sizing: border-gox;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    .playlist {
+        margin-bottom: 20px;
+        .playlist_image {
+            float: left;
+
+            img {
+                width: 120px;
+            }
+        }
+        .playlist_display{
+            margin-left: 140px;
+        }
+        .playlist_name {
+            margin-top: 15px;
+        }
+        .playlist_add {
+            text-decoration: none;
+            &.in_crate {
+                text-decoration: underline;
+            }
+        }
+    }
 }

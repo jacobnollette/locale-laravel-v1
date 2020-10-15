@@ -20,6 +20,7 @@ use App\Models\User;
 use App\Models\Dashboard;
 use App\Models\Spotify;
 use App\Models\Spotify_playlists;
+use App\Models\User_crates;
 
 /**
  * packages
@@ -50,7 +51,7 @@ class DashboardController extends Controller
             /**
              * we are not logged in, redirect to spotify
              */
-            header('Location: /spotify' );
+            header('Location: /' );
             die();
         endif;
         $this->spotify_connect();
@@ -60,7 +61,81 @@ class DashboardController extends Controller
          * make background in future versions
          * add it to the queue
          */
-        $this->playlist_update_all();
+        //$this->playlist_update_all();
+        $playlists = $this->playlist_update_10();
+        $playlists = $playlists->items;
+
+        $playlists = $this->playlist_check_crate ( $playlists );
+        return view('dashboard/index', [
+            'playlists' => $playlists
+        ]);
+
+
+    }
+
+    public function playlist_add (Request $request) {
+        $_user = User::where("id", "=", Auth::id())->first();
+        User_crates::updateOrInsert(
+            ['locale_user_id' => Auth::id(), "playlist_id" => $request->playlist],
+            ['created_at'=>now(), 'updated_at'=>now(), 'created_at'=>now(), ]
+        );
+        echo json_encode( "Added $request->playlist to crate!" );
+    }
+
+    public function playlist_remove ( Request $request ) {
+        $_user = User::where("id", "=", Auth::id())->first();
+        User_crates::where('locale_user_id', Auth::id() )->where("playlist_id", $request->playlist)->delete();
+        echo json_encode("Removed $request->playlist from crate!");
+    }
+
+    private function playlist_check_crate ( $playlists ) {
+        $_output_playlists = array();
+        foreach( $playlists as $playlist ):
+            $_single_playlist = $playlist;
+            $_single_playlist->inCrate = $this->playlist_isin_crate( $_single_playlist->id );
+            $_output_playlists[] = $_single_playlist;
+        endforeach;
+        return $_output_playlists;
+    }
+    private function playlist_isin_crate ( $playlist_id ) {
+        $_playlist = User_Crates::where("playlist_id", "=", $playlist_id )->first();
+        if ( is_null( $_playlist ) ) {
+            return "no";
+            //return "yes";
+        } else {
+            return "yes";
+        }
+    }
+    private function playlist_update_10()
+    {
+        /**
+         * get the first 10 playlists
+         */
+        //  connect to spotify, provide access token
+        $this->spotify_connect();
+        //  get playlist count
+        $_user = User::where("id", "=", Auth::id())->first();
+        $playlists = $this->spotify->spotify_api->getUserPlaylists($_user->spotify_user_id, [
+            'limit' => 1
+        ]);
+        $batch = $this->playlist_get_batch(10, 0);
+        foreach ($batch->items as $item):
+            $playlist_name = $item->name;
+            $playlist_id = $item->id;
+//                $playlist_tracks = $this->spotify_api->getPlaylistTracks($playlist_id);
+//                $playlist_tracks = $this->playlist_tracks_parse($playlist_tracks);
+//                $playlist_tracks = json_encode($playlist_tracks);
+            $playlist_tracks = "";
+            Spotify_playlists::updateOrInsert(
+                ['locale_user_id' => Auth::id(), "playlist_id" => $playlist_id],
+                ['playlist_name' => $playlist_name,
+                    'date_added' => now(),
+                    'date_updated' => now(),
+                    'tracks' => $playlist_tracks
+                ]
+            );
+        endforeach;
+        return $batch;
 
     }
 

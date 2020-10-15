@@ -36,9 +36,9 @@ class SpotifyController extends Controller
     public $spotify_refresh_token;
 
 
-    function __construct()
+    function __construct($test = null)
     {
-
+        //dd( $test);
         /**
          * Spotify bits
          */
@@ -62,7 +62,13 @@ class SpotifyController extends Controller
         ];
 
     }
+    public function landing()
+    {
+        $_user = User::where( "id", "=", Auth::id() )->first();
 
+        return view('spotify/landing', [
+        ]);
+    }
     public function index()
     {
 

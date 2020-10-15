@@ -78,8 +78,8 @@ class ExplorerController extends Controller
             ['locale_user_id' => Auth::id(), "playlist_id" => $request->playlist],
             ['created_at'=>now(), 'updated_at'=>now(), 'created_at'=>now(), ]
         );
-
         $_spotify_connection = $this->connect_as_user(Auth::id());
+        $status = $_spotify_connection->spotify_api->followPlaylist($request->playlist);
         echo json_encode( "Followed $request->playlist" );
     }
 

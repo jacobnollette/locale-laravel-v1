@@ -1,6 +1,6 @@
 @extends("layouts.global")
 
-@section("page_title", "Spotify - Login")
+@section("page_title", "Music Locale - Welcome")
 
 @section("page_content")
     <section id="main">

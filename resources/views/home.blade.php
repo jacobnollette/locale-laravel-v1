@@ -1,6 +1,6 @@
 @extends("layouts.global")
 
-@section("page_title", "Spotify - Home")
+@section("page_title", "Welcome to Music Locale")
 
 @section("page_content")
     <section id="main">
@@ -23,6 +23,8 @@
 
                 </div>
             </div>
+
+
             <a href="/spotify/auth">Please connect your spotify account!</a>
         </div>
     </section>

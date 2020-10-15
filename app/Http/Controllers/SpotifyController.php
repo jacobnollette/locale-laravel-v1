@@ -43,7 +43,8 @@ class SpotifyController extends Controller
          * Spotify bits
          */
         //  this is the endpoint for receiving the spotify access token
-        $this->spotify_response_url_raw = 'https://locale.test/spotify/auth/response';
+        $this->spotify_response_url_raw = env("SPOTIFY_REDIRECT_URL");
+        //'https://locale.test/spotify/auth/response';
         $this->spotify_response_url = urlencode( $this->spotify_response_url_raw );
 
         $this->spotify_session = new Session(

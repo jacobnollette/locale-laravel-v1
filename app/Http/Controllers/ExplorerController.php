@@ -45,7 +45,9 @@ class ExplorerController extends Controller
 
     public function index()
     {
-        $_recent_playlists = User_crates::orderBy('created_at', 'desc')->limit(10)->get();
+
+        $_recent_playlists = User_crates::orderBy('created_at', 'desc')->where("locale_user_id", "<>", Auth::id() )->limit(10)->get();
+
 
         //dd($_recent_playlists);
         $output_playlists = array();
@@ -55,7 +57,7 @@ class ExplorerController extends Controller
             $_playlist_info = Spotify_playlists::where("playlist_id", $playlist->playlist_id)->first();
 //            dd($_playlist_info);
             //$_playlist_info->playlist_name;
-            $_temp_spotify_api = $this->connect_as_user( $_playlist_info->locale_user_id );
+            $_temp_spotify_api = $this->connect_as_user($_playlist_info->locale_user_id);
             $_spotify_playlist = $_temp_spotify_api->spotify_api->getPlaylist($_playlist_info->playlist_id);
             $_spotify_playlist->inCrate = 'no';
 
@@ -72,26 +74,27 @@ class ExplorerController extends Controller
     }
 
 
-    public function explorer_add (Request $request) {
+    public function explorer_add(Request $request)
+    {
         $_user = User::where("id", "=", Auth::id())->first();
         User_crates::updateOrInsert(
             ['locale_user_id' => Auth::id(), "playlist_id" => $request->playlist],
-            ['created_at'=>now(), 'updated_at'=>now(), 'created_at'=>now(), ]
+            ['created_at' => now(), 'updated_at' => now(), 'created_at' => now(),]
         );
         $_spotify_connection = $this->connect_as_user(Auth::id());
         $status = $_spotify_connection->spotify_api->followPlaylist($request->playlist);
-        echo json_encode( "Followed $request->playlist" );
+        echo json_encode("Followed $request->playlist");
     }
 
-    public function explorer_remove ( Request $request ) {
+    public function explorer_remove(Request $request)
+    {
         $_user = User::where("id", "=", Auth::id())->first();
-        User_crates::where('locale_user_id', Auth::id() )->where("playlist_id", $request->playlist)->delete();
+        User_crates::where('locale_user_id', Auth::id())->where("playlist_id", $request->playlist)->delete();
         $_spotify_connection = $this->connect_as_user(Auth::id());
         $_spotify_connection->spotify_api->unfollowPlaylist($request->playlist);
 
-        echo json_encode( "Unfollowed $request->playlist" );
+        echo json_encode("Unfollowed $request->playlist");
     }
-
 
 
     private function connect_as_user($given_locale_id)

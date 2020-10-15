@@ -108,11 +108,18 @@ header #header_nav ul li:first-child {
 }
 
 header #header_nav ul li a {
-  color: #4d4dff;
+  color: #4c85a7;
 }
 
 #main .container {
   background-color: #f7f7f7;
+}
+
+#playlists_index,
+#explorer_index {
+  box-sizing: border-gox;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 #playlists_index .playlist,

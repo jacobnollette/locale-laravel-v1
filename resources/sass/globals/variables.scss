@@ -6,4 +6,4 @@ $CONTAINER_BG: darken( white, 3%);
 $TEXT_BLACK: lighten( black, 3%);
 $TEXT_WHITE: darken( white, 3%);
 
-$NAV_COLOR: lighten( blue, 15%);
+$NAV_COLOR: mix( lighten( green, 30%), desaturate( lighten( blue, 10%), 40% ), 25% );

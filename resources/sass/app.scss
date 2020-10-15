@@ -12,6 +12,9 @@
 
 
 #playlists_index, #explorer_index {
+    box-sizing: border-gox;
+    padding-top: 25px;
+    padding-bottom: 25px;
     .playlist {
         margin-bottom: 20px;
         .playlist_image {

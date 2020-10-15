@@ -103,7 +103,7 @@ $("#playlists_index .playlist_add").each(function (i, obj) {
    * playlist html, content fix
    */
   if ($(this).hasClass("in_crate")) {
-    $(this).html("Remove Playlist");
+    $(this).html("Unshare Playlist");
   }
 });
 $("#playlists_index .playlist_add").on("click", function (e) {
@@ -121,12 +121,12 @@ $("#playlists_index .playlist_add").on("click", function (e) {
 
   if ($(this).hasClass("in_crate")) {
     //  playlist in crate, removing
-    $(this).html("Add Playlist");
+    $(this).html("Share Playlist");
     $(this).toggleClass("in_crate");
     var url = "/dashboard/playlist/remove";
   } else {
     //  playlist not in crate, adding
-    $(this).html("Remove Playlist");
+    $(this).html("Unshare Playlist");
     $(this).toggleClass("in_crate");
     var url = "/dashboard/playlist/add";
   }

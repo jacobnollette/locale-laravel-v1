@@ -5,6 +5,8 @@
 @section("page_content")
     <section id="main">
         <div class="container">
+            <h1>Dashboard</h1>
+
             <div id="playlists_index">
                 @foreach ($playlists as $playlist)
                     <div class="playlist" data-playlist_id="{{$playlist->id}}">
@@ -15,7 +17,7 @@
                                 <a class="playlist_add @if ( $playlist->inCrate == "yes" )
                                     in_crate
 @endif
-                                    " href="#">Add Playlist</a>
+                                    " href="#">Share Playlist</a>
                             </div>
                         </div>
                         <div class="clear">&nbsp;</div>

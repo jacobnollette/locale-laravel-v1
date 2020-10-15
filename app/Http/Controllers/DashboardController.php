@@ -62,17 +62,28 @@ class DashboardController extends Controller
          * add it to the queue
          */
         //$this->playlist_update_all();
-        $playlists = $this->playlist_update_10();
-        $playlists = $playlists->items;
+        //$playlists = $this->playlist_update_10();
+        //$playlists = $playlists->items;
 
+        //$playlists = $this->playlist_check_crate ( $playlists );
+
+
+        $playlists = $this->playlists_get(10);
         $playlists = $this->playlist_check_crate ( $playlists );
+        //dd( $playlists );
+
+
         return view('dashboard/index', [
             'playlists' => $playlists
         ]);
 
 
+
     }
 
+    private function playlists_get ( $amount ) {
+        return Spotify_playlists::orderBy('date_updated', 'desc')->where("locale_user_id", Auth::id())->limit( $amount )->get();
+    }
     public function playlist_add (Request $request) {
         $_user = User::where("id", "=", Auth::id())->first();
         User_crates::updateOrInsert(
@@ -92,7 +103,9 @@ class DashboardController extends Controller
         $_output_playlists = array();
         foreach( $playlists as $playlist ):
             $_single_playlist = $playlist;
-            $_single_playlist->inCrate = $this->playlist_isin_crate( $_single_playlist->id );
+            $_single_playlist->inCrate = $this->playlist_isin_crate( $playlist->playlist_id );
+            $_spotify_query = $this->spotify->spotify_api->getPlaylist($playlist->playlist_id);
+            $_single_playlist->images = $_spotify_query->images;
             $_output_playlists[] = $_single_playlist;
         endforeach;
         return $_output_playlists;
@@ -101,7 +114,6 @@ class DashboardController extends Controller
         $_playlist = User_Crates::where("playlist_id", "=", $playlist_id )->first();
         if ( is_null( $_playlist ) ) {
             return "no";
-            //return "yes";
         } else {
             return "yes";
         }

@@ -7,7 +7,7 @@
         <div class="container">
             <div id="playlists_index">
                 @foreach ($playlists as $playlist)
-                    <div class="playlist" data-playlist_id="{{$playlist->id}}">
+                    <div class="playlist" data-playlist_id="{{$playlist->playlist_id}}">
                         <div class="playlist_image"><img src="{{$playlist->images[0]->url}}"/></div>
                         <div class="playlist_display">
                             <div class="playlist_name">{{$playlist->name}}</div>

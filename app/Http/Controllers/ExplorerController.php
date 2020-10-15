@@ -47,27 +47,24 @@ class ExplorerController extends Controller
     {
 
         $_recent_playlists = User_crates::orderBy('created_at', 'desc')->where("locale_user_id", "<>", Auth::id() )->limit(10)->get();
-
-
-        //dd($_recent_playlists);
         $output_playlists = array();
         foreach ($_recent_playlists as $playlist) {
-            //$playlist->locale_user_id;
-            //$playlist->playlist_id;
-            $_playlist_info = Spotify_playlists::where("playlist_id", $playlist->playlist_id)->first();
-//            dd($_playlist_info);
-            //$_playlist_info->playlist_name;
-            $_temp_spotify_api = $this->connect_as_user($_playlist_info->locale_user_id);
-            $_spotify_playlist = $_temp_spotify_api->spotify_api->getPlaylist($_playlist_info->playlist_id);
+            $_temp_spotify_api = $this->connect_as_user( Auth::id() );
+//            dd( $_temp_spotify_api );
+            dd( $playlist->playlist_id);
+            $_spotify_playlist = $_temp_spotify_api->spotify_api->getPlaylist($playlist->playlist_id);
             $_spotify_playlist->inCrate = 'no';
-
-
             $output_playlists[] = $_spotify_playlist;
-
-
+            //$_playlist_info = Spotify_playlists::where("id", $playlist->playlist_id))->first();
+//            $_playlist_info = Spotify_playlists::where("id", $playlist->playlist_id))->first();
+//            dd($_playlist_info);
+//            $user_id = $_playlist_info->locale_user_id;
+//            dd( $user_id );
+//            $_temp_spotify_api = $this->connect_as_user( $user_id );
+//            $_spotify_playlist = $_temp_spotify_api->spotify_api->getPlaylist($_playlist_info->playlist_id);
+//            $_spotify_playlist->inCrate = 'no';
+//            $output_playlists[] = $_spotify_playlist;
         }
-
-
         return view('explorer/index', [
             'playlists' => $output_playlists
         ]);

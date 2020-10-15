@@ -45,7 +45,13 @@ class ExplorerController extends Controller
 
     public function index()
     {
-
+        if ( Auth::id() != true ):
+            /**
+             * we are not logged in, redirect to spotify
+             */
+            header('Location: /' );
+            die();
+        endif;
         $_recent_playlists = User_crates::orderBy('created_at', 'desc')->where("locale_user_id", "<>", Auth::id() )->limit(10)->get();
 
 

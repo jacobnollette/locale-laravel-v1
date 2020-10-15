@@ -6,7 +6,7 @@
             <div id="header_login">
                 <div>
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/spotify') }}">Settings</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         @if (Route::has('register'))
@@ -21,6 +21,7 @@
             <ul>
                 <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/explore">Explore</a></li>
+
             </ul>
         </div>
     </div>

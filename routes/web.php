@@ -42,7 +42,4 @@ Route::get( '/spotify/auth', 'App\Http\Controllers\SpotifyController@spotify_aut
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', function () {
-    header('Location: /spotify' );
-    die();
-});
+Route::get( '/', 'App\Http\Controllers\SpotifyController@landing');

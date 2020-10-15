@@ -12,8 +12,8 @@
                 <h2>Take me to <a href="/dashboard">Dashboard</a></h2>
             @endisset
 
-            <h1>Welcome</h1>
-                <h2>Please register your account</h2>
+            <h1>Spotify Configuration</h1>
+                <p>If you're having trouble with your spotify account, please connect or reconnect below</p>
             <div id="spotify_connect_button"><a href="/spotify/auth">Connect or Reconnect Spotify account!</a></div>
 
         </div>

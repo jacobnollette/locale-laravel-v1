@@ -6,7 +6,7 @@
     <section id="main">
         <div class="container">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+{{--                <div class="card-header">{{ __('Dashboard') }}</div>--}}
 
                 <div class="card-body">
                     @if (session('status'))
@@ -23,7 +23,7 @@
 
                 </div>
             </div>
-            <a href="/spotify">Start Spotify process!</a>
+            <a href="/spotify/auth">Please connect your spotify account!</a>
         </div>
     </section>
 @endsection

@@ -51,7 +51,7 @@ class DashboardController extends Controller
             /**
              * we are not logged in, redirect to spotify
              */
-            header('Location: /spotify' );
+            header('Location: /' );
             die();
         endif;
         $this->spotify_connect();

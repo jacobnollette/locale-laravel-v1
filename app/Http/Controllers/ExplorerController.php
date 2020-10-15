@@ -42,4 +42,58 @@ class ExplorerController extends Controller
     {
         $this->spotify = new SpotifyController();
     }
+
+    public function index()
+    {
+        $_recent_playlists = User_crates::orderBy('created_at', 'desc')->limit(10)->get();
+
+        //dd($_recent_playlists);
+        $output_playlists = array();
+        foreach ($_recent_playlists as $playlist) {
+            //$playlist->locale_user_id;
+            //$playlist->playlist_id;
+            $_playlist_info = Spotify_playlists::where("playlist_id", $playlist->playlist_id)->first();
+//            dd($_playlist_info);
+            //$_playlist_info->playlist_name;
+            $_temp_spotify_api = $this->connect_as_user( $_playlist_info->locale_user_id );
+            $_spotify_playlist = $_temp_spotify_api->spotify_api->getPlaylist($_playlist_info->playlist_id);
+            $_spotify_playlist->inCrate = 'no';
+
+
+            $output_playlists[] = $_spotify_playlist;
+
+
+        }
+
+
+        return view('explorer/index', [
+            'playlists' => $output_playlists
+        ]);
+    }
+
+    private function connect_as_user($given_locale_id)
+    {
+        $_user = User::where("id", "=", $given_locale_id)->first();
+        $_output_spotify = new SpotifyController();
+        $_output_spotify->spotify_session->refreshAccessToken($_user->spotify_refresh_token);
+        $_output_spotify->spotify_access_token = $_output_spotify->spotify_session->getAccessToken();
+        $_output_spotify->spotify_refresh_token = $_output_spotify->spotify_session->getRefreshToken();
+        User::where("id", "=", $given_locale_id)->update(array(
+            'spotify_access_token' => $_output_spotify->spotify_access_token,
+            'spotify_refresh_token' => $_output_spotify->spotify_refresh_token,
+            'spotify_access_token_added' => now(),
+            'spotify_refresh_token_added' => now()
+        ));
+
+        $_output_spotify->spotify_api->setAccessToken($_output_spotify->spotify_access_token);
+
+        //  we have a spotify access token,
+        //  update user info
+        $me = $_output_spotify->spotify_api->me();
+        User::where("id", "=", $given_locale_id)->update(array(
+            'spotify_user_id' => $me->id
+        ));
+
+        return $_output_spotify;
+    }
 }

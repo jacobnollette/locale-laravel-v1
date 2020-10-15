@@ -87,35 +87,66 @@ header .container {
   padding-bottom: 10px;
 }
 
+header #header_nav ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  box-size: border-box;
+  padding-left: 25px;
+}
+
+header #header_nav ul li {
+  display: inline;
+  margin: 0px;
+  padding: 0px;
+  margin-left: 20px;
+  font-size: 24px;
+}
+
+header #header_nav ul li:first-child {
+  margin-left: 0px;
+}
+
+header #header_nav ul li a {
+  color: #4d4dff;
+}
+
 #main .container {
   background-color: #f7f7f7;
 }
 
-#playlists_index .playlist {
+#playlists_index .playlist,
+#explorer_index .playlist {
   margin-bottom: 20px;
 }
 
-#playlists_index .playlist .playlist_image {
+#playlists_index .playlist .playlist_image,
+#explorer_index .playlist .playlist_image {
   float: left;
 }
 
-#playlists_index .playlist .playlist_image img {
+#playlists_index .playlist .playlist_image img,
+#explorer_index .playlist .playlist_image img {
   width: 120px;
 }
 
-#playlists_index .playlist .playlist_display {
+#playlists_index .playlist .playlist_display,
+#explorer_index .playlist .playlist_display {
   margin-left: 140px;
 }
 
-#playlists_index .playlist .playlist_name {
+#playlists_index .playlist .playlist_name,
+#explorer_index .playlist .playlist_name {
   margin-top: 15px;
 }
 
-#playlists_index .playlist .playlist_add {
+#playlists_index .playlist .playlist_add,
+#explorer_index .playlist .playlist_add {
   text-decoration: none;
 }
 
-#playlists_index .playlist .playlist_add.in_crate {
+#playlists_index .playlist .playlist_add.in_crate,
+#explorer_index .playlist .playlist_add.in_crate {
   text-decoration: underline;
 }
 

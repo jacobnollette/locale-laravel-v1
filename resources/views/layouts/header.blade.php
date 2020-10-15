@@ -17,5 +17,11 @@
             </div>
         @endif
         <div class="clear">&nbsp;</div>
+        <div id="header_nav">
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/explore">Explore</a></li>
+            </ul>
+        </div>
     </div>
 </header>

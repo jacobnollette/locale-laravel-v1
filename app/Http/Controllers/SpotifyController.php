@@ -36,9 +36,9 @@ class SpotifyController extends Controller
     public $spotify_refresh_token;
 
 
-    function __construct()
+    function __construct($test = null)
     {
-
+        //dd( $test);
         /**
          * Spotify bits
          */

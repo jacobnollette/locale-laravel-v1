@@ -76,7 +76,8 @@ class DashboardController extends Controller
     public function playlist_add (Request $request) {
         $_user = User::where("id", "=", Auth::id())->first();
         User_crates::updateOrInsert(
-            ['locale_user_id' => Auth::id(), "playlist_id" => $request->playlist]
+            ['locale_user_id' => Auth::id(), "playlist_id" => $request->playlist],
+            ['created_at'=>now(), 'updated_at'=>now(), 'created_at'=>now(), ]
         );
         echo json_encode( "Added $request->playlist to crate!" );
     }

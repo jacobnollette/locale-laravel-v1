@@ -17,8 +17,6 @@ class CreateUserCreate extends Migration
             $table->id();
             $table->string('locale_user_id');
             $table->string('playlist_id');
-            $table->timestamp('date_added')->nullable();
-            $table->timestamp('date_updated')->nullable();
             $table->timestamps();
         });
     }

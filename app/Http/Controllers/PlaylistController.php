@@ -50,8 +50,13 @@ class PlaylistController extends Controller
         endif;
         $this->spotify_connect();
 
+
+
+
+
+
         return view('playlist/index', [
-            'playlists' => $playlists
+            'title' => $_playlist_title
         ]);
 
     }

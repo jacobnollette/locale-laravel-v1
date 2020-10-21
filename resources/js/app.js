@@ -1,5 +1,5 @@
 //require('./bootstrap');
-
+require('./vendor/leaflet');
 /**
  * Dashboard index stuff
  */

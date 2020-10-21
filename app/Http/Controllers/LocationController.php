@@ -56,6 +56,13 @@ class LocationController extends Controller
         ]);
     }
 
+    public function location_update (Request $request) {
+        $_playlist = $request->playlist;
+        $_location = $request->location;
+
+
+    }
+
 
     private function spotify_connect()
     {

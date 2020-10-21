@@ -37,7 +37,7 @@ class PlaylistController extends Controller
     }
 
 
-    public function index()
+    public function index (Request $request)
     {
         //  connect to spotify, provide access token
         $test = new Auth();
@@ -50,9 +50,10 @@ class PlaylistController extends Controller
         endif;
         $this->spotify_connect();
 
-        return view('dashboard/index', [
+        return view('playlist/index', [
             'playlists' => $playlists
         ]);
+
     }
 
 

@@ -39,8 +39,6 @@ class PlaylistController extends Controller
 
     public function index (Request $request, $id)
     {
-        //  connect to spotify, provide access token
-        $test = new Auth();
         if (Auth::id() != true):
             /**
              * we are not logged in, redirect to spotify
@@ -57,6 +55,21 @@ class PlaylistController extends Controller
             'playlist'=>$playlist
         ]);
 
+    }
+
+    public function playlist_location_get (Request $request)
+    {
+        if (Auth::id() != true):
+            /**
+             * we are not logged in, redirect to spotify
+             */
+            header('Location: /');
+            die();
+        endif;
+
+        $query = "hello";
+        $query = json_encode( $query );
+        return $query;
     }
 
 

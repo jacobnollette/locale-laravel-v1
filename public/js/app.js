@@ -230,9 +230,9 @@ function playlist_edit_map() {
   //     console.log( this.responseText );
   //     // _return = JSON.parse( this.responseText );
   // }
-  var mymap = L.map('playlists_edit-map').setView([51.505, -0.09], 13);
+  var mymap = L.map('playlists_edit-map').setView([44.956790, -93.274680], 13);
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     id: 'mapbox/streets-v11',
     tileSize: 512,
@@ -244,8 +244,6 @@ function playlist_edit_map() {
 if ($("#playlists_edit").length > 0) {
   playlist_edit_map();
 }
-
-var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
 /***/ }),
 

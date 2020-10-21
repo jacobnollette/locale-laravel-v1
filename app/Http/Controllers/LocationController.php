@@ -29,7 +29,8 @@ use App\Models\User_crates;
 //  spotify api wrapper - https://github.com/jwilsson/spotify-web-api-php#usage
 use SpotifyWebAPI\SpotifyWebAPI;
 use SpotifyWebAPI\Session;
-class PlaylistController extends Controller
+
+class LocationController extends Controller
 {
     function __construct()
     {

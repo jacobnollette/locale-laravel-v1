@@ -942,3 +942,69 @@ header #header_login ul li a {
   text-decoration: underline;
 }
 
+#playlists_edit #playlists_edit-tracks-list {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+#playlists_edit #playlists_edit-tracks-list > li {
+  margin: 0px;
+  padding: 0px;
+  display: block;
+  padding-left: 10px;
+}
+
+#playlists_edit #playlists_edit-tracks-list > li:nth-child(even) {
+  background-color: #cdcdcd;
+}
+
+#playlists_edit #playlists_edit-tracks-list > li:nth-child(odd) {
+  background-color: #343434;
+}
+
+#playlists_edit #playlists_edit-tracks-list > li:nth-child(odd) .playlists_edit-tracks-title {
+  color: white;
+}
+
+#playlists_edit .playlists_edit-tracks-title {
+  display: inline;
+  max-width: 150px;
+  word-wrap: break-word !important;
+}
+
+#playlists_edit .playlists_edit-artist_break {
+  display: inline;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+#playlists_edit .playlists_edit-tracks-artists {
+  display: inline;
+}
+
+#playlists_edit .playlists_edit-tracks-artists-display {
+  display: inline;
+  display: none;
+}
+
+#playlists_edit .playlists_edit-tracks-artists {
+  display: inline;
+}
+
+#playlists_edit .playlists_edit-tracks-artists ul {
+  display: inline;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+#playlists_edit .playlists_edit-tracks-artists ul li {
+  display: inline;
+  margin: 0px;
+  padding: 0px;
+  background-color: gray;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+

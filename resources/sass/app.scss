@@ -49,5 +49,52 @@
 }
 
 #playlists_edit {
-
+    #playlists_edit-tracks-list {
+        list-style: none;
+        margin: 0px; padding: 0px;
+        & > li {
+            margin: 0px; padding: 0px;
+            display: block;
+            padding-left: 10px;
+            &:nth-child(even) {
+                background-color: lighten( gray, 30% );
+            }
+            &:nth-child(odd) {
+                background-color: darken( gray, 30% );
+                .playlists_edit-tracks-title {
+                    color: white;
+                }
+            }
+        }
+    }
+    .playlists_edit-tracks-title {
+        display: inline;
+        max-width: 150px;
+        word-wrap: break-word !important;
+    }
+    .playlists_edit-artist_break {
+        display: inline;
+        margin-left: 6px; margin-right: 6px;
+    }
+    .playlists_edit-tracks-artists {
+        display: inline;
+    }
+    .playlists_edit-tracks-artists-display {
+        display: inline;
+        display: none;
+    }
+    .playlists_edit-tracks-artists {
+        display: inline;
+        ul {
+            display: inline;
+            list-style: none;
+            margin: 0px; padding: 0px;
+            li {
+                display: inline;
+                margin: 0px; padding: 0px;
+                background-color: gray;
+                padding-left: 6px; padding-right: 6px;
+            }
+        }
+    }
 }

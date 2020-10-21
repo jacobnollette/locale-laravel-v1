@@ -35,4 +35,45 @@ class PlaylistController extends Controller
     {
         $this->spotify = new SpotifyController();
     }
+
+
+
+
+    private function spotify_connect()
+    {
+        /**
+         * we need to move this functionality to the spotify controller
+         */
+        $_user = User::where("id", "=", Auth::id())->first();
+        if (isset($_user->spotify_refresh_token)) :
+            $this->spotify->spotify_session->refreshAccessToken($_user->spotify_refresh_token);
+            $this->spotify->spotify_access_token = $this->spotify->spotify_session->getAccessToken();
+            $this->spotify->spotify_refresh_token = $this->spotify->spotify_session->getRefreshToken();
+            User::where("id", "=", Auth::id())->update(array(
+                'spotify_access_token' => $this->spotify->spotify_access_token,
+                'spotify_refresh_token' => $this->spotify->spotify_refresh_token,
+                'spotify_access_token_added' => now(),
+                'spotify_refresh_token_added' => now()
+            ));
+
+            $this->spotify->spotify_api->setAccessToken($this->spotify->spotify_access_token);
+
+            //  we have a spotify access token,
+            //  update user info
+            $this->spotify_update_user();
+        endif;
+
+    }
+
+    private function spotify_update_user()
+    {
+        /**
+         * we need to move this functionality to the spotify controller
+         */
+        //  get spotify user data & add to locale user table
+        $me = $this->spotify->spotify_api->me();
+        User::where("id", "=", Auth::id())->update(array(
+            'spotify_user_id' => $me->id
+        ));
+    }
 }

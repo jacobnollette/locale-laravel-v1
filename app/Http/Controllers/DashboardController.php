@@ -211,6 +211,9 @@ class DashboardController extends Controller
 
     private function spotify_connect()
     {
+        /**
+         * we need to move this functionality to the spotify controller
+         */
         $_user = User::where("id", "=", Auth::id())->first();
         if (isset($_user->spotify_refresh_token)) :
             $this->spotify->spotify_session->refreshAccessToken($_user->spotify_refresh_token);
@@ -234,6 +237,9 @@ class DashboardController extends Controller
 
     private function spotify_update_user()
     {
+        /**
+         * we need to move this functionality to the spotify controller
+         */
         //  get spotify user data & add to locale user table
         $me = $this->spotify->spotify_api->me();
         User::where("id", "=", Auth::id())->update(array(

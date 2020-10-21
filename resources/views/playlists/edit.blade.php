@@ -6,15 +6,15 @@
     <section id="main">
         <div class="container">
             <h1>{{$playlist->name}}</h1>
-            <div class="playlist_index-description">{{$playlist->description}}</div>
-            <div class="playlist_index-tracks">
+            <div class="playlists_edit-description">{{$playlist->description}}</div>
+            <div class="playlists_edit-tracks">
                 @foreach ( $playlist->tracks->items as $track )
-                    <div class="playlist_index-tracks-track">
-                        <div class="playlist_index-tracks-title">
+                    <div class="playlists_edit-tracks-track">
+                        <div class="playlists_edit-tracks-title">
                             {{$track->track->name}}
                         </div>
-                        <div class="playlist_index-tracks-artists">
-                            <div class="playlist_index-tracks-artists-display">Artists:</div>
+                        <div class="playlists_edit-tracks-artists">
+                            <div class="playlists_edit-tracks-artists-display">Artists:</div>
                             <ul>
                                 @foreach( $track->track->artists as $artist )
                                     <li>{{$artist->name}}</li>

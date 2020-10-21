@@ -7,6 +7,8 @@
         <div id="playlists_edit" class="container">
             <h1>{{$playlist->name}}</h1>
             <div class="playlists_edit-description">{{$playlist->description}}</div>
+            <div class="clear">&nbsp;</div>
+            <div id="playlists_edit-map"></div>
             <div class="playlists_edit-tracks">
                 <ul id="playlists_edit-tracks-list">
                 @foreach ( $playlist->tracks->items as $track )

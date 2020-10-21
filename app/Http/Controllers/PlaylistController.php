@@ -53,7 +53,7 @@ class PlaylistController extends Controller
         $playlist = $this->spotify->spotify_api->getPlaylist($id);
         //dd($playlist->tracks->items[0]);
         //dd( $playlist);
-        return view('playlists/index', [
+        return view('playlists/edit', [
             'playlist'=>$playlist
         ]);
 

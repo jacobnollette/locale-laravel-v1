@@ -56,23 +56,38 @@ class LocationController extends Controller
         ]);
     }
 
-    public function location_update (Request $request) {
+    public function location_update(Request $request)
+    {
         $_playlist = $request->playlist;
         $_location = $request->location;
     }
 
 
-    public function geocode_api_lookup (Request $request) {
-        $_given_request = $request->location;
-        return $this->geocode_lookup($_given_request );
+    public function geocode_api_lookup(Request $request)
+    {
+        if (empty($request->location) == true || empty($request->limit) == true) {
+            $output = array(
+                "error" => "invalid input"
+            );
+            //  we have invalid input
+            //  probably need a proper status code at some point
+            //  csrf token should have been included from javascript
+            return json_encode($output);
+        } else {
+            $_given_request = $request->location;
+            $_limit = $request->limit;
+            return $this->geocode_lookup($_given_request, $_limit);
+        }
+
     }
 
-    public function geocode_lookup( $givenAddress ) {
+    public function geocode_lookup($givenAddress, $limit)
+    {
         $queryString = http_build_query([
             'access_key' => env("POSITION_STACK_API"),
             'query' => $givenAddress,
             'output' => 'json',
-            'limit' => 1,
+            'limit' => $limit,
         ]);
 
         $ch = curl_init(sprintf('%s?%s', 'https://api.positionstack.com/v1/forward', $queryString));

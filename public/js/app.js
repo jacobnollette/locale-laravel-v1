@@ -197,7 +197,7 @@ if ($("#explorer_index").length > 0) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function playlist_edit_load_map(location) {
+function playlist_edit_load_map(location, initial) {
   //  map init
   var mymap = L.map('playlists_edit-map').setView(location, 13);
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -209,13 +209,19 @@ function playlist_edit_load_map(location) {
     dragging: false,
     accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
   }).addTo(mymap);
-  /**
-   * marker logic
-   */
 
-  mymap.on('click', function (ev) {
-    L.marker(ev.latlng).addTo(mymap); //alert(); // ev is an event object (MouseEvent in this case)
-  });
+  var _add_market = function _add_market() {};
+
+  if (initial) {
+    L.marker(location).addTo(mymap);
+  } else {
+    /**
+     * place marketmarker logic
+     */
+    mymap.on('click', function (ev) {
+      L.marker(ev.latlng).addTo(mymap); //alert(); // ev is an event object (MouseEvent in this case)
+    });
+  }
 }
 
 function playlist_edit_map() {
@@ -234,7 +240,14 @@ function playlist_edit_map() {
   if ($("#playlist_location").data("lat") == 0 && $("#playlist_location").data("long") == 0) {
     //  process text field
     $('#playlists_edit-location_form').on('submit', function (e) {
-      // validation code here
+      /**
+       * validation code here
+       */
+
+      /**
+       * remove previous list items, and start fresh
+       */
+      $("#playlist_edit-location_list ul li").remove();
       var request = {
         "location": $("#playlist_edit-location_field").val(),
         "limit": 5
@@ -248,7 +261,9 @@ function playlist_edit_map() {
       xhr.send(JSON.stringify(request));
 
       xhr.onload = function () {
-        //console.log(this.responseText);
+        /**
+         * return
+         */
         _return = JSON.parse(this.responseText); //console.log( _return );
 
         _return.data.forEach(function (e) {
@@ -260,8 +275,7 @@ function playlist_edit_map() {
           e.preventDefault();
           _location = [$(this).parent().data("lat"), $(this).parent().data("long")];
           $("#playlists_edit-location").hide();
-          playlist_edit_load_map(_location);
-          alert("general location provide; please click for exact location");
+          playlist_edit_load_map(_location, true); //alert("general location provide; please click for exact location");
         }); // var _input_latlong = [
         //     _return.data[0].latitude,
         //     _return.data[0].longitude

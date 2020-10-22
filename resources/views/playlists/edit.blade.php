@@ -14,7 +14,7 @@
             <div id="playlists_edit-location">
                 <form id="playlists_edit-location_form">
                     <input id="playlist_edit-location_field" type="text">
-                    <input id="playlist_edit-location_submit" type="submit" value="Submit">
+                    <input id="playlist_edit-location_submit" type="submit" value="Search">
                 </form>
                 <div id="playlist_edit-location_list">
                     <ul>

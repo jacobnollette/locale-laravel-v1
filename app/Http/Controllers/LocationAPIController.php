@@ -32,6 +32,12 @@ use SpotifyWebAPI\Session;
 
 class LocationAPIController extends Controller
 {
+    /**
+     * documentation
+     * position stack / https://positionstack.com/documentation#php
+     */
+
+
     function __construct()
     {
         $this->spotify = new SpotifyController();
@@ -62,6 +68,9 @@ class LocationAPIController extends Controller
      *******************/
     public function geocode_lookup($givenAddress, $limit)
     {
+        /**
+         * geo-code forward lookup
+         */
         $queryString = http_build_query([
             'access_key' => env("POSITION_STACK_API"),
             'query' => $givenAddress,
@@ -76,6 +85,7 @@ class LocationAPIController extends Controller
 
         curl_close($ch);
 
+        //  don't json decode; just dump
         return $json;
     }
 

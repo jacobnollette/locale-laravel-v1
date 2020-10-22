@@ -19,6 +19,7 @@ class AddPlaylists extends Migration
             $table->string('locale_user_id');
             $table->string('playlist_name');
             $table->string('playlist_id');
+            $table->string('location')->nullable();
             $table->longText('tracks')->nullable();
             $table->timestamp('date_added')->nullable();
             $table->timestamp('date_updated')->nullable();

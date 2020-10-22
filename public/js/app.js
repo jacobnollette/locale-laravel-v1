@@ -210,17 +210,56 @@ function playlist_edit_load_map(location, initial) {
     accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
   }).addTo(mymap);
 
-  var _add_market = function _add_market() {};
+  var _add_marker = function _add_marker(latlng) {
+    /**
+     * place marker in the database
+     */
+    var csrf = document.querySelector('meta[name="csrf-token"]').content;
+    /**
+     * add market to map
+     */
+
+    L.marker(latlng).addTo(mymap);
+    /**
+     * post location to database
+     */
+
+    var _given_url = window.location;
+    _given_url = _given_url.pathname.split('/');
+    var playlist_id = _given_url[2];
+
+    var _location_url = "/playlist/" + playlist_id + "/update";
+
+    console.log(_location_url);
+    var _request = {
+      "location": latlng
+    };
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", _location_url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('X-CSRF-Token', csrf);
+    xhr.send(JSON.stringify(_request));
+
+    xhr.onload = function () {
+      /**
+       * return
+       */
+      //console.log( this );
+      //_return = JSON.parse(this.responseText);
+      //console.log( _return );
+    };
+  };
 
   if (initial) {
-    L.marker(location).addTo(mymap);
+    alert("Click a more specific location for your playlist");
+    mymap.on('click', function (ev) {
+      _add_marker(ev.latlng);
+    });
   } else {
     /**
-     * place marketmarker logic
+     * place mark marker logic
      */
-    mymap.on('click', function (ev) {
-      L.marker(ev.latlng).addTo(mymap); //alert(); // ev is an event object (MouseEvent in this case)
-    });
+    L.marker(location).addTo(mymap);
   }
 }
 

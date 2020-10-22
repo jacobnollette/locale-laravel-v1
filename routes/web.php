@@ -23,12 +23,13 @@ Route::post( '/dashboard/playlist/remove/', 'App\Http\Controllers\DashboardContr
 /**
  * Playlist rubbish
  */
-Route::get( '/playlist/{id}', 'App\Http\Controllers\PlaylistController@index');
+Route::get( '/playlist/{id}/', 'App\Http\Controllers\PlaylistController@index');
+Route::post( '/playlist/{id}/update/', 'App\Http\Controllers\PlaylistController@update');
 
 /**
  * Location API rubbish
  */
-Route::post('/utility/location/get', 'App\Http\Controllers\LocationAPIController@api_v1_location_get');
+Route::post('/utility/location/get/', 'App\Http\Controllers\LocationAPIController@api_v1_location_get');
 
 /**
  * Explorer rubbish

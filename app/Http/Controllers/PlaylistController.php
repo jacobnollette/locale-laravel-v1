@@ -30,6 +30,7 @@ use App\Models\User_crates;
 //  spotify api wrapper - https://github.com/jwilsson/spotify-web-api-php#usage
 use SpotifyWebAPI\SpotifyWebAPI;
 use SpotifyWebAPI\Session;
+
 class PlaylistController extends Controller
 {
     function __construct()
@@ -38,7 +39,7 @@ class PlaylistController extends Controller
     }
 
 
-    public function index (Request $request, $id)
+    public function index(Request $request, $id)
     {
         if (Auth::id() != true):
             /**
@@ -54,14 +55,14 @@ class PlaylistController extends Controller
          * this is where we're going to add the previous data (model
          */
         $_geocode = LocationController::geocode_lookup("");
-        $_geocode = json_decode( $_geocode );
+        $_geocode = json_decode($_geocode);
 
         /**
          * parse the location for valid return
          */
-        if ( empty( $_geocode->data[0]->latitude ) == true || empty( $_geocode->data[0]->longitude ) == true ) {
+        if (empty($_geocode->data[0]->latitude) == true || empty($_geocode->data[0]->longitude) == true) {
             $location = array(
-                0,0
+                0, 0
             );
         } else {
             $location = array(
@@ -82,15 +83,21 @@ class PlaylistController extends Controller
          * output
          */
         return view('playlists/edit', [
-            'playlist'=>$playlist,
-            'location'=>$location
+            'playlist' => $playlist,
+            'location' => $location
         ]);
     }
 
+    public function update(Request $request)
+    {
+        $location = json_decode( $request->location );
+        $location->lat
+            $location->lng
+    }
 
 
-
-    public function playlist_location_get (Request $request)
+    public
+    function playlist_location_get(Request $request)
     {
         if (Auth::id() != true):
             /**
@@ -101,12 +108,13 @@ class PlaylistController extends Controller
         endif;
 
         $query = "hello";
-        $query = json_encode( $query );
+        $query = json_encode($query);
         return $query;
     }
 
 
-    private function spotify_connect()
+    private
+    function spotify_connect()
     {
         /**
          * we need to move this functionality to the spotify controller
@@ -132,7 +140,8 @@ class PlaylistController extends Controller
 
     }
 
-    private function spotify_update_user()
+    private
+    function spotify_update_user()
     {
         /**
          * we need to move this functionality to the spotify controller

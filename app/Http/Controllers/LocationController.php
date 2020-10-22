@@ -59,8 +59,30 @@ class LocationController extends Controller
     public function location_update (Request $request) {
         $_playlist = $request->playlist;
         $_location = $request->location;
+    }
 
 
+    public function geocode_api_lookup (Request $request) {
+        $_given_request = $request->location;
+        return $this->geocode_lookup($_given_request );
+    }
+
+    public function geocode_lookup( $givenAddress ) {
+        $queryString = http_build_query([
+            'access_key' => env("POSITION_STACK_API"),
+            'query' => $givenAddress,
+            'output' => 'json',
+            'limit' => 1,
+        ]);
+
+        $ch = curl_init(sprintf('%s?%s', 'https://api.positionstack.com/v1/forward', $queryString));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $json = curl_exec($ch);
+
+        curl_close($ch);
+
+        return $json;
     }
 
 

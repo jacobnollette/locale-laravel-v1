@@ -26,6 +26,10 @@ Route::post( '/dashboard/playlist/remove/', 'App\Http\Controllers\DashboardContr
 Route::get( '/playlist/{id}', 'App\Http\Controllers\PlaylistController@index');
 
 /**
+ * Location API rubbish
+ */
+Route::get('/api/v1/location/get', 'App\Http\Controllers\LocationController@geocode_api_lookup');
+/**
  * Explorer rubbish
  */
 Route::get( '/explore/', 'App\Http\Controllers\ExplorerController@index');

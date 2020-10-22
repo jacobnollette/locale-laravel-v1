@@ -26,9 +26,7 @@ use App\Models\User_crates;
  * packages
  */
 
-//  spotify api wrapper - https://github.com/jwilsson/spotify-web-api-php#usage
-use SpotifyWebAPI\SpotifyWebAPI;
-use SpotifyWebAPI\Session;
+
 
 class LocationAPIController extends Controller
 {
@@ -38,9 +36,10 @@ class LocationAPIController extends Controller
      */
 
 
+
     function __construct()
     {
-        $this->spotify = new SpotifyController();
+
     }
 
     /***************
@@ -88,7 +87,4 @@ class LocationAPIController extends Controller
         //  don't json decode; just dump
         return $json;
     }
-
-
-
 }

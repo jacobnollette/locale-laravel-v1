@@ -21,15 +21,15 @@ Auth::routes();
 /**
  * Dashboard rubbish
  */
-Route::get( '/dashboard/', 'App\Http\Controllers\DashboardController@index');
-Route::post( '/dashboard/playlist/add/', 'App\Http\Controllers\DashboardController@playlist_add');
-Route::post( '/dashboard/playlist/remove/', 'App\Http\Controllers\DashboardController@playlist_remove');
+Route::get('/dashboard/', 'App\Http\Controllers\DashboardController@index');
+Route::post('/dashboard/playlist/add/', 'App\Http\Controllers\DashboardController@playlist_add');
+Route::post('/dashboard/playlist/remove/', 'App\Http\Controllers\DashboardController@playlist_remove');
 
 /**
  * Playlist rubbish
  */
-Route::get( '/playlist/{id}/', 'App\Http\Controllers\PlaylistController@index');
-Route::post( '/playlist/{id}/update/', 'App\Http\Controllers\PlaylistController@update');
+Route::get('/playlist/{id}/', 'App\Http\Controllers\PlaylistController@index');
+Route::post('/playlist/{id}/update/', 'App\Http\Controllers\PlaylistController@update');
 
 /**
  * Location API rubbish
@@ -39,7 +39,7 @@ Route::post('/utility/location/get/', 'App\Http\Controllers\LocationAPIControlle
 /**
  * Explorer rubbish
  */
-Route::get( '/explore/', 'App\Http\Controllers\ExplorerController@index');
+Route::get('/explore/', 'App\Http\Controllers\ExplorerController@index');
 Route::post( '/dashboard/explore/add/', 'App\Http\Controllers\ExplorerController@explorer_add');
 Route::post( '/dashboard/explore/remove/', 'App\Http\Controllers\ExplorerController@explorer_remove');
 

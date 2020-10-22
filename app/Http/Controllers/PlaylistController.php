@@ -50,6 +50,15 @@ class PlaylistController extends Controller
         endif;
         $this->spotify_connect();
 
+
+
+        $existing_field = Spotify_playlists::where('locale_user_id', Auth::id() )->where("playlist_id", $id)->first();
+//        dd( );
+//
+//        $existing_field->location_lat
+//
+
+
         /**
          * request location
          * this is where we're going to add the previous data (model
@@ -62,7 +71,7 @@ class PlaylistController extends Controller
          */
         if (empty($_geocode->data[0]->latitude) == true || empty($_geocode->data[0]->longitude) == true) {
             $location = array(
-                0, 0
+                $existing_field->location_lat, $existing_field->location_long
             );
         } else {
             $location = array(

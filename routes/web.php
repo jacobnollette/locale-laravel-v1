@@ -28,7 +28,8 @@ Route::get( '/playlist/{id}', 'App\Http\Controllers\PlaylistController@index');
 /**
  * Location API rubbish
  */
-Route::get('/api/v1/location/get', 'App\Http\Controllers\LocationController@geocode_api_lookup');
+Route::get('/utility/location/get', 'App\Http\Controllers\LocationAPIController@api_v1_location_get');
+
 /**
  * Explorer rubbish
  */

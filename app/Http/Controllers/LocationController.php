@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
  */
 
 use App\Http\Controllers\SpotifyController;
+use App\Http\Controller\LocationAPIController;
 
 /**
  * models
@@ -63,79 +64,10 @@ class LocationController extends Controller
     }
 
 
-    public function geocode_api_lookup(Request $request)
-    {
-        if (empty($request->location) == true || empty($request->limit) == true) {
-            $output = array(
-                "error" => "invalid input"
-            );
-            //  we have invalid input
-            //  probably need a proper status code at some point
-            //  csrf token should have been included from javascript
-            return json_encode($output);
-        } else {
-            $_given_request = $request->location;
-            $_limit = $request->limit;
-            return $this->geocode_lookup($_given_request, $_limit);
-        }
-
-    }
-
-    public function geocode_lookup($givenAddress, $limit)
-    {
-        $queryString = http_build_query([
-            'access_key' => env("POSITION_STACK_API"),
-            'query' => $givenAddress,
-            'output' => 'json',
-            'limit' => $limit,
-        ]);
-
-        $ch = curl_init(sprintf('%s?%s', 'https://api.positionstack.com/v1/forward', $queryString));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $json = curl_exec($ch);
-
-        curl_close($ch);
-
-        return $json;
-    }
 
 
-    private function spotify_connect()
-    {
-        /**
-         * we need to move this functionality to the spotify controller
-         */
-        $_user = User::where("id", "=", Auth::id())->first();
-        if (isset($_user->spotify_refresh_token)) :
-            $this->spotify->spotify_session->refreshAccessToken($_user->spotify_refresh_token);
-            $this->spotify->spotify_access_token = $this->spotify->spotify_session->getAccessToken();
-            $this->spotify->spotify_refresh_token = $this->spotify->spotify_session->getRefreshToken();
-            User::where("id", "=", Auth::id())->update(array(
-                'spotify_access_token' => $this->spotify->spotify_access_token,
-                'spotify_refresh_token' => $this->spotify->spotify_refresh_token,
-                'spotify_access_token_added' => now(),
-                'spotify_refresh_token_added' => now()
-            ));
 
-            $this->spotify->spotify_api->setAccessToken($this->spotify->spotify_access_token);
 
-            //  we have a spotify access token,
-            //  update user info
-            $this->spotify_update_user();
-        endif;
 
-    }
 
-    private function spotify_update_user()
-    {
-        /**
-         * we need to move this functionality to the spotify controller
-         */
-        //  get spotify user data & add to locale user table
-        $me = $this->spotify->spotify_api->me();
-        User::where("id", "=", Auth::id())->update(array(
-            'spotify_user_id' => $me->id
-        ));
-    }
 }

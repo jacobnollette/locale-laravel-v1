@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+
+/**
+ * controllers
+ */
+
+use App\Http\Controllers\SpotifyController;
+
+/**
+ * models
+ */
+
+use App\Models\User;
+use App\Models\Dashboard;
+use App\Models\Spotify;
+use App\Models\Spotify_playlists;
+use App\Models\User_crates;
+
+/**
+ * packages
+ */
+
+//  spotify api wrapper - https://github.com/jwilsson/spotify-web-api-php#usage
+use SpotifyWebAPI\SpotifyWebAPI;
+use SpotifyWebAPI\Session;
+
+class LocationAPIController extends Controller
+{
+    function __construct()
+    {
+        $this->spotify = new SpotifyController();
+    }
+
+    /***************
+     * API Methods *
+     ***************/
+    public function api_v1_location_get(Request $request)
+    {
+        if (empty($request->location) == true || empty($request->limit) == true) {
+            $output = array(
+                "error" => "invalid input"
+            );
+            //  we have invalid input
+            //  probably need a proper status code at some point
+            //  csrf token should have been included from javascript
+            return json_encode($output);
+        } else {
+            $_given_request = $request->location;
+            $_limit = $request->limit;
+            return LocationAPIController::geocode_lookup($_given_request, $_limit);
+        }
+    }
+
+    /*******************
+     * Backend Methods *
+     *******************/
+    public function geocode_lookup($givenAddress, $limit)
+    {
+        $queryString = http_build_query([
+            'access_key' => env("POSITION_STACK_API"),
+            'query' => $givenAddress,
+            'output' => 'json',
+            'limit' => $limit,
+        ]);
+
+        $ch = curl_init(sprintf('%s?%s', 'https://api.positionstack.com/v1/forward', $queryString));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $json = curl_exec($ch);
+
+        curl_close($ch);
+
+        return $json;
+    }
+
+
+
+}

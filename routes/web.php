@@ -50,6 +50,6 @@ Route::get( '/spotify/auth', 'App\Http\Controllers\SpotifyController@spotify_aut
  * Auth, and login rubbish
  */
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 Route::get( '/', 'App\Http\Controllers\SpotifyController@landing');

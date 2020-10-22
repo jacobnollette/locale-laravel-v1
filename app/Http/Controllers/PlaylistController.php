@@ -47,14 +47,34 @@ class PlaylistController extends Controller
             die();
         endif;
         $this->spotify_connect();
-
+        $_geocode = $this->get_geocode("55404");
         $playlist = $this->spotify->spotify_api->getPlaylist($id);
         //dd($playlist->tracks->items[0]);
         //dd( $playlist);
         return view('playlists/edit', [
-            'playlist'=>$playlist
+            'playlist'=>$playlist,
+            'geocode'=>$_geocode
         ]);
 
+    }
+
+
+    private function get_geocode( $givenAddress ) {
+        $queryString = http_build_query([
+            'access_key' => env("POSITION_STACK_API"),
+            'query' => $givenAddress,
+            'output' => 'json',
+            'limit' => 1,
+        ]);
+
+        $ch = curl_init(sprintf('%s?%s', 'https://api.positionstack.com/v1/forward', $queryString));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $json = curl_exec($ch);
+
+        curl_close($ch);
+
+        return $json;
     }
 
     public function playlist_location_get (Request $request)

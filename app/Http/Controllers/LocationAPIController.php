@@ -65,7 +65,7 @@ class LocationAPIController extends Controller
     /*******************
      * Backend Methods *
      *******************/
-    public function geocode_lookup($givenAddress, $limit)
+    static public function geocode_lookup($givenAddress, $limit)
     {
         /**
          * geo-code forward lookup

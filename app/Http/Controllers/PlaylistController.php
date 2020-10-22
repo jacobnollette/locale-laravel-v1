@@ -48,7 +48,7 @@ class PlaylistController extends Controller
             die();
         endif;
         $this->spotify_connect();
-        $_geocode = LocationController::geocode_lookip("55404");
+        $_geocode = LocationController::geocode_lookup("55404");
         $playlist = $this->spotify->spotify_api->getPlaylist($id);
         //dd($playlist->tracks->items[0]);
         //dd( $playlist);

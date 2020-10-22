@@ -220,24 +220,25 @@ function playlist_edit_map() {
   //     console.log( this.responseText );
   //     // _return = JSON.parse( this.responseText );
   // }
-  //
-  //
-  // var mymap = L.map('playlists_edit-map').setView([44.956790, -93.274680], 13);
-  // L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-  //     attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  //     maxZoom: 18,
-  //     id: 'mapbox/streets-v11',
-  //     tileSize: 512,
-  //     zoomOffset: -1,
-  //     dragging: false,
-  //     accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
-  // }).addTo(mymap);
-  //
-  // mymap.scrollWheelZoom.disable()
-  // mymap.on('click', function(ev) {
-  //     L.marker( ev.latlng ).addTo(mymap);
-  //     //alert(); // ev is an event object (MouseEvent in this case)
-  // });
+
+  /**
+   * get location lat/long
+   */
+  var _input_latlong = [$("#playlist_location").data("lat"), $("#playlist_location").data("long")];
+  var mymap = L.map('playlists_edit-map').setView(_input_latlong, 13);
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    dragging: false,
+    accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
+  }).addTo(mymap);
+  mymap.scrollWheelZoom.disable();
+  mymap.on('click', function (ev) {
+    L.marker(ev.latlng).addTo(mymap); //alert(); // ev is an event object (MouseEvent in this case)
+  });
 }
 
 if ($("#playlists_edit").length > 0) {

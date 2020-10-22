@@ -54,7 +54,6 @@ class PlaylistController extends Controller
          * this is where we're going to add the previous data (model
          */
         $_geocode = LocationController::geocode_lookup("55404");
-        $_geocode = LocationController::geocode_lookup();
         $_geocode = json_decode( $_geocode );
 
         /**

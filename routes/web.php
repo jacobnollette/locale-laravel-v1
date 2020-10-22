@@ -47,9 +47,9 @@ Route::post( '/dashboard/explore/remove/', 'App\Http\Controllers\ExplorerControl
  * Spotify rubbish
  */
 Route::get('/spotify/', 'App\Http\Controllers\SpotifyController@index');
-Route::post('/spotify/input', 'App\Http\Controllers\SpotifyController@input');
 Route::get('/spotify/auth/response', 'App\Http\Controllers\SpotifyController@spotify_auth_response');
-Route::get( '/spotify/auth', 'App\Http\Controllers\SpotifyController@spotify_auth_get_redirect');
+Route::get('/spotify/auth', 'App\Http\Controllers\SpotifyController@spotify_auth_get_redirect');
+Route::post('/spotify/input', 'App\Http\Controllers\SpotifyController@input');
 
 /**
  * Home rubbish

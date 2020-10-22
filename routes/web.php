@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 /**
+ * Home rubbish
+ */
+Route::get( '/','App\Http\Controllers\HomeController@landing');
+Route::get( '/home','App\Http\Controllers\HomeController@index');
+
+/**
  * Dashboard rubbish
  */
 Route::get('/dashboard/','App\Http\Controllers\DashboardController@index');
@@ -51,8 +57,4 @@ Route::get('/spotify/auth/response', 'App\Http\Controllers\SpotifyController@spo
 Route::get('/spotify/auth','App\Http\Controllers\SpotifyController@spotify_auth_get_redirect');
 Route::post('/spotify/input','App\Http\Controllers\SpotifyController@input');
 
-/**
- * Home rubbish
- */
-Route::get( '/','App\Http\Controllers\HomeController@landing');
-Route::get( '/home','App\Http\Controllers\HomeController@index');
+

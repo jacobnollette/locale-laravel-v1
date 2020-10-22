@@ -16,6 +16,11 @@
                     <input id="playlist_edit-location_field" type="text">
                     <input id="playlist_edit-location_submit" type="submit" value="Submit">
                 </form>
+                <div id="playlist_edit-location_list">
+                    <ul>
+
+                    </ul>
+                </div>
             </div>
             <div id="playlists_edit-map"></div>
             <div class="playlists_edit-tracks">

@@ -41,7 +41,7 @@ function playlist_edit_map() {
             // validation code here
             var request = {
                 "location": $("#playlist_edit-location_field").val(),
-                "limit": 1
+                "limit": 5
             };
             var csrf = document.querySelector('meta[name="csrf-token"]').content;
             var _location_url = "/utility/location/get";
@@ -54,15 +54,26 @@ function playlist_edit_map() {
                 //console.log(this.responseText);
                 _return = JSON.parse(this.responseText);
 
-                console.log(_return);
+                //console.log( _return );
+                _return.data.forEach(function (e) {
+                    li_element = "<li data-lat=\"" + e.latitude + "\" data-long=\"" + e.longitude + "\"><a href=\"#\">" + e.label + "</li>";
+                    $("#playlist_edit-location_list ul").append(li_element);
+                })
+                $("#playlist_edit-location_list ul li a").click(function (e) {
+                    e.preventDefault();
+                    _location = [
+                        $(this).parent().data("lat"),
+                        $(this).parent().data("long")
+                    ];
+                    $("#playlists_edit-location").hide();
+                    playlist_edit_load_map(_location);
 
+                })
+                // var _input_latlong = [
+                //     _return.data[0].latitude,
+                //     _return.data[0].longitude
+                // ];
 
-                var _input_latlong = [
-                    _return.data[0].latitude,
-                    _return.data[0].longitude
-                ];
-                $("#playlists_edit-location").hide();
-                playlist_edit_load_map(_input_latlong);
             }
             return false;
         });
@@ -72,7 +83,7 @@ function playlist_edit_map() {
          * go into map logic
          */
 
-        //  input queue
+            //  input queue
         var _input_latlong = [
                 $("#playlist_location").data("lat"),
                 $("#playlist_location").data("long")

@@ -93,9 +93,10 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
- * vendors
- */
+/***********
+ * vendors *
+ ***********/
+//  leaflet // https://leafletjs.com/reference-1.6.0.html
 __webpack_require__(/*! ./vendor/leaflet */ "./resources/js/vendor/leaflet.js");
 /**********
  * blocks *

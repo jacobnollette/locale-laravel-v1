@@ -27,19 +27,30 @@ function playlist_edit_map() {
      * get location lat/long
      */
 
-    if ( $("#playlist_location").data("lat") == 0 && $("#playlist_location").data("long ") == 0 ) {
+    if ($("#playlist_location").data("lat") == 0 && $("#playlist_location").data("long") == 0) {
         //  process text field
+        $('#playlists_edit-location_form').on('submit', function (e) {
+            // validation code here
+            console.log($("#playlist_edit-location_field").val());
+            return false;
+
+        });
+
+
+        //
+
+
     } else {
         /**
          * we have a field,
          * go into map logic
          */
 
-        //  input queue
+            //  input queue
         var _input_latlong = [
-            $("#playlist_location").data("lat"),
-            $("#playlist_location").data("long")
-        ];
+                $("#playlist_location").data("lat"),
+                $("#playlist_location").data("long")
+            ];
 
         //  map init
         var mymap = L.map('playlists_edit-map').setView(_input_latlong, 13);
@@ -61,14 +72,11 @@ function playlist_edit_map() {
             //alert(); // ev is an event object (MouseEvent in this case)
         });
     }  //  end of map if statement
-
-
-
-
-
-
 }
 
+/**
+ * ghetto iife
+ */
 if ($("#playlists_edit").length > 0) {
     playlist_edit_map();
 }

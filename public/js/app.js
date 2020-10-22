@@ -224,7 +224,13 @@ function playlist_edit_map() {
   /**
    * get location lat/long
    */
-  if ($("#playlist_location").data("lat") == 0 && $("#playlist_location").data("long ") == 0) {//  process text field
+  if ($("#playlist_location").data("lat") == 0 && $("#playlist_location").data("long") == 0) {
+    //  process text field
+    $('#playlists_edit-location_form').on('submit', function (e) {
+      // validation code here
+      console.log($("#playlist_edit-location_field").val());
+      return false;
+    }); //
   } else {
     /**
      * we have a field,
@@ -253,6 +259,10 @@ function playlist_edit_map() {
   } //  end of map if statement
 
 }
+/**
+ * ghetto iife
+ */
+
 
 if ($("#playlists_edit").length > 0) {
   playlist_edit_map();

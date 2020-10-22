@@ -17,7 +17,7 @@
     503287a70bd5bdae752f2a49e891fb41
 
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
 
 </head>
 <body>
@@ -26,5 +26,5 @@
 
 @yield("page_content")
 </body>
-
+<script src="{{ asset('js/app.js') }}" defer></script>
 </html>

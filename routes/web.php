@@ -54,5 +54,5 @@ Route::get( '/spotify/auth', 'App\Http\Controllers\SpotifyController@spotify_aut
 /**
  * Home rubbish
  */
-Route::get( '/home', 'App\Http\Controllers\HomeController@index');
 Route::get( '/', 'App\Http\Controllers\HomeController@landing');
+Route::get( '/home', 'App\Http\Controllers\HomeController@index');

@@ -261,6 +261,7 @@ function playlist_edit_map() {
           _location = [$(this).parent().data("lat"), $(this).parent().data("long")];
           $("#playlists_edit-location").hide();
           playlist_edit_load_map(_location);
+          alert("general location provide; please click for exact location");
         }); // var _input_latlong = [
         //     _return.data[0].latitude,
         //     _return.data[0].longitude

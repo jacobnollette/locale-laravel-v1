@@ -1,4 +1,5 @@
 function playlist_edit_load_map(location) {
+
     //  map init
     var mymap = L.map('playlists_edit-map').setView(location, 13);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -11,6 +12,7 @@ function playlist_edit_load_map(location) {
         accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
     }).addTo(mymap);
 
+
     /**
      * marker logic
      */
@@ -19,6 +21,7 @@ function playlist_edit_load_map(location) {
         //alert(); // ev is an event object (MouseEvent in this case)
     });
 }
+
 
 function playlist_edit_map() {
     /**
@@ -67,6 +70,7 @@ function playlist_edit_map() {
                     ];
                     $("#playlists_edit-location").hide();
                     playlist_edit_load_map(_location);
+                    alert("general location provide; please click for exact location");
 
                 })
                 // var _input_latlong = [

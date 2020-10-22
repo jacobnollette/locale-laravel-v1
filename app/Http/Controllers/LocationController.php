@@ -27,35 +27,17 @@ use App\Models\User_crates;
  * packages
  */
 
-//  spotify api wrapper - https://github.com/jwilsson/spotify-web-api-php#usage
-use SpotifyWebAPI\SpotifyWebAPI;
-use SpotifyWebAPI\Session;
+
 
 class LocationController extends Controller
 {
     function __construct()
     {
-        $this->spotify = new SpotifyController();
+        //
     }
 
 
-    public function index()
-    {
-        //  connect to spotify, provide access token
-        $test = new Auth();
-        if (Auth::id() != true):
-            /**
-             * we are not logged in, redirect to spotify
-             */
-            header('Location: /');
-            die();
-        endif;
-        $this->spotify_connect();
 
-        return view('dashboard/index', [
-            'playlists' => $playlists
-        ]);
-    }
 
     public function location_update(Request $request)
     {

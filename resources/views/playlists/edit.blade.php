@@ -10,26 +10,35 @@
             <div class="clear">&nbsp;</div>
             <div id="playlist_location" data-lat="{{$location[0]}}" data-long="{{$location[1]}}">&nbsp;</div>
 
-                        <div id="playlists_edit-map"></div>
-                        <div class="playlists_edit-tracks">
-                            <ul id="playlists_edit-tracks-list">
-                            @foreach ( $playlist->tracks->items as $track )
-                                <li class="playlists_edit-tracks-track" data-id="{{$track->track->id}}">
-                <div class="playlists_edit-tracks-title">
-                    {{$track->track->name}}
-                </div>
-                <div class="playlists_edit-artist_break">&mdash;</div>
-                <div class="playlists_edit-tracks-artists">
-                    <div class="playlists_edit-tracks-artists-display">Artists:</div>
-                    <ul>
-                        @foreach( $track->track->artists as $artist )
-                            <li><a href="https://open.spotify.com/artist/{{$artist->id}}">{{$artist->name}}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
-            <!-- {{$track->track->album->name}} -->
-                </li>
-                @endforeach
+
+            <div id="playlists_edit-location">
+                <form>
+                    <input id="playlist_edit-location_field" type="text">
+                    <input id="playlist_edit-location_submit" type="submit" value="Submit">
+                </form>
+            </div>
+            <div id="playlists_edit-map"></div>
+            <div class="playlists_edit-tracks">
+                <ul id="playlists_edit-tracks-list">
+                    @foreach ( $playlist->tracks->items as $track )
+                        <li class="playlists_edit-tracks-track" data-id="{{$track->track->id}}">
+                            <div class="playlists_edit-tracks-title">
+                                {{$track->track->name}}
+                            </div>
+                            <div class="playlists_edit-artist_break">&mdash;</div>
+                            <div class="playlists_edit-tracks-artists">
+                                <div class="playlists_edit-tracks-artists-display">Artists:</div>
+                                <ul>
+                                    @foreach( $track->track->artists as $artist )
+                                        <li>
+                                            <a href="https://open.spotify.com/artist/{{$artist->id}}">{{$artist->name}}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        <!-- {{$track->track->album->name}} -->
+                        </li>
+                    @endforeach
                 </ul>
 
             </div>

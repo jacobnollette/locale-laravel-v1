@@ -48,15 +48,44 @@ class PlaylistController extends Controller
             die();
         endif;
         $this->spotify_connect();
+
+        /**
+         * request location
+         * this is where we're going to add the previous data (model
+         */
         $_geocode = LocationController::geocode_lookup("55404");
+        $_geocode = LocationController::geocode_lookup();
+        $_geocode = json_decode( $_geocode );
+
+        /**
+         * parse the location for valid return
+         */
+        if ( empty( $_geocode->data[0]->latitude ) == true || empty( $_geocode->data[0]->longitude ) == true ) {
+            $location = array(
+                0,0
+            );
+        } else {
+            $location = array(
+                $_geocode->data[0]->latitude,
+                $_geocode->data[0]->longitude
+            );
+        }
+
+        /**
+         * spotify info request
+         */
         $playlist = $this->spotify->spotify_api->getPlaylist($id);
         //dd($playlist->tracks->items[0]);
         //dd( $playlist);
+
+
+        /**
+         * output
+         */
         return view('playlists/edit', [
             'playlist'=>$playlist,
-            'geocode'=>$_geocode
+            'location'=>$location
         ]);
-
     }
 
 

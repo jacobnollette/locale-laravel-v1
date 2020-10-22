@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 /**
  * controllers
  */
-
 use App\Http\Controllers\SpotifyController;
 use App\Http\Controllers\LocationAPIController;
 
@@ -43,8 +42,13 @@ class LocationController extends Controller
     }
 
 
-    static public function geocode_lookup( $location ) {
-        return LocationAPIController::geocode_lookup( $location, 1);
+    static public function geocode_lookup( $location = null ) {
+        if ( $location == null ) {
+            return null;
+        } else {
+            return LocationAPIController::geocode_lookup( $location, 1);
+        }
+
     }
 
 

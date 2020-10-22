@@ -27,13 +27,15 @@ function playlist_edit_load_map(location, initial) {
         /**
          * post location to database
          */
+        console.log( latlng);
         var _given_url = window.location;
         _given_url = _given_url.pathname.split('/');
         var playlist_id = _given_url[2];
         var _location_url = "/playlist/" + playlist_id + "/update";
         console.log( _location_url );
         var _request = {
-            "location": latlng
+            "lat": latlng.lat,
+            "lng": latlng.lng
         }
         var xhr = new XMLHttpRequest();
         xhr.open("POST", _location_url, true);

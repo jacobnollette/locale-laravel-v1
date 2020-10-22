@@ -90,12 +90,10 @@ class PlaylistController extends Controller
 
     public function update(Request $request, $id)
     {
-//        $location = json_decode( $request->location );
-//        $location->lat
-//        $location->lng
+
         Spotify_playlists::updateOrInsert(
             ['locale_user_id' => Auth::id(), "playlist_id" => $id],
-            ['location'=> $request->location ]
+            [ 'location_lat'=> $request->lat , 'location_long'=> $request->lng ]
         );
 
 

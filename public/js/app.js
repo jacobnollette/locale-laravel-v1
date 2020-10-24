@@ -127,66 +127,79 @@ __webpack_require__(/*! ./blocks/playlist_edit */ "./resources/js/blocks/playlis
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function explorer_index_map() {
-  /**
-   * Explorer index stuff
-   */
-  $("#explorer_index .playlist_add").each(function (i, obj) {
+var _explorer_index = {
+  init: function init() {
     /**
-     * playlist html, content fix
+     * Explorer index stuff
      */
-    if ($(this).hasClass("in_library")) {
-      $(this).html("Remove Playlist");
-    }
-  });
-  $("#explorer_index .playlist_add").on("click", function (e) {
+    $("#explorer_index .playlist_add").each(function (i, obj) {
+      /**
+       * playlist html, content fix
+       */
+      if ($(this).hasClass("in_library")) {
+        $(this).html("Remove Playlist");
+      }
+    });
     /**
-     * prevent the browser from going to the anchor
-     */
-    e.preventDefault();
-    /**
-     * get the variables setup
+     * playlist add click function
      */
 
-    var _the_playlist = $(this).parent().parent().parent();
+    $("#explorer_index .playlist_add").on("click", function (e) {
+      /**
+       * prevent the browser from going to the anchor
+       */
+      e.preventDefault();
+      /**
+       * get the variables setup
+       */
 
-    var _the_playlist_id = _the_playlist.data("playlist_id");
+      var _the_playlist = $(this).parent().parent().parent();
 
-    if ($(this).hasClass("in_library")) {
-      //  playlist in crate, removing
-      $(this).html("Follow Playlist");
-      $(this).toggleClass("in_library");
-      var url = "/dashboard/explore/remove";
-    } else {
-      //  playlist not in crate, adding
-      $(this).html("Unfollow Playlist");
-      $(this).toggleClass("in_library");
-      var url = "/dashboard/explore/add";
-    }
+      var _the_playlist_id = _the_playlist.data("playlist_id");
 
-    var request = {
-      "playlist": _the_playlist_id
-    };
-    /**
-     * post to dashboard endpoint
-     */
+      if ($(this).hasClass("in_library")) {
+        //  playlist in crate, removing
+        $(this).html("Follow Playlist");
+        $(this).toggleClass("in_library");
+        var url = "/dashboard/explore/remove";
+      } else {
+        //  playlist not in crate, adding
+        $(this).html("Unfollow Playlist");
+        $(this).toggleClass("in_library");
+        var url = "/dashboard/explore/add";
+      }
 
-    var csrf = document.querySelector('meta[name="csrf-token"]').content;
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('X-CSRF-Token', csrf);
-    xhr.send(JSON.stringify(request));
+      var request = {
+        "playlist": _the_playlist_id
+      };
+      /**
+       * post to dashboard endpoint
+       */
 
-    xhr.onload = function () {
-      console.log(this.responseText); // _return = JSON.parse( this.responseText );
-    };
-  });
-}
+      var csrf = document.querySelector('meta[name="csrf-token"]').content;
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.setRequestHeader('X-CSRF-Token', csrf);
+      xhr.send(JSON.stringify(request));
 
-if ($("#explorer_index").length > 0) {
-  explorer_index_map();
-}
+      xhr.onload = function () {
+        console.log(this.responseText); // _return = JSON.parse( this.responseText );
+      };
+    });
+  }
+};
+/**
+ * ghetto iife
+ */
+
+$(document).ready(function () {
+  if ($("#explorer_index").length > 0) {
+    var _explorer_index_actual = Object.create(_explorer_index);
+
+    _explorer_index_actual.init();
+  }
+});
 
 /***/ }),
 

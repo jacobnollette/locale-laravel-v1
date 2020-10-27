@@ -13,12 +13,8 @@
                     <div class="playlist" data-playlist_id="{{$playlist->id}}">
                         <div class="playlist_image"><img src="{{$playlist->images[0]->url}}"/></div>
                         <div class="playlist_display">
-                            <div class="playlist_name"><a href="/playlist/{{$playlist->id}}">{{$playlist->name}}</a></div>
-                            <div class="controls">
-                                <a class="playlist_add @if ( $playlist->inCrate == "yes" )
-                                    in_crate
-@endif
-                                    " href="#">Share Playlist</a>
+                            <div class="playlist_name">
+                                <a href="/playlist/{{$playlist->id}}">{{$playlist->name}}</a>
                             </div>
                         </div>
                         <div class="clear">&nbsp;</div>

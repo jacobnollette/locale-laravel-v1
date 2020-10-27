@@ -17,7 +17,7 @@ class ConvertLocationsToPoints extends Migration
             $table->point("location")->nullable();
         });
 
-        $results = DB::table('spotify_playlists')->select('id','name')->get();
+        $results = DB::table('spotify_playlists')->select('id')->get();
 
         $i = 1;
         foreach ($results as $result){

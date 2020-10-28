@@ -14,13 +14,12 @@ class AddPlaylists extends Migration
     public function up()
     {
         //
-        Schema::create('spotify_playlists', function (Blueprint $table) {
+        Schema::create('spotify_playlist', function (Blueprint $table) {
             $table->id();
             $table->string('locale_user_id');
             $table->string('playlist_name');
             $table->string('playlist_id');
-            $table->string('location_lat')->nullable();
-            $table->string('location_long')->nullable();
+            $table->point("location")->nullable();
             $table->longText('tracks')->nullable();
             $table->timestamp('date_added')->nullable();
             $table->timestamp('date_updated')->nullable();

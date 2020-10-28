@@ -31,6 +31,10 @@ use App\Models\User_crate;
 use SpotifyWebAPI\SpotifyWebAPI;
 use SpotifyWebAPI\Session;
 
+//  grimzy
+use Grimzy\LaravelMysqlSpatial\Types\Point;
+
+
 class PlaylistController extends Controller
 {
     function __construct()
@@ -100,9 +104,10 @@ class PlaylistController extends Controller
     public function update(Request $request, $id)
     {
 
+        $_location = new Point( $request->lat, $request->lng);
         Spotify_playlist::updateOrInsert(
             ['locale_user_id' => Auth::id(), "playlist_id" => $id],
-            [ 'location_lat'=> $request->lat , 'location_long'=> $request->lng ]
+            [ 'location'=> $_location ]
         );
 
 

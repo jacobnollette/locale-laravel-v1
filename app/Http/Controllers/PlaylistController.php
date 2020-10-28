@@ -20,8 +20,8 @@ use App\Http\Controllers\LocationController;
 use App\Models\User;
 use App\Models\Dashboard;
 use App\Models\Spotify;
-use App\Models\Spotify_playlists;
-use App\Models\User_crates;
+use App\Models\Spotify_playlist;
+use App\Models\User_crate;
 
 /**
  * packages
@@ -52,7 +52,7 @@ class PlaylistController extends Controller
 
 
 
-        $existing_field = Spotify_playlists::where('locale_user_id', Auth::id() )->where("playlist_id", $id)->first();
+        $existing_field = Spotify_playlist::where('locale_user_id', Auth::id() )->where("playlist_id", $id)->first();
 //        dd( );
 //
 //        $existing_field->location_lat
@@ -100,7 +100,7 @@ class PlaylistController extends Controller
     public function update(Request $request, $id)
     {
 
-        Spotify_playlists::updateOrInsert(
+        Spotify_playlist::updateOrInsert(
             ['locale_user_id' => Auth::id(), "playlist_id" => $id],
             [ 'location_lat'=> $request->lat , 'location_long'=> $request->lng ]
         );

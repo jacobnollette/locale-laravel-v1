@@ -19,8 +19,8 @@ use App\Http\Controllers\SpotifyController;
 use App\Models\User;
 use App\Models\Dashboard;
 use App\Models\Spotify;
-use App\Models\Spotify_playlists;
-use App\Models\User_crates;
+use App\Models\Spotify_playlist;
+use App\Models\User_crate;
 
 /**
  * packages
@@ -52,7 +52,7 @@ class ExplorerController extends Controller
             header('Location: /' );
             die();
         endif;
-        $_recent_playlists = User_crates::orderBy('created_at', 'desc')->where("locale_user_id", "<>", Auth::id() )->limit(10)->get();
+        $_recent_playlists = User_crate::orderBy('created_at', 'desc')->where("locale_user_id", "<>", Auth::id() )->limit(10)->get();
 
 
         //dd($_recent_playlists);
@@ -60,7 +60,7 @@ class ExplorerController extends Controller
         foreach ($_recent_playlists as $playlist) {
             //$playlist->locale_user_id;
             //$playlist->playlist_id;
-            $_playlist_info = Spotify_playlists::where("playlist_id", $playlist->playlist_id)->first();
+            $_playlist_info = Spotify_playlist::where("playlist_id", $playlist->playlist_id)->first();
 //            dd($_playlist_info);
             //$_playlist_info->playlist_name;
             $_temp_spotify_api = $this->connect_as_user($_playlist_info->locale_user_id);
@@ -95,7 +95,7 @@ class ExplorerController extends Controller
     public function explorer_remove(Request $request)
     {
         $_user = User::where("id", "=", Auth::id())->first();
-        User_crates::where('locale_user_id', Auth::id())->where("playlist_id", $request->playlist)->delete();
+        User_crate::where('locale_user_id', Auth::id())->where("playlist_id", $request->playlist)->delete();
         $_spotify_connection = $this->connect_as_user(Auth::id());
         $_spotify_connection->spotify_api->unfollowPlaylist($request->playlist);
 

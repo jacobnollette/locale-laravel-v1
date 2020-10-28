@@ -19,8 +19,8 @@ use App\Http\Controllers\LocationAPIController;
 use App\Models\User;
 use App\Models\Dashboard;
 use App\Models\Spotify;
-use App\Models\Spotify_playlists;
-use App\Models\User_crates;
+use App\Models\Spotify_playlist;
+use App\Models\User_crate;
 
 /**
  * packages

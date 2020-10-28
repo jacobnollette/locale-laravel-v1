@@ -19,8 +19,8 @@ use App\Http\Controllers\SpotifyController;
 use App\Models\User;
 use App\Models\Dashboard;
 use App\Models\Spotify;
-use App\Models\Spotify_playlists;
-use App\Models\User_crates;
+use App\Models\Spotify_playlist;
+use App\Models\User_crate;
 
 /**
  * packages
@@ -75,7 +75,7 @@ class DashboardController extends Controller
 
     public function playlist_add (Request $request) {
         $_user = User::where("id", "=", Auth::id())->first();
-        User_crates::updateOrInsert(
+        User_crate::updateOrInsert(
             ['locale_user_id' => Auth::id(), "playlist_id" => $request->playlist],
             ['created_at'=>now(), 'updated_at'=>now(), 'created_at'=>now(), ]
         );
@@ -98,7 +98,7 @@ class DashboardController extends Controller
         return $_output_playlists;
     }
     private function playlist_isin_crate ( $playlist_id ) {
-        $_playlist = User_Crates::where("playlist_id", "=", $playlist_id )->first();
+        $_playlist = User_Crate::where("playlist_id", "=", $playlist_id )->first();
         if ( is_null( $_playlist ) ) {
             return "no";
             //return "yes";
@@ -126,7 +126,7 @@ class DashboardController extends Controller
 //                $playlist_tracks = $this->playlist_tracks_parse($playlist_tracks);
 //                $playlist_tracks = json_encode($playlist_tracks);
             $playlist_tracks = "";
-            Spotify_playlists::updateOrInsert(
+            Spotify_playlist::updateOrInsert(
                 ['locale_user_id' => Auth::id(), "playlist_id" => $playlist_id],
                 ['playlist_name' => $playlist_name,
                     'date_added' => now(),
@@ -168,7 +168,7 @@ class DashboardController extends Controller
 //                $playlist_tracks = $this->playlist_tracks_parse($playlist_tracks);
 //                $playlist_tracks = json_encode($playlist_tracks);
                 $playlist_tracks = "";
-                Spotify_playlists::updateOrInsert(
+                Spotify_playlist::updateOrInsert(
                     ['locale_user_id' => Auth::id(), "playlist_id" => $playlist_id],
                     ['playlist_name' => $playlist_name,
                         'date_added' => now(),

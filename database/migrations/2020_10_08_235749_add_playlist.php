@@ -14,7 +14,7 @@ class AddPlaylist extends Migration
     public function up()
     {
         //
-        Schema::create('spotify_playlist', function (Blueprint $table) {
+        Schema::create('spotify_playlists', function (Blueprint $table) {
             $table->id();
             $table->string('locale_user_id');
             $table->string('playlist_name');

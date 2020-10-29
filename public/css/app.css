@@ -913,6 +913,9 @@ header #header_login ul li a {
   width: 300px;
   margin-right: 20px;
   margin-bottom: 25px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  overflow: hidden;
 }
 
 #playlists_index .playlist .playlist_image,
@@ -936,6 +939,7 @@ header #header_login ul li a {
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
+  padding-top: 8px;
 }
 
 #playlists_index .playlist .playlist_add,

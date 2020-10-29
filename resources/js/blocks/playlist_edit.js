@@ -11,7 +11,7 @@ var _playlist_edit = {
         /**
          * map initi
          */
-        var mymap = L.map('playlists_edit-map').setView(location, 13);
+        var mymap = L.map('playlists_edit-map').setView(location, 15);
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
             maxZoom: 18,
@@ -74,11 +74,20 @@ var _playlist_edit = {
             }
         }
 
+        console.log( location );
+
+        var _sans_location = {
+            "lat":location[0],
+            "lng":location[1]
+        };
+
+        _add_marker( _sans_location );
+
         /**
          * initial marker logic
          */
         if (initial) {
-            alert("Click a more specific location for your playlist");
+            //alert("Click a more specific location for your playlist");
             mymap.on('click', function (ev) {
                 _add_marker(ev.latlng);
             });

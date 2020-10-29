@@ -62,25 +62,68 @@ var _explorer_index = {
         });
         _actual_this.get_location();
     },
+
     get_location: function () {
+        var _actual_this = this;
         if ("geolocation" in navigator) {
-            // check if geolocation is supported/enabled on current browser
+            /**
+             * check if geolocation is supported/enabled on current browser
+             */
+            var location =
+                {
+                    "long": null,
+                    "lat": null
+                }
             navigator.geolocation.getCurrentPosition(
                 function success(position) {
-                    // for when getting location is a success
-                    console.log('latitude', position.coords.latitude,
-                        'longitude', position.coords.longitude);
+                    /**
+                     * for when getting location is a success
+                     */
+                    //console.log('latitude', position.coords.latitude,
+                    // 'longitude', position.coords.longitude);
+                    _actual_this.found_location(position.coords.longitude, position.coords.latitude);
+                    // location.long = position.coords.longitude;
+                    // location.lat = position.coords.latitude;
                 },
                 function error(error_message) {
-                    // for when getting location results in an error
+                    /**
+                     * for when getting location results in an error
+                     */
                     console.error('An error has occured while retrieving location', error_message);
                 }
             )
+
+
         } else {
-            // geolocation is not supported
-            // get your location some other way
+            /**
+             * geolocation is not supported
+             * get your location some other way
+             */
             console.log('geolocation is not enabled on this browser')
         }
+    },
+    found_location: function (long, lat) {
+        var _actual_this = this;
+        var request = {
+            "lat": lat,
+            "long": long
+        };
+        var url = "/dashboard/explore/list";
+        var csrf = document.querySelector('meta[name="csrf-token"]').content;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-Token', csrf);
+        xhr.send(JSON.stringify(request));
+        xhr.onload = function () {
+            //console.log(this.responseText);
+            _return = JSON.parse(this.responseText);
+            // console.log(_return);
+            _actual_this.populate_map( _return );
+        }
+    },
+    populate_map: function ( given ) {
+        console.log ( given );
     }
 }
 

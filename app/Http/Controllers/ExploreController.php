@@ -30,6 +30,11 @@ use App\Models\User_crate;
 use SpotifyWebAPI\SpotifyWebAPI;
 use SpotifyWebAPI\Session;
 
+//  grimzy
+use Grimzy\LaravelMysqlSpatial\Types\Point;
+use Grimzy\LaravelMysqlSpatial\Types\Polygon;
+use Grimzy\LaravelMysqlSpatial\Types\LineString;
+
 class ExploreController extends Controller
 {
     /**
@@ -45,33 +50,33 @@ class ExploreController extends Controller
 
     public function index()
     {
-        if ( Auth::id() != true ):
+        if (Auth::id() != true):
             /**
              * we are not logged in, redirect to spotify
              */
-            header('Location: /' );
+            header('Location: /');
             die();
         endif;
-        $_recent_playlists = User_crate::orderBy('created_at', 'desc')->where("locale_user_id", "<>", Auth::id() )->limit(10)->get();
+        $_recent_playlists = User_crate::orderBy('created_at', 'desc')->where("locale_user_id", "<>", Auth::id())->limit(10)->get();
 
 
         //dd($_recent_playlists);
         $output_playlists = array();
-        foreach ($_recent_playlists as $playlist) {
-            //$playlist->locale_user_id;
-            //$playlist->playlist_id;
-            $_playlist_info = Spotify_playlist::where("playlist_id", $playlist->playlist_id)->first();
-//            dd($_playlist_info);
-            //$_playlist_info->playlist_name;
-            $_temp_spotify_api = $this->connect_as_user($_playlist_info->locale_user_id);
-            $_spotify_playlist = $_temp_spotify_api->spotify_api->getPlaylist($_playlist_info->playlist_id);
-            $_spotify_playlist->inCrate = 'no';
-
-
-            $output_playlists[] = $_spotify_playlist;
-
-
-        }
+//        foreach ($_recent_playlists as $playlist) {
+//            //$playlist->locale_user_id;
+//            //$playlist->playlist_id;
+//            $_playlist_info = Spotify_playlist::where("playlist_id", $playlist->playlist_id)->first();
+////            dd($_playlist_info);
+//            //$_playlist_info->playlist_name;
+//            $_temp_spotify_api = $this->connect_as_user($_playlist_info->locale_user_id);
+//            $_spotify_playlist = $_temp_spotify_api->spotify_api->getPlaylist($_playlist_info->playlist_id);
+//            $_spotify_playlist->inCrate = 'no';
+//
+//
+//            $output_playlists[] = $_spotify_playlist;
+//
+//
+//        }
 
 
         return view('explorer/index', [
@@ -119,13 +124,60 @@ class ExploreController extends Controller
 
         $_output_spotify->spotify_api->setAccessToken($_output_spotify->spotify_access_token);
 
-        //  we have a spotify access token,
-        //  update user info
+        /**
+         * we have a spotify access token,
+         * update user info
+         */
         $me = $_output_spotify->spotify_api->me();
         User::where("id", "=", $given_locale_id)->update(array(
             'spotify_user_id' => $me->id
         ));
 
         return $_output_spotify;
+    }
+
+    public function list(Request $request)
+    {
+        //echo json_encode( $request->long );
+
+
+        //$_recent_playlists = User_crate::orderBy('created_at', 'desc')->where("locale_user_id", "<>", Auth::id() )->limit(10)->get();
+
+//        $_location = Spotify_playlist::where("locale_user_id", '=', Auth::id())->where("playlist_id", '=', $id)->first();
+//        $_location->location = new Point($request->lat, $request->lng);
+//        $_location->save();
+
+        //$_recent_playlists = User_crate::orderBy('created_at', 'desc')->where("locale_user_id", "<>", Auth::id() )->limit(10)->get();
+//        $_givenLocation = new Spotify_playlist();
+//        $_givenLocation->location = new Point( $request->lat, $request->long );
+
+        //$_recent_playlists = User_crate::leftJoin("spotify_playlists", "user_crates.locale_user_id", "=", "spotify_playlists.locale_user_id")->distance("location", $_givenLocation,  10)->limit(10)->get();
+        $_recent_playlists = Spotify_playlist::distance("location", new Point( $request->lat, $request->long),  ".02")->where("locale_user_id", "<>", Auth::id() )->limit(10)->get();
+
+        //dd( $_recent_playlists );
+
+
+        //dd($_recent_playlists);
+        $output_playlists = array();
+        foreach ($_recent_playlists as $playlist) {
+            //$playlist->locale_user_id;
+            //$playlist->playlist_id;
+            $_playlist_info = Spotify_playlist::where("playlist_id", $playlist->playlist_id)->first();
+//            dd($_playlist_info);
+            //$_playlist_info->playlist_name;
+            $_temp_spotify_api = $this->connect_as_user($_playlist_info->locale_user_id);
+            $_spotify_playlist = $_temp_spotify_api->spotify_api->getPlaylist($_playlist_info->playlist_id);
+            $_playlist_info->spotify = $_spotify_playlist;
+            $_playlist_info->inCrate = "no";
+
+
+            $output_playlists[] = $_playlist_info;
+
+
+        }
+        //$output_playlists );
+        return (json_encode($output_playlists));
+
+
     }
 }

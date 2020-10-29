@@ -30,7 +30,7 @@ use App\Models\User_crate;
 use SpotifyWebAPI\SpotifyWebAPI;
 use SpotifyWebAPI\Session;
 
-class ExplorerController extends Controller
+class ExploreController extends Controller
 {
     /**
      * Modules

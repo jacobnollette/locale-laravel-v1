@@ -52,6 +52,18 @@
     #playlists_edit-map {
         height: 300px;
     }
+    #playlist_edit-meta {
+        width: 30%; float: left;
+        margin-left: 3.3%;
+    }
+    .playlists_edit-tracks {
+        width: 30%; float: left;
+        margin-left: 3.3%;
+    }
+    #playlsits_edit-map {
+        width: 30%; float: left;
+        margin-left: 3.3%;
+    }
     #playlists_edit-tracks-list {
         list-style: none;
         margin: 0px; padding: 0px;
@@ -99,5 +111,8 @@
                 padding-left: 6px; padding-right: 6px;
             }
         }
+    }
+    .playlists_edit-description {
+        margin-top: 10px; margin-bottom: 10px;
     }
 }

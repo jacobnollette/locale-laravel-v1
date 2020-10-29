@@ -946,6 +946,24 @@ header #header_login ul li a {
   height: 300px;
 }
 
+#playlists_edit #playlist_edit-meta {
+  width: 30%;
+  float: left;
+  margin-left: 3.3%;
+}
+
+#playlists_edit .playlists_edit-tracks {
+  width: 30%;
+  float: left;
+  margin-left: 3.3%;
+}
+
+#playlists_edit #playlsits_edit-map {
+  width: 30%;
+  float: left;
+  margin-left: 3.3%;
+}
+
 #playlists_edit #playlists_edit-tracks-list {
   list-style: none;
   margin: 0px;
@@ -1010,5 +1028,10 @@ header #header_login ul li a {
   background-color: gray;
   padding-left: 6px;
   padding-right: 6px;
+}
+
+#playlists_edit .playlists_edit-description {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 

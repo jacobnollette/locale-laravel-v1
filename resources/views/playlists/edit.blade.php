@@ -5,31 +5,17 @@
 @section("page_content")
     <section id="main">
         <div id="playlists_edit" class="container">
-            <div id="playlists_edit-header">
-                <h1>{{$playlist->name}}</h1>
-                <div id="playlists_edit-header_share"><a href="#">{{$crate_message}}</a></div>
-
-            </div>
-
-            <div class="playlists_edit-description">{{$playlist->description}}</div>
-            <div class="clear">&nbsp;</div>
-
-            <div id="playlist_location" data-lat="{{$location[0]}}" data-long="{{$location[1]}}">&nbsp;</div>
-
-            <div class="clear">&nbsp;</div>
-
-            <div id="playlists_edit-location">
-                <form id="playlists_edit-location_form">
-                    <input id="playlist_edit-location_field" type="text">
-                    <input id="playlist_edit-location_submit" type="submit" value="Search">
-                </form>
-                <div id="playlist_edit-location_list">
-                    <ul>
-
-                    </ul>
+            <div id="playlist_edit-meta">
+                <div id="playlists_edit-header">
+                    <h1>{{$playlist->name}}</h1>
+                    <div id="playlists_edit-header_share"><a href="#">{{$crate_message}}</a></div>
                 </div>
+                <div class="playlists_edit-description">{{$playlist->description}}</div>
+
             </div>
-            <div id="playlists_edit-map"></div>
+
+
+
             <div class="playlists_edit-tracks">
                 <ul id="playlists_edit-tracks-list">
                     @foreach ( $playlist->tracks->items as $track )
@@ -52,8 +38,30 @@
                         </li>
                     @endforeach
                 </ul>
-
             </div>
+
+
+
+
+            <div id="playlsits_edit-map">
+                <div id="playlist_location" data-lat="{{$location[0]}}" data-long="{{$location[1]}}">&nbsp;</div>
+
+                {{--            <div class="clear">&nbsp;</div>--}}
+
+                <div id="playlists_edit-location">
+                    <form id="playlists_edit-location_form">
+                        <input id="playlist_edit-location_field" type="text">
+                        <input id="playlist_edit-location_submit" type="submit" value="Search">
+                    </form>
+                    <div id="playlist_edit-location_list">
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+                <div id="playlists_edit-map"></div>
+            </div>
+            <div class="clear">&nbsp;</div>
         </div>
     </section>
 @endsection

@@ -97,7 +97,8 @@
  * vendors *
  ***********/
 //  leaflet // https://leafletjs.com/reference-1.6.0.html
-__webpack_require__(/*! ./vendor/leaflet */ "./resources/js/vendor/leaflet.js");
+__webpack_require__(/*! ./vendor/leaflet */ "./resources/js/vendor/leaflet.js"); //require('./vendor/masonry');
+
 /**********
  * blocks *
  **********/
@@ -107,7 +108,9 @@ __webpack_require__(/*! ./vendor/leaflet */ "./resources/js/vendor/leaflet.js");
 //  index
 
 
-__webpack_require__(/*! ./blocks/explorer_index */ "./resources/js/blocks/explorer_index.js"); ////////////////
+__webpack_require__(/*! ./blocks/explorer_index */ "./resources/js/blocks/explorer_index.js");
+
+__webpack_require__(/*! ./blocks/dashbard_index */ "./resources/js/blocks/dashbard_index.js"); ////////////////
 //  playlist  //
 ////////////////
 //  index
@@ -117,6 +120,35 @@ __webpack_require__(/*! ./blocks/playlist_index */ "./resources/js/blocks/playli
 
 
 __webpack_require__(/*! ./blocks/playlist_edit */ "./resources/js/blocks/playlist_edit.js");
+
+/***/ }),
+
+/***/ "./resources/js/blocks/dashbard_index.js":
+/*!***********************************************!*\
+  !*** ./resources/js/blocks/dashbard_index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var _dashboard_index = {
+  init: function init() {
+    $("#playlists_index").masonry({
+      itemSelector: ".playlist" //columnWidth: 300
+
+    });
+  }
+};
+/**
+ * ghetto iife
+ */
+
+$(document).ready(function () {
+  if ($("#playlists_index").length > 0) {
+    var _dashboard_index_actual = Object.create(_dashboard_index);
+
+    _dashboard_index_actual.init();
+  }
+});
 
 /***/ }),
 

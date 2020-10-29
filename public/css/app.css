@@ -902,7 +902,7 @@ header #header_login ul li a {
 
 #playlists_index,
 #explorer_index {
-  box-sizing: border-gox;
+  box-sizing: border-box;
   padding-top: 25px;
   padding-bottom: 25px;
 }
@@ -910,6 +910,7 @@ header #header_login ul li a {
 #playlists_index .playlist,
 #explorer_index .playlist {
   margin-bottom: 20px;
+  width: 300px;
 }
 
 #playlists_index .playlist .playlist_image,

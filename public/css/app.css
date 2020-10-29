@@ -942,6 +942,10 @@ header #header_login ul li a {
   text-decoration: underline;
 }
 
+#playlists_edit #playlist_location {
+  display: none;
+}
+
 #playlists_edit #playlists_edit-map {
   height: 300px;
 }

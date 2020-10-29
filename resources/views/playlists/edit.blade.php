@@ -50,6 +50,7 @@
 
                 <div id="playlists_edit-location">
                     <form id="playlists_edit-location_form">
+                        <h3>Provide location below</h3>
                         <input id="playlist_edit-location_field" type="text">
                         <input id="playlist_edit-location_submit" type="submit" value="Search">
                     </form>

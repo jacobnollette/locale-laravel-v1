@@ -103,14 +103,23 @@ class PlaylistController extends Controller
 
     public function update(Request $request, $id)
     {
+        $_location = Spotify_playlist::where("locale_user_id", '=', Auth::id())->where("playlist_id", '=', $id)->get();
+        $_location->location = new Point( $request->lat, $request->lng, 0);
+        $_location->save();
+//        $_location = Spotify_playlist::where("locale_user_id", '=', Auth::id())->where("playlist_id", '=', $id)->each( function( Spotify_playlist $spotifyPlaylist, $request ) {
+//            $spotifyPlaylist->location = new Point( $request->lat, $request->lng, 0);
+//            $spotifyPlaylist->save();
+//        });
+//        $_location->location =
+//        dd( $_location );
+        //$_location->save();
 
-        $_location = new Point( $request->lat, $request->lng);
-        Spotify_playlist::updateOrInsert(
-            ['locale_user_id' => Auth::id(), "playlist_id" => $id],
-            [ 'location'=> $_location ]
-        );
 
-
+        SpotifyPlaylist::all()
+            ->each(function (SpotifyPlaylist $spotifyPlaylist) {
+                $spotifyPlaylist->location = new Point($spotifyPlaylist->location_lat, $spotifyPlaylist->location_long);
+                $spotifyPlaylist->save();
+            });
     }
 
 

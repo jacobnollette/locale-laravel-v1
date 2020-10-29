@@ -14,4 +14,9 @@ use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 class Spotify_playlist extends Model
 {
     use HasFactory;
+    use SpatialTrait;
+
+    protected $spatialFields = [
+        'location'
+    ];
 }

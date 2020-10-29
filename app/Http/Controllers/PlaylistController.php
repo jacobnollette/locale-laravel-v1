@@ -58,11 +58,14 @@ class PlaylistController extends Controller
 
 
         $existing_field = Spotify_playlist::where('locale_user_id', Auth::id())->where("playlist_id", $id)->first();
-//        dd( );
-//
-//        $existing_field->location_lat
-//
 
+        $_user_crate = User_crate::where("locale_user_id", "=", Auth::id())->where("playlist_id", "=", $id)->first();
+        //$_user_crate = count( $_user_crate);
+        if ( $_user_crate == null ) {
+            $_crate_message = "Share Playlist";
+        } else {
+            $_crate_message = "Unshare Playlist";
+        }
 
         /**
          * request location
@@ -104,7 +107,8 @@ class PlaylistController extends Controller
          */
         return view('playlists/edit', [
             'playlist' => $playlist,
-            'location' => $location
+            'location' => $location,
+            "crate_message" => $_crate_message
         ]);
     }
 
@@ -133,6 +137,9 @@ class PlaylistController extends Controller
     }
 
     public function playlist_add (Request $request) {
+        /**
+         * add user playlist to crate
+         */
         $_user = User::where("id", "=", Auth::id())->first();
         User_crate::updateOrInsert(
             ['locale_user_id' => Auth::id(), "playlist_id" => $request->playlist],
@@ -141,6 +148,9 @@ class PlaylistController extends Controller
         echo json_encode( "Added $request->playlist to crate!" );
     }
     public function playlist_remove ( Request $request ) {
+        /**
+         * remove user playlist from crate
+         */
         $_user = User::where("id", "=", Auth::id())->first();
         User_crate::where('locale_user_id', Auth::id() )->where("playlist_id", $request->playlist)->delete();
         echo json_encode("Removed $request->playlist from crate!");

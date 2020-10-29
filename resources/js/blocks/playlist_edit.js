@@ -82,15 +82,27 @@ var _playlist_edit = {
         }
     },
     share_playlist: function () {
-        alert("bang");
         $("#playlists_edit-header_share a").click(function (e) {
             /**
              * default stuff
              */
             e.preventDefault();
 
+
+            var _textBlock = $("#playlists_edit-header_share a");
+            var share = "yes";
+            if ( _textBlock.html() == "Share Playlist" ) {
+                _textBlock.html( "Unshare Playlist" );
+                share = "yes";
+            } else {
+                _textBlock.html( "Share Playlist");
+                share = "no";
+            }
+
+
+
             /**
-             * prepare variables
+             * share url logic, and variables
              */
             var csrf = document.querySelector('meta[name="csrf-token"]').content;
             var _given_url = window.location;
@@ -99,11 +111,20 @@ var _playlist_edit = {
             var _location_url_add = "/playlist/" + playlist_id + "/playlist/add";
             var _location_url_remove = "/playlist/" + playlist_id + "/playlist/remove";
 
+            if ( share == "yes" ) {
+                _location_share = _location_url_add;
+            } else {
+                _location_share = _location_url_remove;
+            }
+
+
+
+
             var request = {
                 "playlist": playlist_id
             };
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", _location_url_add, true);
+            xhr.open("POST", _location_share, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.setRequestHeader('X-CSRF-Token', csrf);
             xhr.send(JSON.stringify(request));

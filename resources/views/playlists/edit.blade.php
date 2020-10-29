@@ -7,7 +7,7 @@
         <div id="playlists_edit" class="container">
             <div id="playlists_edit-header">
                 <h1>{{$playlist->name}}</h1>
-                <div id="playlists_edit-header_share"><a href="#">Share Playlist</a></div>
+                <div id="playlists_edit-header_share"><a href="#">{{$crate_message}}</a></div>
 
             </div>
 

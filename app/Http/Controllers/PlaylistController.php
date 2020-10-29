@@ -117,7 +117,7 @@ class PlaylistController extends Controller
         $_location = Spotify_playlist::where("locale_user_id", '=', Auth::id())->where("playlist_id", '=', $id)->first();
         $_location->location = new Point($request->lat, $request->lng);
         $_location->save();
-
+        echo json_encode( "Playlist $id location updated!" );
     }
 
 

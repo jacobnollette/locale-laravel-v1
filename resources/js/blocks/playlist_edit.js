@@ -1,5 +1,7 @@
 var _playlist_edit = {
 
+    markers: [],
+
     playlist_edit_load_map: function (location, initial) {
         /**
          * function to load map feature
@@ -29,11 +31,14 @@ var _playlist_edit = {
              */
             var csrf = document.querySelector('meta[name="csrf-token"]').content;
 
+            _this_actual.markers.forEach( function ( the_marker ) {
+                mymap.removeLayer(the_marker);
+            })
             /**
              * add market to map
              */
-            L.marker(latlng).addTo(mymap);
-
+            var mymarker = L.marker(latlng).addTo(mymap);
+            _this_actual.markers.push( mymarker );
             /**
              * post location to database
              */
@@ -42,11 +47,13 @@ var _playlist_edit = {
             _given_url = _given_url.pathname.split('/');
             var playlist_id = _given_url[2];
             var _location_url = "/playlist/" + playlist_id + "/location/update";
-            console.log(_location_url);
+            //console.log(_location_url);
             var _request = {
                 "lat": latlng.lat,
                 "lng": latlng.lng
             }
+            $("#playlist_location").data("lat", latlng.lat);
+            $("#playlist_location").data("long", latlng.lng);
 
             /**
              * post to api server
@@ -61,9 +68,11 @@ var _playlist_edit = {
                  * return
                  */
                 //console.log( this );
-                //_return = JSON.parse(this.responseText);
-                //console.log( _return );
+                _return = JSON.parse(this.responseText);
+                console.log( _return );
             }
+
+
         }
 
         /**

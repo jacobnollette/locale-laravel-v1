@@ -911,26 +911,31 @@ header #header_login ul li a {
 #explorer_index .playlist {
   margin-bottom: 20px;
   width: 300px;
+  margin-right: 20px;
+  margin-bottom: 25px;
 }
 
 #playlists_index .playlist .playlist_image,
 #explorer_index .playlist .playlist_image {
-  float: left;
+  margin: 0px;
+  padding: 0px;
+  width: 300px;
+  height: 300px;
 }
 
 #playlists_index .playlist .playlist_image img,
 #explorer_index .playlist .playlist_image img {
-  width: 120px;
-}
-
-#playlists_index .playlist .playlist_display,
-#explorer_index .playlist .playlist_display {
-  margin-left: 140px;
+  width: 300px;
 }
 
 #playlists_index .playlist .playlist_name,
 #explorer_index .playlist .playlist_name {
-  margin-top: 15px;
+  background-color: #b3b3b3;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
 }
 
 #playlists_index .playlist .playlist_add,

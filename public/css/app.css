@@ -1049,3 +1049,7 @@ header #header_login ul li a {
   margin-bottom: 10px;
 }
 
+#explorer_index #explorer_map {
+  height: 450px;
+}
+

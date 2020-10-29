@@ -278,12 +278,42 @@ var _explorer_index = {
       //console.log(this.responseText);
       _return = JSON.parse(this.responseText); // console.log(_return);
 
-      _actual_this.populate_map(_return);
+      _actual_this.populate_map(_return, request);
     };
   },
-  populate_map: function populate_map(given) {
-    console.log(given);
-  }
+  populate_map: function populate_map(given, location) {
+    var _actual_this = this;
+
+    location = {
+      "lat": location.lat,
+      "lng": location["long"]
+    };
+    var mymap = L.map('explorer_map').setView(location, 14);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      dragging: false,
+      accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
+    }).addTo(mymap);
+    given.forEach(function (playlist) {
+      var location = {
+        "lat": playlist.location.coordinates[1],
+        "lng": playlist.location.coordinates[0]
+      };
+      var mymarker = L.marker(location).addTo(mymap);
+
+      _actual_this.markers.push(mymarker);
+
+      console.log(playlist);
+    });
+
+    _actual_this.markers.forEach(function (marker) {}); //console.log ( given );
+
+  },
+  markers: []
 };
 /**
  * ghetto iife

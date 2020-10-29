@@ -55,6 +55,7 @@ var _playlist_edit = {
             $("#playlist_location").data("lat", latlng.lat);
             $("#playlist_location").data("long", latlng.lng);
 
+
             /**
              * post to api server
              */

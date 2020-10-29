@@ -35,7 +35,10 @@ Route::post('/dashboard/playlist/remove/','App\Http\Controllers\DashboardControl
  * Playlist rubbish
  */
 Route::get('/playlist/{id}/','App\Http\Controllers\PlaylistController@index');
-Route::post('/playlist/{id}/update/','App\Http\Controllers\PlaylistController@update');
+Route::post('/playlist/{id}/location/update/','App\Http\Controllers\PlaylistController@location_update');
+Route::post('/playlist/{id}/playlist/add/','App\Http\Controllers\PlaylistController@playlist_add');
+Route::post('/playlist/{id}/playlist/remove/','App\Http\Controllers\PlaylistController@playlist_remove');
+
 
 /**
  * Location API rubbish

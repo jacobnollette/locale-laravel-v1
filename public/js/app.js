@@ -254,7 +254,7 @@ var _playlist_edit = {
       _given_url = _given_url.pathname.split('/');
       var playlist_id = _given_url[2];
 
-      var _location_url = "/playlist/" + playlist_id + "/update";
+      var _location_url = "/playlist/" + playlist_id + "/location/update";
 
       console.log(_location_url);
       var _request = {
@@ -297,6 +297,44 @@ var _playlist_edit = {
       L.marker(location).addTo(mymap);
     }
   },
+  share_playlist: function share_playlist() {
+    alert("bang");
+    $("#playlists_edit-header_share a").click(function (e) {
+      /**
+       * default stuff
+       */
+      e.preventDefault();
+      /**
+       * prepare variables
+       */
+
+      var csrf = document.querySelector('meta[name="csrf-token"]').content;
+      var _given_url = window.location;
+      _given_url = _given_url.pathname.split('/');
+      var playlist_id = _given_url[2];
+
+      var _location_url_add = "/playlist/" + playlist_id + "/playlist/add";
+
+      var _location_url_remove = "/playlist/" + playlist_id + "/playlist/remove";
+
+      var request = {
+        "playlist": playlist_id
+      };
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", _location_url_add, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.setRequestHeader('X-CSRF-Token', csrf);
+      xhr.send(JSON.stringify(request));
+
+      xhr.onload = function () {
+        /**
+         * return
+         */
+        _return = JSON.parse(this.responseText);
+        console.log(_return);
+      };
+    });
+  },
   init: function init() {
     /**
      * we're going to verify the lat,lung from these three words
@@ -307,6 +345,8 @@ var _playlist_edit = {
      * basic variables for request
      */
     var _this_actual = this;
+
+    _this_actual.share_playlist();
     /**
      * get location lat/long
      */

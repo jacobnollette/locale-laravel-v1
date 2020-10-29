@@ -108,7 +108,7 @@ class PlaylistController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function location_update(Request $request, $id)
     {
         $_location = Spotify_playlist::where("locale_user_id", '=', Auth::id())->where("playlist_id", '=', $id)->first();
         $_location->location = new Point($request->lat, $request->lng);
@@ -117,7 +117,7 @@ class PlaylistController extends Controller
     }
 
 
-    public function playlist_location_get(Request $request)
+    public function location_get(Request $request)
     {
         if (Auth::id() != true):
             /**
@@ -130,6 +130,20 @@ class PlaylistController extends Controller
         $query = "hello";
         $query = json_encode($query);
         return $query;
+    }
+
+    public function playlist_add (Request $request) {
+        $_user = User::where("id", "=", Auth::id())->first();
+        User_crate::updateOrInsert(
+            ['locale_user_id' => Auth::id(), "playlist_id" => $request->playlist],
+            ['created_at'=>now(), 'updated_at'=>now(), 'created_at'=>now(), ]
+        );
+        echo json_encode( "Added $request->playlist to crate!" );
+    }
+    public function playlist_remove ( Request $request ) {
+        $_user = User::where("id", "=", Auth::id())->first();
+        User_crate::where('locale_user_id', Auth::id() )->where("playlist_id", $request->playlist)->delete();
+        echo json_encode("Removed $request->playlist from crate!");
     }
 
 
@@ -159,8 +173,7 @@ class PlaylistController extends Controller
 
     }
 
-    private
-    function spotify_update_user()
+    private function spotify_update_user()
     {
         /**
          * we need to move this functionality to the spotify controller

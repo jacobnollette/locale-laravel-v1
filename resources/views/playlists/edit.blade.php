@@ -5,12 +5,18 @@
 @section("page_content")
     <section id="main">
         <div id="playlists_edit" class="container">
-            <h1>{{$playlist->name}}</h1>
+            <div id="playlists_edit-header">
+                <h1>{{$playlist->name}}</h1>
+                <div id="playlists_edit-header_share"><a href="#">Share Playlist</a></div>
+
+            </div>
+
             <div class="playlists_edit-description">{{$playlist->description}}</div>
             <div class="clear">&nbsp;</div>
 
             <div id="playlist_location" data-lat="{{$location[0]}}" data-long="{{$location[1]}}">&nbsp;</div>
 
+            <div class="clear">&nbsp;</div>
 
             <div id="playlists_edit-location">
                 <form id="playlists_edit-location_form">

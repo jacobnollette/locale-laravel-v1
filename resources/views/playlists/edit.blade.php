@@ -8,6 +8,7 @@
             <h1>{{$playlist->name}}</h1>
             <div class="playlists_edit-description">{{$playlist->description}}</div>
             <div class="clear">&nbsp;</div>
+
             <div id="playlist_location" data-lat="{{$location[0]}}" data-long="{{$location[1]}}">&nbsp;</div>
 
 

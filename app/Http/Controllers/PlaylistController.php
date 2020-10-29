@@ -33,6 +33,8 @@ use SpotifyWebAPI\Session;
 
 //  grimzy
 use Grimzy\LaravelMysqlSpatial\Types\Point;
+use Grimzy\LaravelMysqlSpatial\Types\Polygon;
+use Grimzy\LaravelMysqlSpatial\Types\LineString;
 
 
 class PlaylistController extends Controller
@@ -55,8 +57,7 @@ class PlaylistController extends Controller
         $this->spotify_connect();
 
 
-
-        $existing_field = Spotify_playlist::where('locale_user_id', Auth::id() )->where("playlist_id", $id)->first();
+        $existing_field = Spotify_playlist::where('locale_user_id', Auth::id())->where("playlist_id", $id)->first();
 //        dd( );
 //
 //        $existing_field->location_lat
@@ -73,10 +74,16 @@ class PlaylistController extends Controller
         /**
          * parse the location for valid return
          */
-        if (empty($_geocode->data[0]->latitude) == true || empty($_geocode->data[0]->longitude) == true) {
-            $location = array(
-                $existing_field->location_lat, $existing_field->location_long
-            );
+        //dd( $_geocode );
+        if ($_geocode == null) {
+            //($_geocode->data[0]->latitude) == true || empty($_geocode->data[0]->longitude) == true) {
+            if ($existing_field->location == null) {
+                $location = array (0,0);
+            } else {
+                $location = array(
+                    $existing_field->location->getLat(), $existing_field->location->getLng()
+                );
+            }
         } else {
             $location = array(
                 $_geocode->data[0]->latitude,
@@ -103,28 +110,14 @@ class PlaylistController extends Controller
 
     public function update(Request $request, $id)
     {
-        $_location = Spotify_playlist::where("locale_user_id", '=', Auth::id())->where("playlist_id", '=', $id)->get();
-        $_location->location = new Point( $request->lat, $request->lng, 0);
+        $_location = Spotify_playlist::where("locale_user_id", '=', Auth::id())->where("playlist_id", '=', $id)->first();
+        $_location->location = new Point($request->lat, $request->lng);
         $_location->save();
-//        $_location = Spotify_playlist::where("locale_user_id", '=', Auth::id())->where("playlist_id", '=', $id)->each( function( Spotify_playlist $spotifyPlaylist, $request ) {
-//            $spotifyPlaylist->location = new Point( $request->lat, $request->lng, 0);
-//            $spotifyPlaylist->save();
-//        });
-//        $_location->location =
-//        dd( $_location );
-        //$_location->save();
 
-
-        SpotifyPlaylist::all()
-            ->each(function (SpotifyPlaylist $spotifyPlaylist) {
-                $spotifyPlaylist->location = new Point($spotifyPlaylist->location_lat, $spotifyPlaylist->location_long);
-                $spotifyPlaylist->save();
-            });
     }
 
 
-    public
-    function playlist_location_get(Request $request)
+    public function playlist_location_get(Request $request)
     {
         if (Auth::id() != true):
             /**
@@ -140,8 +133,7 @@ class PlaylistController extends Controller
     }
 
 
-    private
-    function spotify_connect()
+    private function spotify_connect()
     {
         /**
          * we need to move this functionality to the spotify controller
@@ -180,3 +172,7 @@ class PlaylistController extends Controller
         ));
     }
 }
+
+
+
+//Illuminate\Database\QueryException: SQLSTATE[42000]: Syntax error or access violation: 1582 Incorrect parameter count in the call to native function 'ST_GeomFromText' (SQL: update `spotify_playlists` set `location` = ST_GeomFromText(POINT(44.916105959115 -93.319431671939), 0, 'axis-order=long-lat'), `spotify_playlists`.`updated_at` = 2020-10-29 01:19:35 where `id` = 1) in file /Users/jacobnollette/Code/locale/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 671

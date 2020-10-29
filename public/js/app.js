@@ -256,9 +256,9 @@ var _playlist_edit = {
       /**
        * post location to database
        */
+      // console.log(latlng);
 
 
-      console.log(latlng);
       var _given_url = window.location;
       _given_url = _given_url.pathname.split('/');
       var playlist_id = _given_url[2];

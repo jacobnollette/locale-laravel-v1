@@ -42,7 +42,7 @@ var _playlist_edit = {
             /**
              * post location to database
              */
-            console.log(latlng);
+            // console.log(latlng);
             var _given_url = window.location;
             _given_url = _given_url.pathname.split('/');
             var playlist_id = _given_url[2];
@@ -72,8 +72,6 @@ var _playlist_edit = {
                 _return = JSON.parse(this.responseText);
                 console.log( _return );
             }
-
-
         }
 
         /**

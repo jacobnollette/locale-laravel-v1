@@ -902,7 +902,7 @@ header #header_login ul li a {
 
 #playlists_index,
 #explorer_index {
-  box-sizing: border-gox;
+  box-sizing: border-box;
   padding-top: 25px;
   padding-bottom: 25px;
 }
@@ -910,26 +910,36 @@ header #header_login ul li a {
 #playlists_index .playlist,
 #explorer_index .playlist {
   margin-bottom: 20px;
+  width: 300px;
+  margin-right: 20px;
+  margin-bottom: 25px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  overflow: hidden;
 }
 
 #playlists_index .playlist .playlist_image,
 #explorer_index .playlist .playlist_image {
-  float: left;
+  margin: 0px;
+  padding: 0px;
+  width: 300px;
+  height: 300px;
 }
 
 #playlists_index .playlist .playlist_image img,
 #explorer_index .playlist .playlist_image img {
-  width: 120px;
-}
-
-#playlists_index .playlist .playlist_display,
-#explorer_index .playlist .playlist_display {
-  margin-left: 140px;
+  width: 300px;
 }
 
 #playlists_index .playlist .playlist_name,
 #explorer_index .playlist .playlist_name {
-  margin-top: 15px;
+  background-color: #b3b3b3;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-top: 8px;
 }
 
 #playlists_index .playlist .playlist_add,
@@ -942,8 +952,30 @@ header #header_login ul li a {
   text-decoration: underline;
 }
 
+#playlists_edit #playlist_location {
+  display: none;
+}
+
 #playlists_edit #playlists_edit-map {
   height: 300px;
+}
+
+#playlists_edit #playlist_edit-meta {
+  width: 30%;
+  float: left;
+  margin-left: 3.3%;
+}
+
+#playlists_edit .playlists_edit-tracks {
+  width: 30%;
+  float: left;
+  margin-left: 3.3%;
+}
+
+#playlists_edit #playlsits_edit-map {
+  width: 30%;
+  float: left;
+  margin-left: 3.3%;
 }
 
 #playlists_edit #playlists_edit-tracks-list {
@@ -1010,5 +1042,14 @@ header #header_login ul li a {
   background-color: gray;
   padding-left: 6px;
   padding-right: 6px;
+}
+
+#playlists_edit .playlists_edit-description {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#explorer_index #explorer_map {
+  height: 450px;
 }
 

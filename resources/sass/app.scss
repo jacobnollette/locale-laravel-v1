@@ -21,23 +21,34 @@
 
 
 #playlists_index, #explorer_index {
-    box-sizing: border-gox;
+    box-sizing: border-box;
     padding-top: 25px;
     padding-bottom: 25px;
     .playlist {
         margin-bottom: 20px;
+        width: 300px;
+        margin-right: 20px; margin-bottom: 25px;
+        border-top-left-radius: 12px; border-top-right-radius: 12px;
+        overflow: hidden;
         .playlist_image {
-            float: left;
-
+            //float: left;
+            margin: 0px; padding: 0px;
+            width: 300px; height: 300px;
             img {
-                width: 120px;
+                width: 300px;
+                //display: inline;
             }
         }
         .playlist_display{
-            margin-left: 140px;
+            //margin-left: 140px;
         }
         .playlist_name {
-            margin-top: 15px;
+            //margin-top: 15px;
+            background-color: lighten( grey, 20% );
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            padding-left: 10px; padding-right: 10px; padding-bottom: 10px;
+            padding-top: 8px;
         }
         .playlist_add {
             text-decoration: none;
@@ -49,8 +60,23 @@
 }
 
 #playlists_edit {
+    #playlist_location {
+        display:none;
+    }
     #playlists_edit-map {
         height: 300px;
+    }
+    #playlist_edit-meta {
+        width: 30%; float: left;
+        margin-left: 3.3%;
+    }
+    .playlists_edit-tracks {
+        width: 30%; float: left;
+        margin-left: 3.3%;
+    }
+    #playlsits_edit-map {
+        width: 30%; float: left;
+        margin-left: 3.3%;
     }
     #playlists_edit-tracks-list {
         list-style: none;
@@ -99,5 +125,14 @@
                 padding-left: 6px; padding-right: 6px;
             }
         }
+    }
+    .playlists_edit-description {
+        margin-top: 10px; margin-bottom: 10px;
+    }
+
+}
+#explorer_index {
+    #explorer_map {
+        height: 450px;
     }
 }

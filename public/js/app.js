@@ -97,7 +97,8 @@
  * vendors *
  ***********/
 //  leaflet // https://leafletjs.com/reference-1.6.0.html
-__webpack_require__(/*! ./vendor/leaflet */ "./resources/js/vendor/leaflet.js");
+__webpack_require__(/*! ./vendor/leaflet */ "./resources/js/vendor/leaflet.js"); //require('./vendor/masonry');
+
 /**********
  * blocks *
  **********/
@@ -107,7 +108,9 @@ __webpack_require__(/*! ./vendor/leaflet */ "./resources/js/vendor/leaflet.js");
 //  index
 
 
-__webpack_require__(/*! ./blocks/explorer_index */ "./resources/js/blocks/explorer_index.js"); ////////////////
+__webpack_require__(/*! ./blocks/explorer_index */ "./resources/js/blocks/explorer_index.js");
+
+__webpack_require__(/*! ./blocks/dashbard_index */ "./resources/js/blocks/dashbard_index.js"); ////////////////
 //  playlist  //
 ////////////////
 //  index
@@ -120,6 +123,35 @@ __webpack_require__(/*! ./blocks/playlist_edit */ "./resources/js/blocks/playlis
 
 /***/ }),
 
+/***/ "./resources/js/blocks/dashbard_index.js":
+/*!***********************************************!*\
+  !*** ./resources/js/blocks/dashbard_index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var _dashboard_index = {
+  init: function init() {
+    $("#playlists_index").masonry({
+      itemSelector: ".playlist" //columnWidth: 300
+
+    });
+  }
+};
+/**
+ * ghetto iife
+ */
+
+$(document).ready(function () {
+  if ($("#playlists_index").length > 0) {
+    var _dashboard_index_actual = Object.create(_dashboard_index);
+
+    _dashboard_index_actual.init();
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/blocks/explorer_index.js":
 /*!***********************************************!*\
   !*** ./resources/js/blocks/explorer_index.js ***!
@@ -129,9 +161,12 @@ __webpack_require__(/*! ./blocks/playlist_edit */ "./resources/js/blocks/playlis
 
 var _explorer_index = {
   init: function init() {
+    var _actual_this = this;
     /**
      * Explorer index stuff
      */
+
+
     $("#explorer_index .playlist_add").each(function (i, obj) {
       /**
        * playlist html, content fix
@@ -187,7 +222,98 @@ var _explorer_index = {
         console.log(this.responseText); // _return = JSON.parse( this.responseText );
       };
     });
-  }
+
+    _actual_this.get_location();
+  },
+  get_location: function get_location() {
+    var _actual_this = this;
+
+    if ("geolocation" in navigator) {
+      /**
+       * check if geolocation is supported/enabled on current browser
+       */
+      var location = {
+        "long": null,
+        "lat": null
+      };
+      navigator.geolocation.getCurrentPosition(function success(position) {
+        /**
+         * for when getting location is a success
+         */
+        //console.log('latitude', position.coords.latitude,
+        // 'longitude', position.coords.longitude);
+        _actual_this.found_location(position.coords.longitude, position.coords.latitude); // location.long = position.coords.longitude;
+        // location.lat = position.coords.latitude;
+
+      }, function error(error_message) {
+        /**
+         * for when getting location results in an error
+         */
+        console.error('An error has occured while retrieving location', error_message);
+      });
+    } else {
+      /**
+       * geolocation is not supported
+       * get your location some other way
+       */
+      console.log('geolocation is not enabled on this browser');
+    }
+  },
+  found_location: function found_location(_long, lat) {
+    var _actual_this = this;
+
+    var request = {
+      "lat": lat,
+      "long": _long
+    };
+    var url = "/dashboard/explore/list";
+    var csrf = document.querySelector('meta[name="csrf-token"]').content;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('X-CSRF-Token', csrf);
+    xhr.send(JSON.stringify(request));
+
+    xhr.onload = function () {
+      //console.log(this.responseText);
+      _return = JSON.parse(this.responseText); // console.log(_return);
+
+      _actual_this.populate_map(_return, request);
+    };
+  },
+  populate_map: function populate_map(given, location) {
+    var _actual_this = this;
+
+    location = {
+      "lat": location.lat,
+      "lng": location["long"]
+    };
+    var mymap = L.map('explorer_map').setView(location, 14);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      dragging: false,
+      accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
+    }).addTo(mymap);
+    given.forEach(function (playlist) {
+      var location = {
+        "lat": playlist.location.coordinates[1],
+        "lng": playlist.location.coordinates[0]
+      };
+      var mymarker = L.marker(location).addTo(mymap);
+
+      _actual_this.markers.push(mymarker);
+
+      console.log(playlist);
+    });
+
+    _actual_this.markers.forEach(function (marker) {}); //console.log ( given );
+
+  },
+  markers: []
 };
 /**
  * ghetto iife
@@ -211,6 +337,7 @@ $(document).ready(function () {
 /***/ (function(module, exports) {
 
 var _playlist_edit = {
+  markers: [],
   playlist_edit_load_map: function playlist_edit_load_map(location, initial) {
     /**
      * function to load map feature
@@ -221,7 +348,7 @@ var _playlist_edit = {
      */
 
 
-    var mymap = L.map('playlists_edit-map').setView(location, 13);
+    var mymap = L.map('playlists_edit-map').setView(location, 15);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
       attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       maxZoom: 18,
@@ -240,27 +367,37 @@ var _playlist_edit = {
        * place marker in the database
        */
       var csrf = document.querySelector('meta[name="csrf-token"]').content;
+
+      _this_actual.markers.forEach(function (the_marker) {
+        mymap.removeLayer(the_marker);
+      });
       /**
        * add market to map
        */
 
-      L.marker(latlng).addTo(mymap);
+
+      var mymarker = L.marker(latlng).addTo(mymap);
+
+      _this_actual.markers.push(mymarker);
       /**
        * post location to database
        */
+      // console.log(latlng);
 
-      console.log(latlng);
+
       var _given_url = window.location;
       _given_url = _given_url.pathname.split('/');
       var playlist_id = _given_url[2];
 
-      var _location_url = "/playlist/" + playlist_id + "/update";
+      var _location_url = "/playlist/" + playlist_id + "/location/update"; //console.log(_location_url);
 
-      console.log(_location_url);
+
       var _request = {
         "lat": latlng.lat,
         "lng": latlng.lng
       };
+      $("#playlist_location").data("lat", latlng.lat);
+      $("#playlist_location").data("long", latlng.lng);
       /**
        * post to api server
        */
@@ -276,17 +413,25 @@ var _playlist_edit = {
          * return
          */
         //console.log( this );
-        //_return = JSON.parse(this.responseText);
-        //console.log( _return );
+        _return = JSON.parse(this.responseText);
+        console.log(_return);
       };
     };
+
+    console.log(location);
+    var _sans_location = {
+      "lat": location[0],
+      "lng": location[1]
+    };
+
+    _add_marker(_sans_location);
     /**
      * initial marker logic
      */
 
 
     if (initial) {
-      alert("Click a more specific location for your playlist");
+      //alert("Click a more specific location for your playlist");
       mymap.on('click', function (ev) {
         _add_marker(ev.latlng);
       });
@@ -296,6 +441,64 @@ var _playlist_edit = {
        */
       L.marker(location).addTo(mymap);
     }
+  },
+  share_playlist: function share_playlist() {
+    $("#playlists_edit-header_share a").click(function (e) {
+      /**
+       * default stuff
+       */
+      e.preventDefault();
+
+      var _textBlock = $("#playlists_edit-header_share a");
+
+      var share = "yes";
+
+      if (_textBlock.html() == "Share Playlist") {
+        _textBlock.html("Unshare Playlist");
+
+        share = "yes";
+      } else {
+        _textBlock.html("Share Playlist");
+
+        share = "no";
+      }
+      /**
+       * share url logic, and variables
+       */
+
+
+      var csrf = document.querySelector('meta[name="csrf-token"]').content;
+      var _given_url = window.location;
+      _given_url = _given_url.pathname.split('/');
+      var playlist_id = _given_url[2];
+
+      var _location_url_add = "/playlist/" + playlist_id + "/playlist/add";
+
+      var _location_url_remove = "/playlist/" + playlist_id + "/playlist/remove";
+
+      if (share == "yes") {
+        _location_share = _location_url_add;
+      } else {
+        _location_share = _location_url_remove;
+      }
+
+      var request = {
+        "playlist": playlist_id
+      };
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", _location_share, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.setRequestHeader('X-CSRF-Token', csrf);
+      xhr.send(JSON.stringify(request));
+
+      xhr.onload = function () {
+        /**
+         * return
+         */
+        _return = JSON.parse(this.responseText);
+        console.log(_return);
+      };
+    });
   },
   init: function init() {
     /**
@@ -307,6 +510,8 @@ var _playlist_edit = {
      * basic variables for request
      */
     var _this_actual = this;
+
+    _this_actual.share_playlist();
     /**
      * get location lat/long
      */

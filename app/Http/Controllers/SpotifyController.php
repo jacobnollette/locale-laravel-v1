@@ -63,13 +63,6 @@ class SpotifyController extends Controller
         ];
 
     }
-    public function landing()
-    {
-        $_user = User::where( "id", "=", Auth::id() )->first();
-
-        return view('spotify/landing', [
-        ]);
-    }
     public function index()
     {
 

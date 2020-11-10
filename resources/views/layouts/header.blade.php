@@ -5,21 +5,24 @@
         @if (Route::has('login'))
             <div id="header_login">
                 <div>
+                    <ul>
                     @auth
-                        <a href="{{ url('/spotify') }}">Settings</a>
+                            <li><a href="{{ url('/spotify') }}">Settings</a></li>
+                            <li><a href="/dashboard">Dashboard</a></li>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                            <li><a href="{{ route('login') }}">Login</a></li>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                                <li><a href="{{ route('register') }}">Register</a></li>
                         @endif
                     @endif
+                    </ul>
                 </div>
             </div>
         @endif
         <div class="clear">&nbsp;</div>
         <div id="header_nav">
             <ul>
-                <li><a href="/dashboard">Dashboard</a></li>
+
                 <li><a href="/explore">Explore</a></li>
 
             </ul>

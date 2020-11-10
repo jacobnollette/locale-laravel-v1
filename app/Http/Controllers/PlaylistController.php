@@ -98,6 +98,7 @@ class PlaylistController extends Controller
          * spotify info request
          */
         $playlist = $this->spotify->spotify_api->getPlaylist($id);
+//        dd ($playlist);
         //dd($playlist->tracks->items[0]);
         //dd( $playlist);
 

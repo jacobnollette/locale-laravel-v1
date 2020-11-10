@@ -967,15 +967,13 @@ header #header_login ul li a {
 }
 
 #playlists_edit .playlists_edit-tracks {
-  width: 30%;
+  width: 60%;
   float: left;
   margin-left: 3.3%;
 }
 
 #playlists_edit #playlsits_edit-map {
-  width: 30%;
-  float: left;
-  margin-left: 3.3%;
+  padding-top: 12px;
 }
 
 #playlists_edit #playlists_edit-tracks-list {
@@ -1047,6 +1045,11 @@ header #header_login ul li a {
 #playlists_edit .playlists_edit-description {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+#playlists_edit .playlsits_edit-image img {
+  width: 100%;
+  height: auto;
 }
 
 #explorer_index #explorer_map {

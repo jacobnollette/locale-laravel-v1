@@ -71,12 +71,11 @@
         margin-left: 3.3%;
     }
     .playlists_edit-tracks {
-        width: 30%; float: left;
+        width: 60%; float: left;
         margin-left: 3.3%;
     }
     #playlsits_edit-map {
-        width: 30%; float: left;
-        margin-left: 3.3%;
+        padding-top: 12px;
     }
     #playlists_edit-tracks-list {
         list-style: none;
@@ -128,6 +127,12 @@
     }
     .playlists_edit-description {
         margin-top: 10px; margin-bottom: 10px;
+    }
+    .playlsits_edit-image {
+        img {
+            width: 100%;
+            height: auto;
+        }
     }
 
 }

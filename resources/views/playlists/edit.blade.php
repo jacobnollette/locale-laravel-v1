@@ -11,6 +11,7 @@
                     <div id="playlists_edit-header_share"><a href="#">{{$crate_message}}</a></div>
                 </div>
                 <div class="playlists_edit-description">{{$playlist->description}}</div>
+                <div class="playlists_edit-playlist_link"><a href="{{$playlist->external_urls->spotify}}">Edit Playlist</a></div>
                 <div class="playlsits_edit-image"><img src="{{$playlist->images[0]->url}}"/></div>
                 <div id="playlsits_edit-map">
                     <div id="playlist_location" data-lat="{{$location[0]}}" data-long="{{$location[1]}}">&nbsp;</div>

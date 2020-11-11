@@ -152,7 +152,7 @@ class ExploreController extends Controller
 //        $_givenLocation->location = new Point( $request->lat, $request->long );
 
         //$_recent_playlists = User_crate::leftJoin("spotify_playlists", "user_crates.locale_user_id", "=", "spotify_playlists.locale_user_id")->distance("location", $_givenLocation,  10)->limit(10)->get();
-        $_recent_playlists = Spotify_playlist::distance("location", new Point( $request->lat, $request->long),  ".02")->where("locale_user_id", "<>", Auth::id() )->limit(10)->get();
+        $_recent_playlists = Spotify_playlist::distance("location", new Point( $request->lat, $request->long),  $request->mean_range )->where("locale_user_id", "<>", Auth::id() )->limit(10)->get();
 
         //dd( $_recent_playlists );
 

@@ -243,9 +243,8 @@ var _explorer_index = {
     console.log(lat);
     var _the_map_location = [lat, _long];
 
-    _actual_this.load_map(_the_map_location);
+    _actual_this.load_map(_the_map_location); // _actual_this.found_location(long, lat);
 
-    _actual_this.found_location(_long, lat);
   },
   get_location: function get_location() {
     var _actual_this = this;
@@ -293,6 +292,20 @@ var _explorer_index = {
      * drag listener
      */
 
+    var width = _actual_this.mymap.getBounds().getEast() - _actual_this.mymap.getBounds().getWest();
+
+    var height = _actual_this.mymap.getBounds().getNorth() - _actual_this.mymap.getBounds().getSouth();
+
+    var mapcenter = _actual_this.mymap.getCenter();
+
+    if (width >= height) {
+      range = width;
+    } else {
+      range = height;
+    }
+
+    _actual_this.found_location(location[1], location[0], range);
+
     _actual_this.mymap.on("dragend", function () {
       var width = _actual_this.mymap.getBounds().getEast() - _actual_this.mymap.getBounds().getWest();
 
@@ -300,17 +313,22 @@ var _explorer_index = {
 
       var mapcenter = _actual_this.mymap.getCenter();
 
-      console.log(mapcenter);
+      if (width >= height) {
+        range = width;
+      } else {
+        range = height;
+      }
 
-      _actual_this.found_location(mapcenter.lng, mapcenter.lat);
+      _actual_this.found_location(mapcenter.lng, mapcenter.lat, range);
     });
   },
-  found_location: function found_location(_long2, lat) {
+  found_location: function found_location(_long2, lat, mean_range) {
     var _actual_this = this;
 
     var request = {
       "lat": lat,
-      "long": _long2
+      "long": _long2,
+      "mean_range": mean_range
     };
     var url = "/dashboard/explore/list";
     var csrf = document.querySelector('meta[name="csrf-token"]').content;

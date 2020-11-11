@@ -244,6 +244,8 @@ var _explorer_index = {
     var _the_map_location = [lat, _long];
 
     _actual_this.load_map(_the_map_location);
+
+    _actual_this.found_location(_long, lat);
   },
   get_location: function get_location() {
     var _actual_this = this;
@@ -272,6 +274,9 @@ var _explorer_index = {
     }
   },
   load_map: function load_map(location) {
+    /**
+     * load map
+     */
     var _actual_this = this;
 
     _actual_this.mymap = L.map('explorer_map').setView(location, 14);
@@ -284,6 +289,21 @@ var _explorer_index = {
       dragging: false,
       accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
     }).addTo(_actual_this.mymap);
+    /**
+     * drag listener
+     */
+
+    _actual_this.mymap.on("dragend", function () {
+      var width = _actual_this.mymap.getBounds().getEast() - _actual_this.mymap.getBounds().getWest();
+
+      var height = _actual_this.mymap.getBounds().getNorth() - _actual_this.mymap.getBounds().getSouth();
+
+      var mapcenter = _actual_this.mymap.getCenter();
+
+      console.log(mapcenter);
+
+      _actual_this.found_location(mapcenter.lng, mapcenter.lat);
+    });
   },
   found_location: function found_location(_long2, lat) {
     var _actual_this = this;
@@ -314,16 +334,16 @@ var _explorer_index = {
       "lat": location.lat,
       "lng": location["long"]
     };
+    /**
+     * remove previous markers, on populate
+     */
 
-    _actual_this.load_map(location);
+    _actual_this.markers.forEach(function (_the_marker) {
+      _actual_this.mymap.removeLayer(_the_marker); //console.log ( _the_marker );
 
-    _actual_this.mymap.on("dragend", function () {
-      var width = _actual_this.mymap.getBounds().getEast() - _actual_this.mymap.getBounds().getWest();
-
-      var height = _actual_this.mymap.getBounds().getNorth() - _actual_this.mymap.getBounds().getSouth();
-
-      var mapcenter = _actual_this.mymap.getCenter();
     });
+
+    _actual_this.markers = [];
 
     if (given.length > 0) {
       given.forEach(function (playlist) {

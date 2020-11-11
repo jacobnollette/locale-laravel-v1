@@ -78,6 +78,7 @@ var _explorer_index = {
         console.log(lat);
         var _the_map_location = [lat, long];
         _actual_this.load_map(_the_map_location);
+        _actual_this.found_location(long, lat);
     },
 
     get_location: function () {
@@ -109,6 +110,9 @@ var _explorer_index = {
         }
     },
     load_map: function (location) {
+        /**
+         * load map
+         */
         var _actual_this = this;
         _actual_this.mymap = L.map('explorer_map').setView(location, 14);
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -120,6 +124,19 @@ var _explorer_index = {
             dragging: false,
             accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
         }).addTo(_actual_this.mymap);
+
+        /**
+         * drag listener
+         */
+        _actual_this.mymap.on("dragend", function () {
+            var width = _actual_this.mymap.getBounds().getEast() - _actual_this.mymap.getBounds().getWest();
+            var height = _actual_this.mymap.getBounds().getNorth() - _actual_this.mymap.getBounds().getSouth();
+            var mapcenter = _actual_this.mymap.getCenter();
+
+            console.log( mapcenter);
+            _actual_this.found_location( mapcenter.lng, mapcenter.lat);
+
+        })
     },
     found_location: function (long, lat) {
         var _actual_this = this;
@@ -141,24 +158,22 @@ var _explorer_index = {
             _actual_this.populate_map(_return, request);
         }
     },
-
-
     populate_map: function (given, location) {
         var _actual_this = this;
         location = {
             "lat": location.lat,
             "lng": location.long
         }
-        _actual_this.load_map(location);
 
-
-        _actual_this.mymap.on("dragend", function () {
-            var width = _actual_this.mymap.getBounds().getEast() - _actual_this.mymap.getBounds().getWest();
-            var height = _actual_this.mymap.getBounds().getNorth() - _actual_this.mymap.getBounds().getSouth();
-            var mapcenter = _actual_this.mymap.getCenter();
-
+        /**
+         * remove previous markers, on populate
+         */
+        _actual_this.markers.forEach( function ( _the_marker ) {
+            _actual_this.mymap.removeLayer( _the_marker );
+            //console.log ( _the_marker );
         })
 
+        _actual_this.markers = [];
 
         if (given.length > 0) {
 

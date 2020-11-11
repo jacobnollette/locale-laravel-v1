@@ -162,7 +162,7 @@ class ExploreController extends Controller
         foreach ($_recent_playlists as $playlist) {
             //$playlist->locale_user_id;
             //$playlist->playlist_id;
-            $_playlist_info = Spotify_playlist::where("playlist_id", $playlist->playlist_id)->first();
+            $_playlist_info = Spotify_playlist::where("playlist_id", $playlist->playlist_id)->where("locale_user_id", "<>", Auth::id() )->first();
 //            dd($_playlist_info);
             //$_playlist_info->playlist_name;
             $_temp_spotify_api = $this->connect_as_user($_playlist_info->locale_user_id);

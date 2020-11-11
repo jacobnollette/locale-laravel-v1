@@ -298,19 +298,25 @@ var _explorer_index = {
       dragging: false,
       accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
     }).addTo(mymap);
-    given.forEach(function (playlist) {
-      var location = {
-        "lat": playlist.location.coordinates[1],
-        "lng": playlist.location.coordinates[0]
-      };
-      var mymarker = L.marker(location).addTo(mymap);
+    console.log(given);
 
-      _actual_this.markers.push(mymarker);
+    if (given.length > 0) {
+      given.forEach(function (playlist) {
+        if (playlist.location !== null) {
+          var location = {
+            "lat": playlist.location.coordinates[1],
+            "lng": playlist.location.coordinates[0]
+          };
+          var mymarker = L.marker(location).addTo(mymap);
 
-      console.log(playlist);
-    });
+          _actual_this.markers.push(mymarker);
 
-    _actual_this.markers.forEach(function (marker) {}); //console.log ( given );
+          console.log(playlist);
+        }
+      });
+
+      _actual_this.markers.forEach(function (marker) {});
+    } //console.log ( given );
 
   },
   markers: []

@@ -119,14 +119,14 @@ var _explorer_index = {
             //console.log(this.responseText);
             _return = JSON.parse(this.responseText);
             // console.log(_return);
-            _actual_this.populate_map( _return, request );
+            _actual_this.populate_map(_return, request);
         }
     },
-    populate_map: function ( given, location ) {
+    populate_map: function (given, location) {
         var _actual_this = this;
         location = {
-            "lat":location.lat,
-            "lng":location.long
+            "lat": location.lat,
+            "lng": location.long
         }
         var mymap = L.map('explorer_map').setView(location, 14);
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -138,22 +138,29 @@ var _explorer_index = {
             dragging: false,
             accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
         }).addTo(mymap);
+        console.log(given);
+        if (given.length > 0) {
 
-        given.forEach( function (playlist) {
-            var location = {
-                "lat": playlist.location.coordinates[1],
-                "lng": playlist.location.coordinates[0]
-            }
-            var mymarker = L.marker(location).addTo(mymap);
-            _actual_this.markers.push( mymarker );
-            console.log( playlist );
-        })
-        _actual_this.markers.forEach( function( marker ) {
+            given.forEach(function (playlist) {
+                if (playlist.location !== null) {
 
-        })
+
+                    var location = {
+                        "lat": playlist.location.coordinates[1],
+                        "lng": playlist.location.coordinates[0]
+                    }
+                    var mymarker = L.marker(location).addTo(mymap);
+                    _actual_this.markers.push(mymarker);
+                    console.log(playlist);
+                }
+            })
+            _actual_this.markers.forEach(function (marker) {
+
+            })
+        }
         //console.log ( given );
     },
-    markers:[]
+    markers: []
 }
 
 /**

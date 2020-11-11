@@ -60,7 +60,24 @@ var _explorer_index = {
                 // _return = JSON.parse( this.responseText );
             }
         });
+        _actual_this.start_load();
+    },
+    start_load: function () {
+        /**
+         * get location
+         */
+        var _actual_this = this;
         _actual_this.get_location();
+    },
+    received_location: function (long, lat) {
+        /**
+         * parse location, and load up map
+         */
+        var _actual_this = this;
+        console.log(long);
+        console.log(lat);
+        var _the_map_location = [lat, long];
+        _actual_this.load_map(_the_map_location);
     },
 
     get_location: function () {
@@ -69,22 +86,12 @@ var _explorer_index = {
             /**
              * check if geolocation is supported/enabled on current browser
              */
-            var location =
-                {
-                    "long": null,
-                    "lat": null
-                }
             navigator.geolocation.getCurrentPosition(
                 function success(position) {
                     /**
                      * for when getting location is a success
                      */
-                    _actual_this.found_location(position.coords.longitude, position.coords.latitude);
-
-
-
-
-
+                    _actual_this.received_location(position.coords.longitude, position.coords.latitude);
                 },
                 function error(error_message) {
                     /**
@@ -93,8 +100,6 @@ var _explorer_index = {
                     console.error('An error has occured while retrieving location', error_message);
                 }
             )
-
-
         } else {
             /**
              * geolocation is not supported
@@ -102,6 +107,19 @@ var _explorer_index = {
              */
             console.log('geolocation is not enabled on this browser')
         }
+    },
+    load_map: function (location) {
+        var _actual_this = this;
+        _actual_this.mymap = L.map('explorer_map').setView(location, 14);
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            dragging: false,
+            accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
+        }).addTo(_actual_this.mymap);
     },
     found_location: function (long, lat) {
         var _actual_this = this;
@@ -124,40 +142,22 @@ var _explorer_index = {
         }
     },
 
-    load_map: function ( location ) {
-        var _actual_this = this;
-        _actual_this.mymap = L.map('explorer_map').setView(location, 14);
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-            attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1,
-            dragging: false,
-            accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
-        }).addTo(_actual_this.mymap);
-    },
+
     populate_map: function (given, location) {
         var _actual_this = this;
         location = {
             "lat": location.lat,
             "lng": location.long
         }
-        _actual_this.load_map( location );
+        _actual_this.load_map(location);
 
 
-
-
-        _actual_this.mymap.on( "dragend", function () {
+        _actual_this.mymap.on("dragend", function () {
             var width = _actual_this.mymap.getBounds().getEast() - _actual_this.mymap.getBounds().getWest();
             var height = _actual_this.mymap.getBounds().getNorth() - _actual_this.mymap.getBounds().getSouth();
             var mapcenter = _actual_this.mymap.getCenter();
 
         })
-
-
-
-
 
 
         if (given.length > 0) {

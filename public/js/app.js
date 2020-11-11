@@ -223,7 +223,27 @@ var _explorer_index = {
       };
     });
 
+    _actual_this.start_load();
+  },
+  start_load: function start_load() {
+    /**
+     * get location
+     */
+    var _actual_this = this;
+
     _actual_this.get_location();
+  },
+  received_location: function received_location(_long, lat) {
+    /**
+     * parse location, and load up map
+     */
+    var _actual_this = this;
+
+    console.log(_long);
+    console.log(lat);
+    var _the_map_location = [lat, _long];
+
+    _actual_this.load_map(_the_map_location);
   },
   get_location: function get_location() {
     var _actual_this = this;
@@ -232,15 +252,11 @@ var _explorer_index = {
       /**
        * check if geolocation is supported/enabled on current browser
        */
-      var location = {
-        "long": null,
-        "lat": null
-      };
       navigator.geolocation.getCurrentPosition(function success(position) {
         /**
          * for when getting location is a success
          */
-        _actual_this.found_location(position.coords.longitude, position.coords.latitude);
+        _actual_this.received_location(position.coords.longitude, position.coords.latitude);
       }, function error(error_message) {
         /**
          * for when getting location results in an error
@@ -255,12 +271,26 @@ var _explorer_index = {
       console.log('geolocation is not enabled on this browser');
     }
   },
-  found_location: function found_location(_long, lat) {
+  load_map: function load_map(location) {
+    var _actual_this = this;
+
+    _actual_this.mymap = L.map('explorer_map').setView(location, 14);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      dragging: false,
+      accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
+    }).addTo(_actual_this.mymap);
+  },
+  found_location: function found_location(_long2, lat) {
     var _actual_this = this;
 
     var request = {
       "lat": lat,
-      "long": _long
+      "long": _long2
     };
     var url = "/dashboard/explore/list";
     var csrf = document.querySelector('meta[name="csrf-token"]').content;
@@ -276,20 +306,6 @@ var _explorer_index = {
 
       _actual_this.populate_map(_return, request);
     };
-  },
-  load_map: function load_map(location) {
-    var _actual_this = this;
-
-    _actual_this.mymap = L.map('explorer_map').setView(location, 14);
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-      attribution: 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 18,
-      id: 'mapbox/streets-v11',
-      tileSize: 512,
-      zoomOffset: -1,
-      dragging: false,
-      accessToken: 'pk.eyJ1IjoiamFjb2Jub2xsZXR0ZSIsImEiOiJja2dpeW9rMzgxanVuMnJycjNqcjNsaHFpIn0.XQXUgLDmOs15mHZiey4YmA'
-    }).addTo(_actual_this.mymap);
   },
   populate_map: function populate_map(given, location) {
     var _actual_this = this;

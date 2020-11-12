@@ -95,17 +95,6 @@ var _explorer_index = {
             console.log('geolocation is not enabled on this browser')
         }
     },
-    receiveCurrentPosition: function (position, _actual_this ) {
-        /**
-         * we received position from location services request
-         */
-
-
-        console.log("this location found");
-        _actual_this.received_location(position.coords.longitude, position.coords.latitude);
-        $("#explorer_map_no_location").toggleClass("hidden");
-
-    },
     received_location: function (long, lat) {
         /**
          * parse location, and load up map

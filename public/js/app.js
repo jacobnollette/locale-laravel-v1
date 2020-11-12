@@ -426,6 +426,11 @@ var _navigation = {
   },
   mobile_nav: function mobile_nav() {
     var _actual_this = this;
+
+    $(".header_mobile_hamburger a").click(function (e) {
+      e.preventDefault();
+      $(".header_mobile_nav").toggleClass("hidden");
+    });
   }
 };
 /**

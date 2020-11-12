@@ -883,23 +883,6 @@ header #header_login ul li a {
   color: #4c85a7;
 }
 
-#main .container {
-  background-color: #f7f7f7;
-  padding-bottom: 20px;
-}
-
-#main h1 {
-  margin: 0px;
-  padding: 0px;
-  font-size: 38px;
-}
-
-#main h2 {
-  margin: 0px;
-  padding: 0px;
-  font-size: 24px;
-}
-
 @media (max-width: 800px) {
   .header_desktop {
     display: none;
@@ -909,6 +892,11 @@ header #header_login ul li a {
 .header_mobile {
   display: none;
   background-color: #f7f7f7;
+  position: fixed;
+  z-index: 10000;
+  top: 0px;
+  right: 0px;
+  left: 0px;
 }
 
 @media (max-width: 800px) {
@@ -928,6 +916,7 @@ header #header_login ul li a {
   float: right;
   padding-top: 6px;
   padding-right: 6px;
+  padding-bottom: 6px;
 }
 
 .header_mobile .header_mobile_hamburger img {
@@ -939,6 +928,51 @@ header #header_login ul li a {
   display: block;
   width: 65px;
   height: 65px;
+  outline: none;
+}
+
+.header_mobile .header_mobile_nav {
+  background-color: #c4c4c4;
+}
+
+.header_mobile .header_mobile_nav.hidden {
+  display: none;
+}
+
+.header_mobile .header_mobile_nav ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  padding-left: 12px;
+}
+
+.header_mobile .header_mobile_nav ul li {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+@media (max-width: 800px) {
+  #main {
+    padding-top: 65px;
+  }
+}
+
+#main .container {
+  background-color: #f7f7f7;
+  padding-bottom: 20px;
+}
+
+#main h1 {
+  margin: 0px;
+  padding: 0px;
+  font-size: 38px;
+}
+
+#main h2 {
+  margin: 0px;
+  padding: 0px;
+  font-size: 24px;
 }
 
 #playlists_index,
@@ -1001,16 +1035,40 @@ header #header_login ul li a {
   height: 300px;
 }
 
+@media (max-width: 800px) {
+  #playlists_edit #playlists_edit-map {
+    margin-left: 32px;
+    margin-right: 32px;
+    margin-bottom: 20px;
+  }
+}
+
 #playlists_edit #playlist_edit-meta {
   width: 30%;
   float: left;
   margin-left: 3.3%;
 }
 
+@media (max-width: 800px) {
+  #playlists_edit #playlist_edit-meta {
+    float: none;
+    width: 100%;
+    margin-left: 0px;
+  }
+}
+
 #playlists_edit .playlists_edit-tracks {
   width: 60%;
   float: left;
   margin-left: 3.3%;
+}
+
+@media (max-width: 800px) {
+  #playlists_edit .playlists_edit-tracks {
+    float: none;
+    width: 100%;
+    margin-left: 0px;
+  }
 }
 
 #playlists_edit #playlsits_edit-map {
@@ -1091,5 +1149,12 @@ header #header_login ul li a {
 #playlists_edit .playlsits_edit-image img {
   width: 100%;
   height: auto;
+}
+
+@media (max-width: 800px) {
+  #explorer_index #explorer_map {
+    margin-left: 32px;
+    margin-right: 32px;
+  }
 }
 

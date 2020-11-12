@@ -42,8 +42,10 @@
         <div class="header_mobile_nav hidden">
             <div class="header_mobile_nav_actual">
                 <ul>
-                    <li><a href="/explore">Explore</a></li>
+
                     @auth
+                        <li><a href="/explore">Explore</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>
                         <li><a href="{{ url('/spotify') }}">Settings</a></li>
                     @else
                         <li><a href="{{ route('login') }}">Login</a></li>
@@ -55,4 +57,5 @@
             </div>
         </div>
     </div>
+    <div class="clear">&nbsp;</div>
 </header>

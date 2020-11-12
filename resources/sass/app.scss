@@ -1,16 +1,23 @@
 @import "globals.scss";
 
 #main {
+    @include breakpoint ( mobile ) {
+        padding-top: 65px;
+    }
     .container {
         background-color: $CONTAINER_BG;
         padding-bottom: 20px;
     }
-    h1{
-        margin: 0px; padding: 0px;
+
+    h1 {
+        margin: 0px;
+        padding: 0px;
         font-size: 38px;
     }
+
     h2 {
-        margin: 0px; padding: 0px;
+        margin: 0px;
+        padding: 0px;
         font-size: 24px;
     }
 }
@@ -19,69 +26,54 @@
 
 }
 
-.header_desktop {
-    @include breakpoint(mobile) {
-        display:none;
-    }
-}
-.header_mobile {
-    display: none;
-    @include breakpoint ( mobile ) {
-        display: block;
-    }
 
-    background-color: $CONTAINER_BG;
-    .header_mobile_header {
-        float: left;
-        padding-left: 10px; padding-top: 2px;
-    }
-    .header_mobile_hamburger {
-        width: 65px;
-        float: right;
-        padding-top: 6px; padding-right: 6px;
-        img {
-            width: 100%; height: auto;
-        }
-        a {
-            display: block;
-            width: 65px; height: 65px;
-        }
-    }
-}
 
 
 #playlists_index, #explorer_index {
     box-sizing: border-box;
     padding-top: 25px;
     padding-bottom: 25px;
+
     .playlist {
         margin-bottom: 20px;
         width: 300px;
-        margin-right: 20px; margin-bottom: 25px;
-        border-top-left-radius: 12px; border-top-right-radius: 12px;
+        margin-right: 20px;
+        margin-bottom: 25px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
         overflow: hidden;
+
         .playlist_image {
             //float: left;
-            margin: 0px; padding: 0px;
-            width: 300px; height: 300px;
+            margin: 0px;
+            padding: 0px;
+            width: 300px;
+            height: 300px;
+
             img {
                 width: 300px;
                 //display: inline;
             }
         }
-        .playlist_display{
+
+        .playlist_display {
             //margin-left: 140px;
         }
+
         .playlist_name {
             //margin-top: 15px;
-            background-color: lighten( grey, 20% );
+            background-color: lighten(grey, 20%);
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
-            padding-left: 10px; padding-right: 10px; padding-bottom: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 10px;
             padding-top: 8px;
         }
+
         .playlist_add {
             text-decoration: none;
+
             &.in_crate {
                 text-decoration: underline;
             }
@@ -91,73 +83,110 @@
 
 #playlists_edit {
     #playlist_location {
-        display:none;
+        display: none;
     }
+
     #playlists_edit-map {
         height: 300px;
+        @include breakpoint ( mobile ) {
+            margin-left: 32px; margin-right: 32px;
+            margin-bottom: 20px;
+        }
     }
+
     #playlist_edit-meta {
-        width: 30%; float: left;
+        width: 30%;
+        float: left;
         margin-left: 3.3%;
+        @include breakpoint ( mobile ) {
+            float: none; width: 100%; margin-left: 0px;
+        }
     }
+
     .playlists_edit-tracks {
-        width: 60%; float: left;
+        width: 60%;
+        float: left;
         margin-left: 3.3%;
+        @include breakpoint ( mobile ) {
+            float: none; width: 100%; margin-left: 0px;
+        }
     }
+
     #playlsits_edit-map {
         padding-top: 12px;
     }
+
     #playlists_edit-tracks-list {
         list-style: none;
-        margin: 0px; padding: 0px;
+        margin: 0px;
+        padding: 0px;
+
         & > li {
-            margin: 0px; padding: 0px;
+            margin: 0px;
+            padding: 0px;
             display: block;
             padding-left: 10px;
+
             &:nth-child(even) {
-                background-color: lighten( gray, 30% );
+                background-color: lighten(gray, 30%);
             }
+
             &:nth-child(odd) {
-                background-color: darken( gray, 30% );
+                background-color: darken(gray, 30%);
+
                 .playlists_edit-tracks-title {
                     color: white;
                 }
             }
         }
     }
+
     .playlists_edit-tracks-title {
         display: inline;
         max-width: 150px;
         word-wrap: break-word !important;
     }
+
     .playlists_edit-artist_break {
         display: inline;
-        margin-left: 6px; margin-right: 6px;
+        margin-left: 6px;
+        margin-right: 6px;
     }
+
     .playlists_edit-tracks-artists {
         display: inline;
     }
+
     .playlists_edit-tracks-artists-display {
         display: inline;
         display: none;
     }
+
     .playlists_edit-tracks-artists {
         display: inline;
+
         ul {
             display: inline;
             list-style: none;
-            margin: 0px; padding: 0px;
+            margin: 0px;
+            padding: 0px;
+
             li {
                 display: inline;
-                margin: 0px; padding: 0px;
+                margin: 0px;
+                padding: 0px;
                 background-color: gray;
-                padding-left: 6px; padding-right: 6px;
+                padding-left: 6px;
+                padding-right: 6px;
             }
         }
     }
+
     .playlists_edit-description {
-        margin-top: 10px; margin-bottom: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
+
     .playlsits_edit-image {
         img {
             width: 100%;
@@ -166,11 +195,15 @@
     }
 
 }
+
 #explorer_index {
     #explorer_map {
         //height: 450px;
         //height: 100%;
         //position:relative;
         //bottom: 15px;
+        @include breakpoint ( mobile ) {
+                margin-left: 32px; margin-right: 32px;
+        }
     }
 }

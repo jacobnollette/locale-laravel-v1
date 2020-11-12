@@ -78,6 +78,16 @@ var _explorer_index = {
         console.log(lat);
         var _the_map_location = [lat, long];
         _actual_this.load_map(_the_map_location);
+
+        /**
+         * add circle
+         */
+        L.circle({lat: lat, lng: long}, {
+            color: 'steelblue',
+            radius: 200,
+            fillColor: 'steelblue',
+            opacity: 0.5
+        }).addTo(_actual_this.mymap)
         // _actual_this.found_location(long, lat);
     },
 
@@ -131,7 +141,7 @@ var _explorer_index = {
         var width = _actual_this.mymap.getBounds().getEast() - _actual_this.mymap.getBounds().getWest();
         var height = _actual_this.mymap.getBounds().getNorth() - _actual_this.mymap.getBounds().getSouth();
         var mapcenter = _actual_this.mymap.getCenter();
-        if ( width >= height ) {
+        if (width >= height) {
             range = width;
         } else {
             range = height;
@@ -144,20 +154,20 @@ var _explorer_index = {
             var height = _actual_this.mymap.getBounds().getNorth() - _actual_this.mymap.getBounds().getSouth();
             var mapcenter = _actual_this.mymap.getCenter();
 
-
-
-            if ( width >= height ) {
+            if (width >= height) {
                 range = width;
             } else {
                 range = height;
             }
-            _actual_this.found_location( mapcenter.lng, mapcenter.lat, range);
+            _actual_this.found_location(mapcenter.lng, mapcenter.lat, range);
         })
         $(window).on("resize", function () {
             var _the_height = $(window).height() - 200;
             $("#explorer_map").height(_the_height);
             _actual_this.mymap.invalidateSize();
         }).trigger("resize");
+
+
     },
     found_location: function (long, lat, mean_range) {
         var _actual_this = this;
@@ -190,8 +200,8 @@ var _explorer_index = {
         /**
          * remove previous markers, on populate
          */
-        _actual_this.markers.forEach( function ( _the_marker ) {
-            _actual_this.mymap.removeLayer( _the_marker );
+        _actual_this.markers.forEach(function (_the_marker) {
+            _actual_this.mymap.removeLayer(_the_marker);
             //console.log ( _the_marker );
         })
 
@@ -201,15 +211,13 @@ var _explorer_index = {
 
             given.forEach(function (playlist) {
                 if (playlist.location !== null) {
-
-
                     var location = {
                         "lat": playlist.location.coordinates[1],
                         "lng": playlist.location.coordinates[0]
                     }
                     var mymarker = L.marker(location).addTo(_actual_this.mymap);
                     _actual_this.markers.push(mymarker);
-                    console.log(playlist);
+                    //console.log(playlist);
                 }
             })
             _actual_this.markers.forEach(function (marker) {

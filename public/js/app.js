@@ -248,8 +248,21 @@ var _explorer_index = {
     console.log(lat);
     var _the_map_location = [lat, _long];
 
-    _actual_this.load_map(_the_map_location); // _actual_this.found_location(long, lat);
+    _actual_this.load_map(_the_map_location);
+    /**
+     * add circle
+     */
 
+
+    L.circle({
+      lat: lat,
+      lng: _long
+    }, {
+      color: 'steelblue',
+      radius: 200,
+      fillColor: 'steelblue',
+      opacity: 0.5
+    }).addTo(_actual_this.mymap); // _actual_this.found_location(long, lat);
   },
   get_location: function get_location() {
     var _actual_this = this;
@@ -385,9 +398,8 @@ var _explorer_index = {
           };
           var mymarker = L.marker(location).addTo(_actual_this.mymap);
 
-          _actual_this.markers.push(mymarker);
+          _actual_this.markers.push(mymarker); //console.log(playlist);
 
-          console.log(playlist);
         }
       });
 

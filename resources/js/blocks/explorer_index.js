@@ -151,10 +151,13 @@ var _explorer_index = {
             } else {
                 range = height;
             }
-
             _actual_this.found_location( mapcenter.lng, mapcenter.lat, range);
-
         })
+        $(window).on("resize", function () {
+            var _the_height = $(window).height() - 200;
+            $("#explorer_map").height(_the_height);
+            _actual_this.mymap.invalidateSize();
+        }).trigger("resize");
     },
     found_location: function (long, lat, mean_range) {
         var _actual_this = this;
@@ -215,6 +218,7 @@ var _explorer_index = {
         }
         //console.log ( given );
     },
+
     markers: []
 }
 

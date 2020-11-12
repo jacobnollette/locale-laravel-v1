@@ -259,7 +259,7 @@ var _explorer_index = {
       lng: _long
     }, {
       color: 'steelblue',
-      radius: 300,
+      radius: 900,
       fillColor: 'steelblue',
       opacity: 0.5
     }).addTo(_actual_this.mymap);

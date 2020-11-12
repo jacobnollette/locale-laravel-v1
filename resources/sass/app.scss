@@ -19,6 +19,36 @@
 
 }
 
+.header_desktop {
+    @include breakpoint(mobile) {
+        display:none;
+    }
+}
+.header_mobile {
+    display: none;
+    @include breakpoint ( mobile ) {
+        display: block;
+    }
+
+    background-color: $CONTAINER_BG;
+    .header_mobile_header {
+        float: left;
+        padding-left: 10px; padding-top: 2px;
+    }
+    .header_mobile_hamburger {
+        width: 65px;
+        float: right;
+        padding-top: 6px; padding-right: 6px;
+        img {
+            width: 100%; height: auto;
+        }
+        a {
+            display: block;
+            width: 65px; height: 65px;
+        }
+    }
+}
+
 
 #playlists_index, #explorer_index {
     box-sizing: border-box;

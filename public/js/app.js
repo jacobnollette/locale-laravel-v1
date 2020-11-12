@@ -99,13 +99,18 @@
 //  leaflet // https://leafletjs.com/reference-1.6.0.html
 __webpack_require__(/*! ./vendor/leaflet */ "./resources/js/vendor/leaflet.js"); //require('./vendor/masonry');
 
+/***********
+ * globals *
+ ***********/
+
+
+__webpack_require__(/*! ./blocks/navigation */ "./resources/js/blocks/navigation.js");
 /**********
  * blocks *
  **********/
 ////////////////////////////
 //  dashboard / explorer  //
 ////////////////////////////
-//  index
 
 
 __webpack_require__(/*! ./blocks/explorer_index */ "./resources/js/blocks/explorer_index.js");
@@ -402,6 +407,35 @@ $(document).ready(function () {
 
     _explorer_index_actual.init();
   }
+});
+
+/***/ }),
+
+/***/ "./resources/js/blocks/navigation.js":
+/*!*******************************************!*\
+  !*** ./resources/js/blocks/navigation.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var _navigation = {
+  init: function init() {
+    var _actual_this = this;
+
+    _actual_this.mobile_nav();
+  },
+  mobile_nav: function mobile_nav() {
+    var _actual_this = this;
+  }
+};
+/**
+ * ghetto iife
+ */
+
+$(document).ready(function () {
+  var _navigation_actual = Object.create(_navigation);
+
+  _navigation_actual.init();
 });
 
 /***/ }),

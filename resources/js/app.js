@@ -6,6 +6,10 @@ require('./vendor/leaflet');
 //require('./vendor/masonry');
 
 
+/***********
+ * globals *
+ ***********/
+require('./blocks/navigation');
 
 /**********
  * blocks *
@@ -14,8 +18,6 @@ require('./vendor/leaflet');
 ////////////////////////////
 //  dashboard / explorer  //
 ////////////////////////////
-//  index
-
 require('./blocks/explorer_index');
 require('./blocks/dashbard_index');
 

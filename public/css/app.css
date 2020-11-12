@@ -900,6 +900,47 @@ header #header_login ul li a {
   font-size: 24px;
 }
 
+@media (max-width: 800px) {
+  .header_desktop {
+    display: none;
+  }
+}
+
+.header_mobile {
+  display: none;
+  background-color: #f7f7f7;
+}
+
+@media (max-width: 800px) {
+  .header_mobile {
+    display: block;
+  }
+}
+
+.header_mobile .header_mobile_header {
+  float: left;
+  padding-left: 10px;
+  padding-top: 2px;
+}
+
+.header_mobile .header_mobile_hamburger {
+  width: 65px;
+  float: right;
+  padding-top: 6px;
+  padding-right: 6px;
+}
+
+.header_mobile .header_mobile_hamburger img {
+  width: 100%;
+  height: auto;
+}
+
+.header_mobile .header_mobile_hamburger a {
+  display: block;
+  width: 65px;
+  height: 65px;
+}
+
 #playlists_index,
 #explorer_index {
   box-sizing: border-box;

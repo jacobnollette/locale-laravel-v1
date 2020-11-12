@@ -84,14 +84,38 @@ var _explorer_index = {
          */
         L.circle({lat: lat, lng: long}, {
             color: 'steelblue',
-            radius: 200,
+            radius: 300,
             fillColor: 'steelblue',
             opacity: 0.5
         }).addTo(_actual_this.mymap);
-        
-        // _actual_this.found_location(long, lat);
-    },
+        /**
+         * 69 miles per degree
+         * 111044.7 per 69 miles
+         * 0.002701615 degrees
+         */
 
+        _actual_this.unlock_location( lat, long);
+    },
+    unlock_location: function ( lat, long ) {
+        var _actual_this = this;
+        var request = {
+            "lat": lat,
+            "lng": long
+        };
+        var url = "/dashboard/explore/unlock";
+        var csrf = document.querySelector('meta[name="csrf-token"]').content;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-Token', csrf);
+        xhr.send(JSON.stringify(request));
+        xhr.onload = function () {
+            //console.log(this.responseText);
+            //_return = JSON.parse(this.responseText);
+            // console.log(_return);
+            // _actual_this.populate_map(_return, request);
+        }
+    },
     get_location: function () {
         var _actual_this = this;
         if ("geolocation" in navigator) {

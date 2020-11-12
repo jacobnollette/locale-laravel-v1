@@ -97,6 +97,17 @@ class ExploreController extends Controller
         echo json_encode("Followed $request->playlist");
     }
 
+    public function playlist_add($playlist, $user)
+    {
+        User_crates::updateOrInsert(
+            ['locale_user_id' => $user, "playlist_id" => $playlist],
+            ['created_at' => now(), 'updated_at' => now(), 'created_at' => now(),]
+        );
+        $_spotify_connection = $this->connect_as_user($playlist);
+        $status = $_spotify_connection->spotify_api->followPlaylist($playlist);
+        //echo json_encode("Followed $request->playlist");
+    }
+
     public function explorer_remove(Request $request)
     {
         $_user = User::where("id", "=", Auth::id())->first();
@@ -152,7 +163,7 @@ class ExploreController extends Controller
 //        $_givenLocation->location = new Point( $request->lat, $request->long );
 
         //$_recent_playlists = User_crate::leftJoin("spotify_playlists", "user_crates.locale_user_id", "=", "spotify_playlists.locale_user_id")->distance("location", $_givenLocation,  10)->limit(10)->get();
-        $_recent_playlists = Spotify_playlist::distance("location", new Point( $request->lat, $request->long),  $request->mean_range )->where("locale_user_id", "<>", Auth::id() )->limit(10)->get();
+        $_recent_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->long), $request->mean_range)->where("locale_user_id", "<>", Auth::id())->limit(10)->get();
 
         //dd( $_recent_playlists );
 
@@ -162,7 +173,7 @@ class ExploreController extends Controller
         foreach ($_recent_playlists as $playlist) {
             //$playlist->locale_user_id;
             //$playlist->playlist_id;
-            $_playlist_info = Spotify_playlist::where("playlist_id", $playlist->playlist_id)->where("locale_user_id", "<>", Auth::id() )->first();
+            $_playlist_info = Spotify_playlist::where("playlist_id", $playlist->playlist_id)->where("locale_user_id", "<>", Auth::id())->first();
 //            dd($_playlist_info);
             //$_playlist_info->playlist_name;
             $_temp_spotify_api = $this->connect_as_user($_playlist_info->locale_user_id);
@@ -177,6 +188,18 @@ class ExploreController extends Controller
         }
         //$output_playlists );
         return (json_encode($output_playlists));
+    }
+
+    public function unlock(Request $request)
+    {
+        //$request->lat;
+        //$request->lng;
+        $degrees = "0.002";
+        $_location_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->lng), $degrees)->where("locale_user_id", "<>", Auth::id())->limit(10)->get();
+        foreach ($_location_playlists as $playlist):
+            $this->playlist_add( $playlist->playlist_id, Auth::id() );
+        endforeach;
+        //echo json_encode( $_location_playlists );
 
 
     }

@@ -52,6 +52,7 @@ Route::get('/explore/','App\Http\Controllers\ExploreController@index');
 Route::post( '/dashboard/explore/add/','App\Http\Controllers\ExploreController@explorer_add');
 Route::post( '/dashboard/explore/remove/','App\Http\Controllers\ExploreController@explorer_remove');
 Route::post( '/dashboard/explore/list/','App\Http\Controllers\ExploreController@list');
+Route::post( '/dashboard/explore/unlock/','App\Http\Controllers\ExploreController@unlock');
 
 
 

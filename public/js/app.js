@@ -259,10 +259,38 @@ var _explorer_index = {
       lng: _long
     }, {
       color: 'steelblue',
-      radius: 200,
+      radius: 300,
       fillColor: 'steelblue',
       opacity: 0.5
-    }).addTo(_actual_this.mymap); // _actual_this.found_location(long, lat);
+    }).addTo(_actual_this.mymap);
+    /**
+     * 69 miles per degree
+     * 111044.7 per 69 miles
+     * 0.002701615 degrees
+     */
+
+    _actual_this.unlock_location(lat, _long);
+  },
+  unlock_location: function unlock_location(lat, _long2) {
+    var _actual_this = this;
+
+    var request = {
+      "lat": lat,
+      "lng": _long2
+    };
+    var url = "/dashboard/explore/unlock";
+    var csrf = document.querySelector('meta[name="csrf-token"]').content;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('X-CSRF-Token', csrf);
+    xhr.send(JSON.stringify(request));
+
+    xhr.onload = function () {//console.log(this.responseText);
+      //_return = JSON.parse(this.responseText);
+      // console.log(_return);
+      // _actual_this.populate_map(_return, request);
+    };
   },
   get_location: function get_location() {
     var _actual_this = this;
@@ -348,12 +376,12 @@ var _explorer_index = {
       _actual_this.mymap.invalidateSize();
     }).trigger("resize");
   },
-  found_location: function found_location(_long2, lat, mean_range) {
+  found_location: function found_location(_long3, lat, mean_range) {
     var _actual_this = this;
 
     var request = {
       "lat": lat,
-      "long": _long2,
+      "long": _long3,
       "mean_range": mean_range
     };
     var url = "/dashboard/explore/list";

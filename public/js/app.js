@@ -234,18 +234,57 @@ var _explorer_index = {
     /**
      * get location
      */
+    console.log("start load");
+
     var _actual_this = this;
+    /**
+     * get the location from the browser
+     */
+
 
     _actual_this.get_location();
+  },
+  get_location: function get_location() {
+    /**
+     * get location from browser
+     */
+    var _actual_this = this;
+
+    if (navigator.geolocation) {
+      console.log("navigator");
+      navigator.geolocation.getCurrentPosition(function (position) {
+        console.log("this location found");
+
+        _actual_this.received_location(position.coords.longitude, position.coords.latitude);
+
+        $("#explorer_map_no_location").toggleClass("hidden");
+      });
+    } else {
+      /**
+       * geolocation is not supported
+       * get your location some other way
+       */
+      console.log('geolocation is not enabled on this browser');
+    }
+  },
+  receiveCurrentPosition: function receiveCurrentPosition(position, _actual_this) {
+    /**
+     * we received position from location services request
+     */
+    console.log("this location found");
+
+    _actual_this.received_location(position.coords.longitude, position.coords.latitude);
+
+    $("#explorer_map_no_location").toggleClass("hidden");
   },
   received_location: function received_location(_long, lat) {
     /**
      * parse location, and load up map
      */
+    console.log("received location");
+
     var _actual_this = this;
 
-    console.log(_long);
-    console.log(lat);
     var _the_map_location = [lat, _long];
 
     _actual_this.load_map(_the_map_location);
@@ -291,32 +330,6 @@ var _explorer_index = {
       // console.log(_return);
       // _actual_this.populate_map(_return, request);
     };
-  },
-  get_location: function get_location() {
-    var _actual_this = this;
-
-    if ("geolocation" in navigator) {
-      /**
-       * check if geolocation is supported/enabled on current browser
-       */
-      navigator.geolocation.getCurrentPosition(function success(position) {
-        /**
-         * for when getting location is a success
-         */
-        _actual_this.received_location(position.coords.longitude, position.coords.latitude);
-      }, function error(error_message) {
-        /**
-         * for when getting location results in an error
-         */
-        console.error('An error has occured while retrieving location', error_message);
-      });
-    } else {
-      /**
-       * geolocation is not supported
-       * get your location some other way
-       */
-      console.log('geolocation is not enabled on this browser');
-    }
   },
   load_map: function load_map(location) {
     /**

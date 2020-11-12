@@ -206,4 +206,9 @@
                 margin-left: 32px; margin-right: 32px;
         }
     }
+    #explorer_map_no_location {
+        &.hidden {
+            display: none;
+        }
+    }
 }

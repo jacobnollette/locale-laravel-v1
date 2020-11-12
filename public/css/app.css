@@ -1158,3 +1158,7 @@ header #header_login ul li a {
   }
 }
 
+#explorer_index #explorer_map_no_location.hidden {
+  display: none;
+}
+

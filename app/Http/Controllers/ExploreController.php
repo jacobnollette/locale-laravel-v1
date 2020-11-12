@@ -57,28 +57,8 @@ class ExploreController extends Controller
             header('Location: /');
             die();
         endif;
-        $_recent_playlists = User_crate::orderBy('created_at', 'desc')->where("locale_user_id", "<>", Auth::id())->limit(10)->get();
-
-
-        //dd($_recent_playlists);
+        //$_recent_playlists = User_crate::orderBy('created_at', 'desc')->where("locale_user_id", "<>", Auth::id())->limit(10)->get();
         $output_playlists = array();
-//        foreach ($_recent_playlists as $playlist) {
-//            //$playlist->locale_user_id;
-//            //$playlist->playlist_id;
-//            $_playlist_info = Spotify_playlist::where("playlist_id", $playlist->playlist_id)->first();
-////            dd($_playlist_info);
-//            //$_playlist_info->playlist_name;
-//            $_temp_spotify_api = $this->connect_as_user($_playlist_info->locale_user_id);
-//            $_spotify_playlist = $_temp_spotify_api->spotify_api->getPlaylist($_playlist_info->playlist_id);
-//            $_spotify_playlist->inCrate = 'no';
-//
-//
-//            $output_playlists[] = $_spotify_playlist;
-//
-//
-//        }
-
-
         return view('explorer/index', [
             'playlists' => $output_playlists
         ]);

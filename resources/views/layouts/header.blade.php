@@ -1,7 +1,6 @@
 <header>
     <div id="header_container" class="container header_desktop">
         <div id="header_logo"><a href="/">Music Locale</a></div>
-
         @if (Route::has('login'))
             <div id="header_login">
                 <div>
@@ -21,8 +20,6 @@
         <div class="clear">&nbsp;</div>
         <div id="header_nav">
             <ul>
-
-
                 @auth
                     <li><a href="/explore">Explore</a></li>
                     <li><a href="/dashboard">Dashboard</a></li>

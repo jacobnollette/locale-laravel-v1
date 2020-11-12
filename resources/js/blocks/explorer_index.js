@@ -87,7 +87,8 @@ var _explorer_index = {
             radius: 200,
             fillColor: 'steelblue',
             opacity: 0.5
-        }).addTo(_actual_this.mymap)
+        }).addTo(_actual_this.mymap);
+        
         // _actual_this.found_location(long, lat);
     },
 

@@ -68,7 +68,7 @@ class ExploreController extends Controller
     public function explorer_add(Request $request)
     {
         $_user = User::where("id", "=", Auth::id())->first();
-        User_crates::updateOrInsert(
+        User_crate::updateOrInsert(
             ['locale_user_id' => Auth::id(), "playlist_id" => $request->playlist],
             ['created_at' => now(), 'updated_at' => now(), 'created_at' => now(),]
         );
@@ -79,11 +79,11 @@ class ExploreController extends Controller
 
     public function playlist_add($playlist, $user)
     {
-        User_crates::updateOrInsert(
+        User_crate::updateOrInsert(
             ['locale_user_id' => $user, "playlist_id" => $playlist],
             ['created_at' => now(), 'updated_at' => now(), 'created_at' => now(),]
         );
-        $_spotify_connection = $this->connect_as_user($playlist);
+        $_spotify_connection = $this->connect_as_user($user);
         $status = $_spotify_connection->spotify_api->followPlaylist($playlist);
         //echo json_encode("Followed $request->playlist");
     }
@@ -176,6 +176,7 @@ class ExploreController extends Controller
         //$request->lng;
         $degrees = "0.008";
         $_location_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->lng), $degrees)->where("locale_user_id", "<>", Auth::id())->limit(10)->get();
+        echo json_encode( $_location_playlists );
         foreach ($_location_playlists as $playlist):
             $this->playlist_add( $playlist->playlist_id, Auth::id() );
         endforeach;

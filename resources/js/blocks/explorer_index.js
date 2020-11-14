@@ -123,6 +123,7 @@ var _explorer_index = {
     },
     unlock_location: function (lat, long) {
         var _actual_this = this;
+
         var request = {
             "lat": lat,
             "lng": long
@@ -135,7 +136,7 @@ var _explorer_index = {
         xhr.setRequestHeader('X-CSRF-Token', csrf);
         xhr.send(JSON.stringify(request));
         xhr.onload = function () {
-            //console.log(this.responseText);
+            console.log(this.responseText);
             //_return = JSON.parse(this.responseText);
             // console.log(_return);
             // _actual_this.populate_map(_return, request);

@@ -170,18 +170,24 @@ class ExploreController extends Controller
         return (json_encode($output_playlists));
     }
 
-    public function unlock(Request $request)
+    public function unlock_list(Request $request)
     {
         //$request->lat;
         //$request->lng;
         $degrees = "0.008";
         $_location_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->lng), $degrees)->where("locale_user_id", "<>", Auth::id())->limit(10)->get();
+
         echo json_encode( $_location_playlists );
+
         foreach ($_location_playlists as $playlist):
-            $this->playlist_add( $playlist->playlist_id, Auth::id() );
+            //$this->playlist_add( $playlist->playlist_id, Auth::id() );
         endforeach;
         //echo json_encode( $_location_playlists );
 
 
+    }
+    public function unlock_add(Request $request )
+    {
+        $this->playlist_add( $request->playlist_id, Auth::id() );
     }
 }

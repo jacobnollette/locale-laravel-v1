@@ -113,6 +113,9 @@ var _explorer_index = {
             fillColor: 'steelblue',
             opacity: 0.5
         }).addTo(_actual_this.mymap);
+
+        _actual_this.center_lat = lat;
+        _actual_this.center_lng = long;
         /**
          * 69 miles per degree
          * 111044.7 per 69 miles
@@ -128,7 +131,7 @@ var _explorer_index = {
             "lat": lat,
             "lng": long
         };
-        var url = "/dashboard/explore/unlock";
+        var url = "/dashboard/explore/unlock/list";
         var csrf = document.querySelector('meta[name="csrf-token"]').content;
         var xhr = new XMLHttpRequest();
         xhr.open("POST", url, true);
@@ -137,10 +140,40 @@ var _explorer_index = {
         xhr.send(JSON.stringify(request));
         xhr.onload = function () {
             console.log(this.responseText);
-            //_return = JSON.parse(this.responseText);
+
+            _return = JSON.parse(this.responseText);
+            _actual_this.playlists = _return;
+
             // console.log(_return);
             // _actual_this.populate_map(_return, request);
         }
+    },
+    playlists:{},
+    playlists_available: function () {
+        /**
+         * create prompt and make playlists available.
+         */
+        var _actual_this = this;
+        var location = {
+            "lat": _actual_this.center_lat,
+            "lng": _actual_this.center_lng
+        };
+        var mymarker = L.marker(location).addTo(_actual_this.mymap);
+
+        var playlist_copy = '<div id="playlists_popup"><h2>You are here</h2><h4>Playlists Available</h4><ul>'
+        if ( _actual_this.playlists.length > 0 ) {
+            _actual_this.playlists.forEach( function ( playlist ) {
+                playlist_copy = playlist_copy + '<li data-id="' + playlist.playlist_id + '"><a href="#">' + playlist.playlist_name + '</a></li>';
+            })
+        } else {
+            playlist_copy = playlist_copy + '<li>No Playlists available</li>';
+        }
+        console.log( _actual_this.playlists );
+        playlist_copy = playlist_copy + '</ul></h2>';
+        mymarker.bindPopup(playlist_copy ).openPopup();
+        _actual_this.markers.push(mymarker);
+
+
     },
 
 
@@ -232,6 +265,8 @@ var _explorer_index = {
 
         _actual_this.markers = [];
 
+        _actual_this.playlists_available();
+
         if (given.length > 0) {
 
             given.forEach(function (playlist) {
@@ -245,6 +280,7 @@ var _explorer_index = {
                     //console.log(playlist);
                 }
             })
+
             _actual_this.markers.forEach(function (marker) {
 
             })
@@ -252,7 +288,9 @@ var _explorer_index = {
         //console.log ( given );
     },
 
-    markers: []
+    markers: [],
+    center_lat:"",
+    center_lng:""
 }
 
 /**

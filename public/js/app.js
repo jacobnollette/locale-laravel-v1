@@ -340,7 +340,7 @@ var _explorer_index = {
 
     if (_actual_this.playlists.length > 0) {
       _actual_this.playlists.forEach(function (playlist) {
-        playlist_copy = playlist_copy + '<li data-id="' + playlist.playlist_id + '"><a href="#">' + playlist.playlist_name + '</a></li>';
+        playlist_copy = playlist_copy + '<li data-playlist_id="' + playlist.playlist_id + '"><a href="#">' + playlist.playlist_name + '</a></li>';
       });
     } else {
       playlist_copy = playlist_copy + '<li>No Playlists available</li>';
@@ -351,6 +351,35 @@ var _explorer_index = {
     mymarker.bindPopup(playlist_copy).openPopup();
 
     _actual_this.markers.push(mymarker);
+
+    $("#explorer_index #playlists_popup li a").click(function (e) {
+      e.preventDefault();
+
+      var _link_this = this;
+      /**
+       * request playlist add
+       */
+
+
+      $(this).parent().toggleClass("checked");
+      var request = {
+        playlist_id: $(this).parent().data("playlist_id")
+      };
+      var url = "/dashboard/explore/unlock/add";
+      var csrf = document.querySelector('meta[name="csrf-token"]').content;
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.setRequestHeader('X-CSRF-Token', csrf);
+      xhr.send(JSON.stringify(request));
+
+      xhr.onload = function () {
+        console.log(this.responseText); // _return = JSON.parse(this.responseText);
+        // _actual_this.playlists = _return;
+        // console.log(_return);
+        // _actual_this.populate_map(_return, request);
+      };
+    });
   },
   load_map: function load_map(location) {
     /**

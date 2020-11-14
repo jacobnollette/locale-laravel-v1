@@ -1,9 +1,10 @@
 @import "globals.scss";
 
 #main {
-    @include breakpoint ( mobile ) {
+    @include breakpoint(mobile) {
         padding-top: 65px;
     }
+
     .container {
         background-color: $CONTAINER_BG;
         padding-bottom: 20px;
@@ -25,8 +26,6 @@
 #page_content {
 
 }
-
-
 
 
 #playlists_index, #explorer_index {
@@ -88,8 +87,9 @@
 
     #playlists_edit-map {
         height: 300px;
-        @include breakpoint ( mobile ) {
-            margin-left: 32px; margin-right: 32px;
+        @include breakpoint(mobile) {
+            margin-left: 32px;
+            margin-right: 32px;
             margin-bottom: 20px;
         }
     }
@@ -98,8 +98,10 @@
         width: 30%;
         float: left;
         margin-left: 3.3%;
-        @include breakpoint ( mobile ) {
-            float: none; width: 100%; margin-left: 0px;
+        @include breakpoint(mobile) {
+            float: none;
+            width: 100%;
+            margin-left: 0px;
         }
     }
 
@@ -107,8 +109,10 @@
         width: 60%;
         float: left;
         margin-left: 3.3%;
-        @include breakpoint ( mobile ) {
-            float: none; width: 100%; margin-left: 0px;
+        @include breakpoint(mobile) {
+            float: none;
+            width: 100%;
+            margin-left: 0px;
         }
     }
 
@@ -202,13 +206,41 @@
         //height: 100%;
         //position:relative;
         //bottom: 15px;
-        @include breakpoint ( mobile ) {
-                margin-left: 32px; margin-right: 32px;
+        @include breakpoint(mobile) {
+            margin-left: 32px;
+            margin-right: 32px;
         }
     }
+
     #explorer_map_no_location {
         &.hidden {
             display: none;
+        }
+    }
+
+    #playlists_popup {
+        ul {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+
+            li {
+                list-style: none;
+                padding: 0px;
+                padding: 0px;
+                padding-left: 1em;
+                text-indent: -1em;
+
+                &:before {
+                    content: "+";
+                    padding-right: 5px;
+                    font-weight: 700;
+                    font-size: 18px;
+                }
+                &.checked:before {
+                    content: "✓" !important;;
+                }
+            }
         }
     }
 }

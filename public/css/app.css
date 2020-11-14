@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /* required styles */
 
 .leaflet-pane,
@@ -1160,5 +1162,30 @@ header #header_login ul li a {
 
 #explorer_index #explorer_map_no_location.hidden {
   display: none;
+}
+
+#explorer_index #playlists_popup ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+#explorer_index #playlists_popup ul li {
+  list-style: none;
+  padding: 0px;
+  padding: 0px;
+  padding-left: 1em;
+  text-indent: -1em;
+}
+
+#explorer_index #playlists_popup ul li:before {
+  content: "+";
+  padding-right: 5px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+#explorer_index #playlists_popup ul li.checked:before {
+  content: "\2713" !important;
 }
 

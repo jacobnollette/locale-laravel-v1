@@ -189,5 +189,6 @@ class ExploreController extends Controller
     public function unlock_add(Request $request )
     {
         $this->playlist_add( $request->playlist_id, Auth::id() );
+        echo "$request->playlist_id added";
     }
 }

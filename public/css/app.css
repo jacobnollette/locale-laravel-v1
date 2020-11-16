@@ -1153,31 +1153,38 @@ header #header_login ul li a {
   height: auto;
 }
 
-#explorer_index #explorer_map {
-  float: left;
-  width: 40%;
-}
-
 @media (max-width: 800px) {
   #explorer_index #explorer_map {
     margin-left: 32px;
     margin-right: 32px;
-    width: 100%;
+    float: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  #explorer_index #explorer_map {
+    width: 40%;
+    float: left;
   }
 }
 
 #explorer_index #explorer_map_location {
-  float: left;
-  width: 40%;
   padding-left: 25px;
 }
 
 @media (max-width: 800px) {
   #explorer_index #explorer_map_location {
-    width: 100%;
     margin-left: 32px;
     margin-right: 32px;
     padding: 0px;
+    float: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  #explorer_index #explorer_map_location {
+    width: 40%;
+    float: left;
   }
 }
 

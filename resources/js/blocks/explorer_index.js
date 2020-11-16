@@ -253,9 +253,19 @@ var _explorer_index = {
             _actual_this.found_location(mapcenter.lng, mapcenter.lat, range);
         })
         $(window).on("resize", function () {
-            var _the_height = $(window).height() - 200;
+
+
+            if ( $(".container").first().height() < 800 ) {
+                var _the_height = $(window).height() / 2 - 200;
+            } else {
+                var _the_height = $(window).height() - 200;
+            }
+
+
             $("#explorer_map").height(_the_height);
             _actual_this.mymap.invalidateSize();
+
+
         }).trigger("resize");
 
 

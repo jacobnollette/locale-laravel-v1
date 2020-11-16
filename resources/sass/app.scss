@@ -206,23 +206,31 @@
         //height: 100%;
         //position:relative;
         //bottom: 15px;
-        float: left;
-        width: 40%;
+        //float: left;
+        //width: 40%;
         @include breakpoint(mobile) {
             margin-left: 32px;
             margin-right: 32px;
-            width: 100%;
+            float: none;
+        }
+        @include breakpoint ( desktop ) {
+            width: 40%;
+            float: left;
         }
     }
     #explorer_map_location {
-        float: left;
-        width: 40%;
+
         padding-left: 25px;
         @include breakpoint ( mobile ) {
-            width: 100%;
+
             margin-left: 32px;
             margin-right: 32px;
             padding: 0px;
+            float: none;
+        }
+        @include breakpoint ( desktop ) {
+            width: 40%;
+            float: left;
         }
     }
 

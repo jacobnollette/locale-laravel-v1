@@ -175,7 +175,7 @@ class ExploreController extends Controller
         //$request->lat;
         //$request->lng;
         $degrees = "0.016";
-        $_location_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->lng), $degrees)->where("locale_user_id", "<>", Auth::id())->limit(10)->get();
+        $_location_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->lng), $degrees)->where("locale_user_id", "<>", Auth::id())->orderBy('date_added', 'desc')->limit(10)->get();
 
         echo json_encode( $_location_playlists );
 

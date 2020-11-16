@@ -109,7 +109,7 @@ var _explorer_index = {
          */
         L.circle({lat: lat, lng: long}, {
             color: 'steelblue',
-            radius: 900,
+            radius: 1800,
             fillColor: 'steelblue',
             opacity: 0.5
         }).addTo(_actual_this.mymap);

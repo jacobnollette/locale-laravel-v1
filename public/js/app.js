@@ -336,7 +336,7 @@ var _explorer_index = {
       "lng": _actual_this.center_lng
     };
     var mymarker = L.marker(location).addTo(_actual_this.mymap);
-    var playlist_copy = '<div id="playlists_popup"><h2>You are here</h2><h4>Playlists Available</h4><ul>';
+    var playlist_copy = '<div id="playlists_popup"><h4>Playlists Available</h4><ul>';
 
     if (_actual_this.playlists.length > 0) {
       _actual_this.playlists.forEach(function (playlist) {
@@ -348,7 +348,9 @@ var _explorer_index = {
 
     console.log(_actual_this.playlists);
     playlist_copy = playlist_copy + '</ul></h2>';
-    mymarker.bindPopup(playlist_copy).openPopup();
+    $("#explorer_map_location").html(playlist_copy);
+    var popupcopy = "<h2>You are here</h2>";
+    mymarker.bindPopup(popupcopy).openPopup();
 
     _actual_this.markers.push(mymarker);
 

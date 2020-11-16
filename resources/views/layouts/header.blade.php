@@ -7,6 +7,7 @@
                     <ul>
                     @auth
                             <li><a href="{{ url('/spotify') }}">Settings</a></li>
+                            <li><a href="{{ route('logout') }}">Logout</a></li>
                     @else
                             <li><a href="{{ route('login') }}">Login</a></li>
                         @if (Route::has('register'))
@@ -24,7 +25,10 @@
                     <li><a href="/explore">Explore</a></li>
                     <li><a href="/dashboard">Dashboard</a></li>
                 @else
-
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    @if (Route::has('register'))
+                        <li><a href="{{ route('register') }}">Register</a></li>
+                    @endif
                 @endif
             </ul>
         </div>

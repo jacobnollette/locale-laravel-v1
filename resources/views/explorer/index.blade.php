@@ -22,7 +22,7 @@
 {{--                    </div>--}}
 {{--                @endforeach--}}
                 <div id="explorer_map"></div>
-                <div id="explorer_map_no_location">Please allow location to explore</div>
+                <div id="explorer_map_no_location">Please allow location to explore; loading...</div>
                 <div class="clear">&nbsp;</div>
             </div>
         </div>

@@ -651,19 +651,19 @@ var _playlist_edit = {
     /**
      * initial marker logic
      */
+    //if (initial) {
+    //alert("Click a more specific location for your playlist");
 
 
-    if (initial) {
-      //alert("Click a more specific location for your playlist");
-      mymap.on('click', function (ev) {
-        _add_marker(ev.latlng);
-      });
-    } else {
-      /**
-       * place mark marker logic
-       */
-      L.marker(location).addTo(mymap);
-    }
+    mymap.on('click', function (ev) {
+      _add_marker(ev.latlng);
+    }); //} else {
+
+    /**
+     * place mark marker logic
+     */
+    //L.marker(location).addTo(mymap);
+    //}
   },
   share_playlist: function share_playlist() {
     $("#playlists_edit-header_share a").click(function (e) {

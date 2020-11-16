@@ -86,17 +86,17 @@ var _playlist_edit = {
         /**
          * initial marker logic
          */
-        if (initial) {
+        //if (initial) {
             //alert("Click a more specific location for your playlist");
             mymap.on('click', function (ev) {
                 _add_marker(ev.latlng);
             });
-        } else {
+        //} else {
             /**
              * place mark marker logic
              */
-            L.marker(location).addTo(mymap);
-        }
+            //L.marker(location).addTo(mymap);
+        //}
     },
     share_playlist: function () {
         $("#playlists_edit-header_share a").click(function (e) {

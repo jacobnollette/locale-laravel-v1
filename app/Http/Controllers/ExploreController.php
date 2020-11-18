@@ -139,7 +139,7 @@ class ExploreController extends Controller
 
 
         $_recent_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->long), $_the_range)->where("locale_user_id", "<>", Auth::id())->limit(10)->get();
-        dd ( $_recent_playlists );
+        //dd ( $_recent_playlists );
 
         $output_playlists = array();
         foreach ($_recent_playlists as $playlist) {

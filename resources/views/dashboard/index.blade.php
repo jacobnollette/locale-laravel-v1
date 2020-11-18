@@ -6,7 +6,7 @@
     <section id="main">
         <div class="container">
             <h1>Dashboard</h1>
-            <p>If you see playlists in your dashboard, your Spotify account it connected!</p>
+            <p>If you see playlists in your dashboard, your Spotify account is connected!</p>
 
             <div id="playlists_index">
                 @foreach ($playlists as $playlist)

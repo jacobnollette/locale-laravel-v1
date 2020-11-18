@@ -132,7 +132,12 @@ class ExploreController extends Controller
     {
 
         if ( isset($request->mean_range ) ) {
-            $_the_range = $request->mean_range;
+            if ( $_the_range == "0" || $_the_range == null ) {
+                $_the_range = $this->default_range;
+            } else {
+                $_the_range = $request->mean_range;
+            }
+
         } else {
             $_the_range = $this->default_range;
 

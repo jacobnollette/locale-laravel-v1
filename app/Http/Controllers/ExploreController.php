@@ -130,6 +130,13 @@ class ExploreController extends Controller
     public function list(Request $request)
     {
 
+        if ( isset($request->mean_range ) ) {
+
+        } else {
+            $request->mean_range = "0.016";
+        }
+
+
         $_recent_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->long), $request->mean_range)->where("locale_user_id", "<>", Auth::id())->limit(10)->get();
 
         //dd( $_recent_playlists );

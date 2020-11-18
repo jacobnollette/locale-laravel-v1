@@ -275,7 +275,7 @@ var _explorer_index = {
         var request = {
             "lat": lat,
             "long": long,
-            "mean_range": mean_range
+            "mean_range": "default"
         };
         var url = "/dashboard/explore/list";
         var csrf = document.querySelector('meta[name="csrf-token"]').content;

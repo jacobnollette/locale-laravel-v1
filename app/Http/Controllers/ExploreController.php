@@ -131,67 +131,64 @@ class ExploreController extends Controller
     public function list(Request $request)
     {
 
-        if (isset($request->mean_range)) {
-            $_the_range = $request->mean_range;
-            if ($_the_range == "0" || $_the_range == null) {
-                $_the_range = $this->default_range;
-            } else {
-                $_the_range = $request->mean_range;
-            }
-
-        } else {
+        if ($request->mean_range == "default") {
             $_the_range = $this->default_range;
-
+        } else {
+            die();
         }
 
+    } else
+{
+$_the_range = $this->default_range;
 
-        $_recent_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->long), $_the_range)->where("locale_user_id", "<>", Auth::id())->limit(10)->get();
-
-        //dd( $_recent_playlists );
+}
 
 
-        //dd($_recent_playlists);
-        $output_playlists = array();
-        foreach ($_recent_playlists as $playlist) {
-            //$playlist->locale_user_id;
-            //$playlist->playlist_id;
-            $_playlist_info = Spotify_playlist::where("playlist_id", $playlist->playlist_id)->where("locale_user_id", "<>", Auth::id())->first();
+$_recent_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->long), $_the_range)->where("locale_user_id", "<>", Auth::id())->limit(10)->get();
+
+//dd( $_recent_playlists );
+
+
+//dd($_recent_playlists);
+$output_playlists = array();
+foreach ($_recent_playlists as $playlist) {
+    //$playlist->locale_user_id;
+    //$playlist->playlist_id;
+    $_playlist_info = Spotify_playlist::where("playlist_id", $playlist->playlist_id)->where("locale_user_id", "<>", Auth::id())->first();
 //            dd($_playlist_info);
-            //$_playlist_info->playlist_name;
-            $_temp_spotify_api = $this->connect_as_user($_playlist_info->locale_user_id);
-            $_spotify_playlist = $_temp_spotify_api->spotify_api->getPlaylist($_playlist_info->playlist_id);
-            $_playlist_info->spotify = $_spotify_playlist;
-            $_playlist_info->inCrate = "no";
+    //$_playlist_info->playlist_name;
+    $_temp_spotify_api = $this->connect_as_user($_playlist_info->locale_user_id);
+    $_spotify_playlist = $_temp_spotify_api->spotify_api->getPlaylist($_playlist_info->playlist_id);
+    $_playlist_info->spotify = $_spotify_playlist;
+    $_playlist_info->inCrate = "no";
+    $output_playlists[] = $_playlist_info;
+}
+//$output_playlists );
+return (json_encode($output_playlists));
+}
+
+public
+function unlock_list(Request $request)
+{
+    //$request->lat;
+    //$request->lng;
+    $degrees = $this->default_range;
+    $_location_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->lng), $degrees)->where("locale_user_id", "<>", Auth::id())->orderBy('date_added', 'desc')->limit(10)->get();
+
+    echo json_encode($_location_playlists);
+
+    foreach ($_location_playlists as $playlist):
+        //$this->playlist_add( $playlist->playlist_id, Auth::id() );
+    endforeach;
+    //echo json_encode( $_location_playlists );
 
 
-            $output_playlists[] = $_playlist_info;
+}
 
-
-        }
-        //$output_playlists );
-        return (json_encode($output_playlists));
-    }
-
-    public function unlock_list(Request $request)
-    {
-        //$request->lat;
-        //$request->lng;
-        $degrees = $this->default_range;
-        $_location_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->lng), $degrees)->where("locale_user_id", "<>", Auth::id())->orderBy('date_added', 'desc')->limit(10)->get();
-
-        echo json_encode($_location_playlists);
-
-        foreach ($_location_playlists as $playlist):
-            //$this->playlist_add( $playlist->playlist_id, Auth::id() );
-        endforeach;
-        //echo json_encode( $_location_playlists );
-
-
-    }
-
-    public function unlock_add(Request $request)
-    {
-        $this->playlist_add($request->playlist_id, Auth::id());
-        echo "$request->playlist_id added";
-    }
+public
+function unlock_add(Request $request)
+{
+    $this->playlist_add($request->playlist_id, Auth::id());
+    echo "$request->playlist_id added";
+}
 }

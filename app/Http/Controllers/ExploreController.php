@@ -41,6 +41,7 @@ class ExploreController extends Controller
      * Modules
      */
     private $spotify;
+    private $default_range = "0.016";
 
 
     function __construct()
@@ -131,9 +132,10 @@ class ExploreController extends Controller
     {
 
         if ( isset($request->mean_range ) ) {
-
+            $_the_range = $request->mean_range;
         } else {
-            $request->mean_range = "0.016";
+            $_the_range = $this->default_range;
+
         }
 
 
@@ -168,7 +170,7 @@ class ExploreController extends Controller
     {
         //$request->lat;
         //$request->lng;
-        $degrees = "0.016";
+        $degrees = $this->default_range;
         $_location_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->lng), $degrees)->where("locale_user_id", "<>", Auth::id())->orderBy('date_added', 'desc')->limit(10)->get();
 
         echo json_encode( $_location_playlists );

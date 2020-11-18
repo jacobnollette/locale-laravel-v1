@@ -131,8 +131,9 @@ class ExploreController extends Controller
     public function list(Request $request)
     {
 
-        if ( isset($request->mean_range ) ) {
-            if ( $_the_range == "0" || $_the_range == null ) {
+        if (isset($request->mean_range)) {
+            $_the_range = $request->mean_range;
+            if ($_the_range == "0" || $_the_range == null) {
                 $_the_range = $this->default_range;
             } else {
                 $_the_range = $request->mean_range;
@@ -178,7 +179,7 @@ class ExploreController extends Controller
         $degrees = $this->default_range;
         $_location_playlists = Spotify_playlist::distance("location", new Point($request->lat, $request->lng), $degrees)->where("locale_user_id", "<>", Auth::id())->orderBy('date_added', 'desc')->limit(10)->get();
 
-        echo json_encode( $_location_playlists );
+        echo json_encode($_location_playlists);
 
         foreach ($_location_playlists as $playlist):
             //$this->playlist_add( $playlist->playlist_id, Auth::id() );
@@ -187,9 +188,10 @@ class ExploreController extends Controller
 
 
     }
-    public function unlock_add(Request $request )
+
+    public function unlock_add(Request $request)
     {
-        $this->playlist_add( $request->playlist_id, Auth::id() );
+        $this->playlist_add($request->playlist_id, Auth::id());
         echo "$request->playlist_id added";
     }
 }

@@ -431,7 +431,7 @@ var _explorer_index = {
       }
 
       _actual_this.found_location(mapcenter.lng, mapcenter.lat, range);
-    });
+    }).trigger("dragend");
 
     $(window).on("resize", function () {
       if ($(".container").first().height() < 800) {

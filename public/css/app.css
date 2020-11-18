@@ -816,6 +816,9 @@ header {
   font-family: "Oleo Script", cursive;
   font-weight: 700;
   font-size: 36px;
+  margin: 0px;
+  padding: 0px;
+  display: block;
 }
 
 header a {
@@ -831,10 +834,32 @@ header #header_logo a {
   text-shadow: #004d4d;
 }
 
+header #header_logo #header_logo_icon {
+  display: inline;
+  width: 75px;
+  height: 75px;
+  float: left;
+}
+
+header #header_logo #header_logo_icon img {
+  width: 75px;
+  height: auto;
+}
+
+header #header_logo #header_logo_text {
+  display: inline;
+  margin-top: 15px;
+  float: left;
+}
+
 header .container {
   background-color: #f7f7f7;
   padding-top: 10px;
   padding-bottom: 25px;
+}
+
+header #header_nav {
+  margin-left: 50px;
 }
 
 header #header_nav ul {
@@ -975,6 +1000,16 @@ header #header_login ul li a {
   margin: 0px;
   padding: 0px;
   font-size: 24px;
+}
+
+#main h3 {
+  margin: 0px;
+  padding: 0px;
+  font-size: 22px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 8px;
+  padding-top: 8px;
 }
 
 #playlists_index,

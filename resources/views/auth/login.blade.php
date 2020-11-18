@@ -6,8 +6,10 @@
 @section("page_content")
     <section id="main">
 <div class="container">
+
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <h3>Music Locale requires a Spotify account, and the ability to modify playlists. Playlists which users unlock will be added to their account. Existing playlists will not be modified, only shared per the users request.</h3>
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 

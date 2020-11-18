@@ -1,18 +1,23 @@
 <header>
     <div id="header_container" class="container header_desktop">
-        <div id="header_logo"><a href="/">Music Locale</a></div>
+        <div id="header_logo"><a href="/">
+                <div id="header_logo_icon"><img src="/images/broadcast.svg"/></div>
+                <div id="header_logo_text">Music Locale</div>
+            </a>
+            <div class="clear">&nbsp;</div>
+        </div>
         @if (Route::has('login'))
             <div id="header_login">
                 <div>
                     <ul>
-                    @auth
+                        @auth
                             <li><a href="{{ url('/spotify') }}">Settings</a></li>
-                    @else
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                        @if (Route::has('register'))
-                                <li><a href="{{ route('register') }}">Register</a></li>
+                        @else
+{{--                            <li><a href="{{ route('login') }}">Login</a></li>--}}
+{{--                            @if (Route::has('register'))--}}
+{{--                                <li><a href="{{ route('register') }}">Register</a></li>--}}
+{{--                            @endif--}}
                         @endif
-                    @endif
                     </ul>
                 </div>
             </div>
@@ -48,10 +53,10 @@
                         <li><a href="/dashboard">Dashboard</a></li>
                         <li><a href="{{ url('/spotify') }}">Settings</a></li>
                     @else
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        @if (Route::has('register'))
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @endif
+{{--                        <li><a href="{{ route('login') }}">Login</a></li>--}}
+{{--                        @if (Route::has('register'))--}}
+{{--                            <li><a href="{{ route('register') }}">Register</a></li>--}}
+{{--                        @endif--}}
                     @endif
                 </ul>
             </div>

@@ -15,7 +15,7 @@
             @endisset
 
             <h1>Spotify Configuration</h1>
-                <p>If you're having trouble with your spotify account, please connect or reconnect below</p>
+                <p>If you're having trouble with your Spotify account, please connect or reconnect below</p>
             <div id="spotify_connect_button"><a href="/spotify/auth">Connect or Reconnect Spotify account!</a></div>
 
         </div>

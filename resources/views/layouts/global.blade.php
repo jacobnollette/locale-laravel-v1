@@ -22,4 +22,13 @@
 @yield("page_content")
 </body>
 <script src="{{ asset('js/app.js') }}?v=0.0.1.1" defer></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBR8CYZ99N"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-ZBR8CYZ99N');
+</script>
 </html>

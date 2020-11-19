@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
  * Global rubbish
  */
 Auth::routes();
+Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout');
+
 
 /**
  * Home rubbish

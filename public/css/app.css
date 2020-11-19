@@ -825,7 +825,14 @@ header a {
   text-decoration: none;
 }
 
+header .container {
+  background-color: #f7f7f7;
+  padding-top: 10px;
+  padding-bottom: 25px;
+}
+
 header #header_logo {
+  float: left;
   float: left;
 }
 
@@ -848,18 +855,22 @@ header #header_logo #header_logo_icon img {
 
 header #header_logo #header_logo_text {
   display: inline;
-  margin-top: 15px;
+  margin-top: 25px;
   float: left;
 }
 
-header .container {
-  background-color: #f7f7f7;
-  padding-top: 10px;
-  padding-bottom: 25px;
+header #header_nav-plus {
+  float: left;
+  font-size: 47px;
+  cursor: none;
+  margin-left: 20px;
+  margin-top: 15px;
 }
 
 header #header_nav {
-  margin-left: 50px;
+  margin-top: 21px;
+  margin-left: 8px;
+  float: left;
 }
 
 header #header_nav ul {
@@ -884,6 +895,14 @@ header #header_nav ul li:first-child {
 
 header #header_nav ul li a {
   color: #4c85a7;
+}
+
+header #devhr {
+  margin-top: 0px;
+}
+
+header #header_login {
+  margin-top: 21px;
 }
 
 header #header_login ul {

@@ -255,7 +255,7 @@ var _explorer_index = {
         $(window).on("resize", function () {
 
 
-            if ( $(".container").first().height() < 800 ) {
+            if ( $(window).height() < 900 ) {
                 var _the_height = $(window).height() / 2 - 200;
             } else {
                 var _the_height = $(window).height() - 200;

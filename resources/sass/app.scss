@@ -35,6 +35,38 @@
 
 }
 
+#home_landing {
+    #home_landing-display {
+        text-align: center;
+        padding-top: 10px; padding-bottom: 10px;
+        div {
+            display:inline;
+            @include breakpoint ( mobile ) {
+                display: block;
+            }
+        }
+        h2 {
+            display: inline;
+        }
+        #home_landing-display_plus {
+            padding-left: 10px; padding-right: 10px;
+            @include breakpoint ( mobile ) {
+                display: none;
+            }
+        }
+        #home_landing-display_explore {
+            a {
+                color: coral;
+            }
+        }
+        #home_landing-display_dashboard {
+            a {
+                color: deepskyblue;
+            }
+        }
+    }
+}
+
 
 #login_index {
     #login_index-disclaimer {

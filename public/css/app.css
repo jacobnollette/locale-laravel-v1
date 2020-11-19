@@ -1031,6 +1031,45 @@ header #header_login ul li a {
   padding-top: 8px;
 }
 
+#home_landing #home_landing-display {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#home_landing #home_landing-display div {
+  display: inline;
+}
+
+@media (max-width: 800px) {
+  #home_landing #home_landing-display div {
+    display: block;
+  }
+}
+
+#home_landing #home_landing-display h2 {
+  display: inline;
+}
+
+#home_landing #home_landing-display #home_landing-display_plus {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+@media (max-width: 800px) {
+  #home_landing #home_landing-display #home_landing-display_plus {
+    display: none;
+  }
+}
+
+#home_landing #home_landing-display #home_landing-display_explore a {
+  color: coral;
+}
+
+#home_landing #home_landing-display #home_landing-display_dashboard a {
+  color: deepskyblue;
+}
+
 #login_index #login_index-disclaimer {
   width: 40%;
   float: left;

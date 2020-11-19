@@ -36,6 +36,42 @@
 }
 
 
+#login_index {
+    #login_index-disclaimer {
+        width: 40%; float: left;
+        @include breakpoint ( mobile ) {
+            width: 100%; float: none;
+        }
+    }
+    #login_index-form {
+        width: 320px; float: left;
+        @include breakpoint ( mobile ) {
+            width: 100%; float: none;
+        }
+    }
+    #login_index-header {
+        padding-bottom: 15px;
+    }
+    #login_index-form_remember {
+        label {
+            display: inline;
+        }
+        input {
+            display: inline;
+        }
+    }
+    .login_index-form {
+        label {
+            display: block;
+        }
+        input {
+            display: block;
+        }
+        padding-bottom: 12px;
+    }
+
+}
+
 #playlists_index, #explorer_index {
     box-sizing: border-box;
     padding-top: 25px;

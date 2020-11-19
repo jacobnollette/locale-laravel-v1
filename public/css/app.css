@@ -1012,6 +1012,54 @@ header #header_login ul li a {
   padding-top: 8px;
 }
 
+#login_index #login_index-disclaimer {
+  width: 40%;
+  float: left;
+}
+
+@media (max-width: 800px) {
+  #login_index #login_index-disclaimer {
+    width: 100%;
+    float: none;
+  }
+}
+
+#login_index #login_index-form {
+  width: 320px;
+  float: left;
+}
+
+@media (max-width: 800px) {
+  #login_index #login_index-form {
+    width: 100%;
+    float: none;
+  }
+}
+
+#login_index #login_index-header {
+  padding-bottom: 15px;
+}
+
+#login_index #login_index-form_remember label {
+  display: inline;
+}
+
+#login_index #login_index-form_remember input {
+  display: inline;
+}
+
+#login_index .login_index-form {
+  padding-bottom: 12px;
+}
+
+#login_index .login_index-form label {
+  display: block;
+}
+
+#login_index .login_index-form input {
+  display: block;
+}
+
 #playlists_index,
 #explorer_index {
   box-sizing: border-box;

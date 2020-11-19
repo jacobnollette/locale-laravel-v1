@@ -11,9 +11,9 @@
 
             <ul>
                 @auth
-                    <li><a href="/explore">Explore</a></li>
-                    <li><a href="/dashboard">Dashboard</a></li>
-                    <li><a href="{{ url('/spotify') }}">Settings</a></li>
+                    <li id="header_nav-explore"><a href="/explore">Explore</a></li>
+                    <li id="header_nav-dashboard"><a href="/dashboard">Dashboard</a></li>
+                    <li id="header_nav-settings"><a href="{{ url('/spotify') }}">Settings</a></li>
                 @else
                     <li><a href="{{ route('login') }}">Login</a></li>
                     @if (Route::has('register'))

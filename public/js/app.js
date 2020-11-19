@@ -334,8 +334,8 @@ var _explorer_index = {
     var location = {
       "lat": _actual_this.center_lat,
       "lng": _actual_this.center_lng
-    };
-    var mymarker = L.marker(location).addTo(_actual_this.mymap);
+    }; //var mymarker = L.marker(location).addTo(_actual_this.mymap);
+
     var playlist_copy = '<div id="playlists_popup"><h4>Playlists Available</h4><ul>';
 
     if (_actual_this.playlists.length > 0) {
@@ -348,11 +348,9 @@ var _explorer_index = {
 
     console.log(_actual_this.playlists);
     playlist_copy = playlist_copy + '</ul></h2>';
-    $("#explorer_map_location").html(playlist_copy);
-    var popupcopy = "<h2>You are here</h2>";
-    mymarker.bindPopup(popupcopy).openPopup();
-
-    _actual_this.markers.push(mymarker);
+    $("#explorer_map_location").html(playlist_copy); // var popupcopy = "<h2>You are here</h2>";
+    // mymarker.bindPopup(popupcopy ).openPopup();
+    // _actual_this.markers.push(mymarker);
 
     $("#explorer_index #playlists_popup li a").click(function (e) {
       e.preventDefault();
@@ -435,7 +433,9 @@ var _explorer_index = {
 
     $(window).on("resize", function () {
       if ($(window).height() < 900) {
-        var _the_height = $(window).height() / 2 - 200;
+        var _the_height = $(window).height() / 2 - 25;
+
+        _actual_this.mymap.setZoom(12);
       } else {
         var _the_height = $(window).height() - 200;
       }

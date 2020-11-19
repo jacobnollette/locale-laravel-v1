@@ -1,9 +1,11 @@
-$LOGO_LIGHT: lighten( teal, 10%);
-$LOGO_DARK: darken( teal, 10%);
+$LOGO_LIGHT: #4dc0b5;
+
+
+$LOGO_DARK: #0078A8;
 
 $BG_BLACK: lighten( black, 18%);
 $CONTAINER_BG: darken( white, 3%);
 $TEXT_BLACK: lighten( black, 3%);
 $TEXT_WHITE: darken( white, 3%);
 
-$NAV_COLOR: mix( lighten( green, 30%), desaturate( lighten( blue, 10%), 40% ), 25% );
+$NAV_COLOR: #0078A8;

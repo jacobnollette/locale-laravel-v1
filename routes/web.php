@@ -32,6 +32,7 @@ Route::get( '/home','App\Http\Controllers\HomeController@index');
 Route::get('/dashboard/','App\Http\Controllers\DashboardController@index');
 Route::post('/dashboard/playlist/add/','App\Http\Controllers\DashboardController@playlist_add');
 Route::post('/dashboard/playlist/remove/','App\Http\Controllers\DashboardController@playlist_remove');
+Route::post('/dashboard/playlist/list/','App\Http\Controllers\DashboardController@playlist_list');
 
 /**
  * Playlist rubbish

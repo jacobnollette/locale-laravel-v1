@@ -1,5 +1,10 @@
 var _dashboard_index = {
+    load_map: function () {
+
+    },
     init: function () {
+        var _actual_this = this;
+        _actual_this.load_map();
         $("#playlists_index").masonry({
             itemSelector:".playlist",
             //columnWidth: 300

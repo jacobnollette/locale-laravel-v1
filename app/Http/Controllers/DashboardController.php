@@ -139,6 +139,26 @@ class DashboardController extends Controller
 
     }
 
+    public function playlists_list (Request $request)
+    {
+        /**
+         * we're going to need to join user crates and playlists
+         * find the points
+         * and output a list for the dashboard.
+         * may need to walk through the list, because the grimzy model only applies to playlists
+         *
+         * $_playlists = User_crate::where("local_user_id", "=", Auth::id())->join("playlist_id", "user_crates.playlist_id", '=', "spotify_playlists.playlist_id" )->get();
+
+
+        $_output = array();
+        foreach( $playlists as $playlist ) {
+            $_staging_array = array();
+            $_staging_array["lat"]
+        }
+        //$request->
+         */
+    }
+
 
     private function playlist_update_all()
     {

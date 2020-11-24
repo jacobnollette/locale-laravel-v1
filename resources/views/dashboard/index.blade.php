@@ -8,6 +8,8 @@
             <h1>Dashboard</h1>
             <p>If you see playlists in your dashboard, your Spotify account is connected!</p>
 
+            <div id="playlists_map"></div>
+
             <div id="playlists_index">
                 @foreach ($playlists as $playlist)
                     <div class="playlist" data-playlist_id="{{$playlist->id}}">

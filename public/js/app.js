@@ -136,7 +136,12 @@ __webpack_require__(/*! ./blocks/playlist_edit */ "./resources/js/blocks/playlis
 /***/ (function(module, exports) {
 
 var _dashboard_index = {
+  load_map: function load_map() {},
   init: function init() {
+    var _actual_this = this;
+
+    _actual_this.load_map();
+
     $("#playlists_index").masonry({
       itemSelector: ".playlist" //columnWidth: 300
 

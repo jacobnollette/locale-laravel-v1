@@ -8,6 +8,9 @@
             <div id="home_landing">
 
                 <h1>Welcome</h1>
+                <div style="text-align: center;">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/WJ5H0yKax10" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
                 @auth
                     <div id="home_landing-display">
                         <div id="home_landing-display_explore">
@@ -22,6 +25,7 @@
                         users unlock will be added to their account. Existing playlists will not be modified, only
                         shared per the users request.</p>
                 @endif
+
 
             </div>
         </div>

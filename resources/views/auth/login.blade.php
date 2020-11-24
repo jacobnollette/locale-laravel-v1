@@ -76,7 +76,7 @@
                     <h3>Music Locale requires a Spotify account, and the ability to modify playlists. Playlists which users
                         unlock will be added to their account. Existing playlists will not be modified, only shared per the
                         users request.</h3>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/WJ5H0yKax10" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
                 </div>
                 <div class="clear">&nbsp;</div>
             </div>

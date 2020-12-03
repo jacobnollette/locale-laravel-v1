@@ -1339,6 +1339,16 @@ header #header_login ul li a {
   margin: 0px;
 }
 
+#explorer_index #playlists_popup ul .playbutton {
+  display: inline;
+  padding-left: 8px;
+}
+
+#explorer_index #playlists_popup ul .playbutton img {
+  width: 15px;
+  height: auto;
+}
+
 #explorer_index #playlists_popup ul li {
   list-style: none;
   padding: 0px;

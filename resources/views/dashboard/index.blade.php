@@ -12,7 +12,9 @@
                 @if ($playlists)
                     @foreach ($playlists as $playlist)
                         <div class="playlist" data-playlist_id="{{$playlist->id}}">
-                            <div class="playlist_image"><img src="{{$playlist->images[0]->url}}"/></div>
+                            @if ($playlist->images[0]->url)
+                                <div class="playlist_image"><img src="{{$playlist->images[0]->url}}"/></div>
+                            @endif
                             <div class="clear">&nbsp;</div>
                             <div class="playlist_display">
                                 <div class="playlist_name">

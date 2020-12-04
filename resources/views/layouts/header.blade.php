@@ -62,8 +62,8 @@
                         <li><a href="{{ route('logout') }}">Logout</a></li>
 
                     @else
-{                      <li><a href="{{ route('login') }}">Login</a></li>
-                        @if (Route::has('register'))--}}
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                        @if (Route::has('register'))
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @endif
                     @endif
